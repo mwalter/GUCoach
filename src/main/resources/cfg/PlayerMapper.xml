@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ GUCoach - your personal coach for Goalunited (tm).
+  ~ Copyright (C) 2012 newInstance.org
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.newinstance.gucoach.mapper.PlayerMapper">
+    <resultMap id="playerResultMap" type="Player">
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="preferred_foot" property="strongFoot"/>
+        <result column="import_date" property="importDate"/>
+    </resultMap>
+    <update id="createTablePlayer">
+        CREATE TABLE IF NOT EXISTS player (
+        id BIGINT PRIMARY KEY NOT NULL,
+        first_name VARCHAR(100),
+        last_name VARCHAR(100),
+        country VARCHAR(2),
+        height SMALLINT,
+        personality VARCHAR(100),
+        birthday VARCHAR(5),
+        preferred_foot VARCHAR(1),
+        import_date DATE
+        )
+    </update>
+    <delete id="deletePlayer" parameterType="Long">
+        DELETE FROM player WHERE id = #{id}
+    </delete>
+    <select id="findAllPlayers" resultMap="playerResultMap">
+        SELECT * FROM player
+    </select>
+    <select id="findPlayerByPlayerId" parameterType="Long" resultMap="playerResultMap">
+        SELECT * FROM player WHERE id = #{id}
+    </select>
+    <insert id="insertPlayer" parameterType="Player">
+        INSERT INTO player (
+        id,
+        first_name,
+        last_name,
+        country,
+        height,
+        personality,
+        birthday,
+        preferred_foot,
+        import_date
+        )
+        VALUES (
+        #{id},
+        #{firstName},
+        #{lastName},
+        #{country},
+        #{height},
+        #{personality},
+        #{birthday},
+        #{strongFoot},
+        #{importDate},
+        )
+    </insert>
+</mapper>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ GUCoach - your personal coach for Goalunited (tm).
+  ~ Copyright (C) 2012 newInstance.org
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.newinstance.gucoach.mapper.PlayerStatsMapper">
+    <resultMap id="playerStatsResultMap" type="PlayerStats">
+        <result column="player_id" property="playerId"/>
+        <result column="average_strength" property="averageStrength"/>
+        <result column="skill_goalkeeping" property="skillGoalkeeping"/>
+        <result column="skill_tackling" property="skillTackling"/>
+        <result column="skill_playmaking" property="skillPlaymaking"/>
+        <result column="skill_passing" property="skillPassing"/>
+        <result column="skill_scoring" property="skillScoring"/>
+        <result column="talent_level" property="talentLevel"/>
+        <result column="goals_season" property="goalsSeason"/>
+        <result column="goals_total" property="goalsTotal"/>
+        <result column="market_value" property="marketValue"/>
+        <result column="yellow_cards_season" property="yellowCardsSeason"/>
+        <result column="yellow_cards_total" property="yellowCardsTotal"/>
+        <result column="red_cards_season" property="redCardsSeason"/>
+        <result column="red_cards_total" property="redCardsTotal"/>
+        <result column="import_date" property="importDate"/>
+    </resultMap>
+    <update id="createTablePlayerStats">
+        CREATE TABLE IF NOT EXISTS player_stats (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        player_id BIGINT NOT NULL,
+        number TINYINT,
+        training VARCHAR(100),
+        average_strength REAL(2),
+        position VARCHAR(3),
+        form TINYINT,
+        energy TINYINT,
+        endurance TINYINT,
+        experience TINYINT,
+        skill_goalkeeping TINYINT,
+        skill_tackling TINYINT,
+        skill_playmaking TINYINT,
+        skill_passing TINYINT,
+        skill_scoring TINYINT,
+        talent VARCHAR(100),
+        talent_level TINYINT,
+        age TINYINT,
+        salary INT,
+        assignments SMALLINT,
+        goals_season SMALLINT,
+        goals_total SMALLINT,
+        market_value INT,
+        yellow_cards_season SMALLINT,
+        yellow_cards_total SMALLINT,
+        red_cards_season SMALLINT,
+        red_cards_total SMALLINT,
+        import_date DATE,
+        CONSTRAINT player_stats_fk FOREIGN KEY (player_id) REFERENCES player(id) ON DELETE CASCADE
+        )
+    </update>
+    <select id="findPlayerStatsByPlayerId" parameterType="Long" resultMap="playerStatsResultMap">
+        SELECT * FROM player_stats WHERE player_id = #{playerId}
+    </select>
+    <insert id="insertPlayerStats" parameterType="PlayerStats" useGeneratedKeys="true">
+        INSERT INTO player_stats (
+        id,
+        player_id,
+        number,
+        training,
+        average_strength,
+        position,
+        form,
+        energy,
+        endurance,
+        experience,
+        skill_goalkeeping,
+        skill_tackling,
+        skill_playmaking,
+        skill_passing,
+        skill_scoring,
+        talent,
+        talent_level,
+        age,
+        salary,
+        assignments,
+        goals_season,
+        goals_total,
+        market_value,
+        yellow_cards_season,
+        yellow_cards_total,
+        red_cards_season,
+        red_cards_total,
+        import_date
+        )
+        VALUES (
+        #{id},
+        #{playerId},
+        #{number},
+        #{training},
+        #{averageStrength},
+        #{position},
+        #{form},
+        #{energy},
+        #{endurance},
+        #{experience},
+        #{skillGoalkeeping},
+        #{skillTackling},
+        #{skillPlaymaking},
+        #{skillPassing},
+        #{skillScoring},
+        #{talent},
+        #{talentLevel},
+        #{age},
+        #{salary},
+        #{assignments},
+        #{goalsSeason},
+        #{goalsTotal},
+        #{marketValue},
+        #{yellowCardsSeason},
+        #{yellowCardsTotal},
+        #{redCardsSeason},
+        #{redCardsTotal},
+        #{importDate}
+        )
+    </insert>
+    <update id="updatePlayerStats" parameterType="PlayerStats">
+        UPDATE player_stats SET
+        number = #{number},
+        training = #{training},
+        average_strength = #{averageStrength},
+        position = #{position},
+        form = #{form},
+        energy = #{energy},
+        endurance = #{endurance},
+        experience = #{experience},
+        skill_goalkeeping = #{skillGoalkeeping},
+        skill_tackling = #{skillTackling},
+        skill_playmaking = #{skillPlaymaking},
+        skill_passing = #{skillPassing},
+        skill_scoring = #{skillScoring},
+        talent = #{talent},
+        talent_level = #{talentLevel},
+        age = #{age},
+        salary = #{salary},
+        assignments = #{assignments},
+        goals_season = #{goalsSeason},
+        goals_total = #{goalsTotal},
+        market_value = #{marketValue},
+        yellow_cards_season = #{yellowCardsSeason},
+        yellow_cards_total = #{yellowCardsTotal},
+        red_cards_season = #{redCardsSeason},
+        red_cards_total = #{redCardsTotal},
+        import_date = #{importDate}
+        WHERE player_id = #{playerId}
+    </update>
+</mapper>

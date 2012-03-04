@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ GUCoach - your personal coach for Goalunited (tm).
+  ~ Copyright (C) 2012 newInstance.org
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.newinstance.gucoach.mapper.PlayerHistoryMapper">
+    <resultMap id="playerHistoryResultMap" type="PlayerHistory">
+        <result column="player_id" property="playerId"/>
+        <result column="average_strength" property="averageStrength"/>
+        <result column="skill_goalkeeping" property="skillGoalkeeping"/>
+        <result column="skill_tackling" property="skillTackling"/>
+        <result column="skill_playmaking" property="skillPlaymaking"/>
+        <result column="skill_passing" property="skillPassing"/>
+        <result column="skill_scoring" property="skillScoring"/>
+        <result column="import_date" property="importDate"/>
+    </resultMap>
+    <update id="createTablePlayerHistory">
+        CREATE TABLE IF NOT EXISTS player_history (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        player_id BIGINT NOT NULL,
+        average_strength REAL(2),
+        form TINYINT,
+        energy TINYINT,
+        endurance TINYINT,
+        experience TINYINT,
+        skill_goalkeeping TINYINT,
+        skill_tackling TINYINT,
+        skill_playmaking TINYINT,
+        skill_passing TINYINT,
+        skill_scoring TINYINT,
+        import_date DATE,
+        CONSTRAINT player_history_fk FOREIGN KEY (player_id) REFERENCES player(id) ON DELETE CASCADE
+        )
+    </update>
+    <select id="findAllImportDates" resultType="date">
+        SELECT DISTINCT import_date FROM player_history
+    </select>
+    <select id="findLatestImportDate" resultType="date">
+        SELECT MAX(import_date) FROM player_history
+    </select>
+    <select id="findPlayerHistoryByPlayerId" parameterType="Long" resultMap="playerHistoryResultMap">
+        SELECT * FROM player_history WHERE player_id = #{playerId} ORDER BY import_date DESC
+    </select>
+    <insert id="insertPlayerHistory" parameterType="PlayerHistory" useGeneratedKeys="true">
+        INSERT INTO player_history (
+        id,
+        player_id,
+        average_strength,
+        form,
+        energy,
+        endurance,
+        experience,
+        skill_goalkeeping,
+        skill_tackling,
+        skill_playmaking,
+        skill_passing,
+        skill_scoring,
+        import_date
+        )
+        VALUES (
+        #{id},
+        #{playerId},
+        #{averageStrength},
+        #{form},
+        #{energy},
+        #{endurance},
+        #{experience},
+        #{skillGoalkeeping},
+        #{skillTackling},
+        #{skillPlaymaking},
+        #{skillPassing},
+        #{skillScoring},
+        #{importDate}
+        )
+    </insert>
+</mapper>
