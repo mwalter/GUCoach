@@ -29,6 +29,7 @@ import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.model.Position;
 import org.newinstance.gucoach.model.StrongFoot;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -67,9 +68,63 @@ public class DatabaseServiceTest {
     }
 
     @Test
+    public void findAllImportDatesTest() {
+        final Player player = createPlayer();
+        databaseService.insertPlayer(player);
+
+        final Calendar cal = Calendar.getInstance();
+        final PlayerHistory playerHistory1 = createPlayerHistory();
+        playerHistory1.setPlayerId(player.getId());
+        playerHistory1.setImportDate(cal.getTime());
+        databaseService.insertPlayerHistory(playerHistory1);
+
+        cal.roll(Calendar.MONTH, -1);
+        final PlayerHistory playerHistory2 = createPlayerHistory();
+        playerHistory2.setPlayerId(player.getId());
+        playerHistory2.setImportDate(cal.getTime());
+        databaseService.insertPlayerHistory(playerHistory2);
+        
+        final List<Date> dates = databaseService.findAllImportDates();
+        Assert.assertNotNull(dates);
+        Assert.assertFalse(dates.isEmpty());
+        Assert.assertEquals(2, dates.size());
+    }
+
+    @Test
+    public void findLatestImportDateTest() {
+        final Player player = createPlayer();
+        databaseService.insertPlayer(player);
+
+        final Calendar cal = Calendar.getInstance();
+        // reset time because time part is not persisted into database at all
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        final Date date1 = cal.getTime();
+        final PlayerHistory playerHistory1 = createPlayerHistory();
+        playerHistory1.setPlayerId(player.getId());
+        playerHistory1.setImportDate(date1);
+        databaseService.insertPlayerHistory(playerHistory1);
+
+        cal.roll(Calendar.DAY_OF_MONTH, -1);
+        final Date date2 = cal.getTime();
+        final PlayerHistory playerHistory2 = createPlayerHistory();
+        playerHistory2.setPlayerId(player.getId());
+        playerHistory2.setImportDate(date2);
+        databaseService.insertPlayerHistory(playerHistory2);
+
+        final Date date = databaseService.findLatestImportDate();
+        Assert.assertNotNull(date);
+        Assert.assertEquals(date1, date);
+    }
+
+    @Test
     public void findPlayerByPlayerId() {
-        final Player player = databaseService.findPlayerByPlayerId(new Random().nextLong());
-        Assert.assertNull(player);
+        Player player = createPlayer();
+        databaseService.insertPlayer(player);
+        player = databaseService.findPlayerByPlayerId(player.getId());
+        Assert.assertNotNull(player);
     }
 
     @Test
