@@ -30,7 +30,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Controls the process of importing, validating and persisting player data. Communicates with import and database services.
+ * Controls the process of importing, validating and persisting player data. Communicates with import and database services. The import controller should be
+ * used for only one import and discarded after use.
  *
  * @author mwalter
  */
