@@ -51,7 +51,7 @@ public class ImportServiceImpl implements ImportService {
 
     private static final char SEPARATOR = ';';
     private static final String DATE_FORMAT = "dd.MM.yyyy";
-    private List<String[]> fileContent;
+    private List<String[]> fileContent = new ArrayList<String[]>();
     private List<Player> players = new ArrayList<Player>();
     private Map<Long, PlayerHistory> history = new HashMap<Long, PlayerHistory>();
     private Map<Long, PlayerStats> stats = new HashMap<Long, PlayerStats>();
@@ -172,8 +172,6 @@ public class ImportServiceImpl implements ImportService {
                 // nothing to import
                 throw new ImportException(ResourceLoader.getMessage(MessageId.E003.getMessageKey()));
             }
-            // initialise file content list and add content
-            fileContent = new ArrayList<String[]>();
             fileContent.addAll(content);
         } catch (final IOException ioe) {
             throw new ImportException(ResourceLoader.getMessage(MessageId.E004.getMessageKey()), ioe);
