@@ -20,11 +20,7 @@ package org.newinstance.gucoach.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.HPos;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.ColumnConstraints;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.service.DatabaseService;
@@ -38,12 +34,23 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class PlayerDataContent {
+public final class PlayerContentProvider {
 
-    private DatabaseService databaseService = new DatabaseServiceImpl();
+    /** The database service. */
+    private static DatabaseService databaseService = new DatabaseServiceImpl();
 
-    public TableView createTableContent() {
+    private PlayerContentProvider() {
+        // hide constructor
+    }
+
+    /**
+     * Returns all player data from the database.
+     *
+     * @return the player data
+     */
+    public static ObservableList<PlayerDataRow> getPlayerData() {
         // make sure to initialise tables
+        // TODO should not needed to be called here
         databaseService.createTables();
         final List<PlayerDataRow> playerDataRows = new ArrayList<PlayerDataRow>();
         final List<Player> players = databaseService.findAllPlayers();
@@ -52,52 +59,17 @@ public class PlayerDataContent {
             playerDataRows.add(convertToPlayerDataRow(player, playerStats));
         }
 
-        final ObservableList<PlayerDataRow> playerData = FXCollections.observableArrayList(playerDataRows);
-
-        final ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.LEFT);
-
-        final TableView table = new TableView();
-        final TableColumn numberCol = new TableColumn("Nr");
-        numberCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("number"));
-        final TableColumn countryCol = new TableColumn("Country");
-        countryCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("country"));
-        final TableColumn ageCol = new TableColumn("Age");
-        ageCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("age"));
-        final TableColumn firstNameCol = new TableColumn("First Name");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("firstName"));
-        final TableColumn lastNameCol = new TableColumn("Last Name");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("lastName"));
-        final TableColumn averageStrengthCol = new TableColumn("Avg");
-        averageStrengthCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("averageStrength"));
-        final TableColumn positionCol = new TableColumn("Pos");
-        positionCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("position"));
-        final TableColumn experienceCol = new TableColumn("Exp");
-        experienceCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("experience"));
-        final TableColumn skillGoalkeepingCol = new TableColumn("Gk");
-        skillGoalkeepingCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillGoalkeeping"));
-        final TableColumn skillTacklingCol = new TableColumn("Tk");
-        skillTacklingCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillTackling"));
-        final TableColumn skillPlaymakingCol = new TableColumn("Pm");
-        skillPlaymakingCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillPlaymaking"));
-        final TableColumn skillPassingCol = new TableColumn("Pa");
-        skillPassingCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillPassing"));
-        final TableColumn skillScoringCol = new TableColumn("Sc");
-        skillScoringCol.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillScoring"));
-
-        table.setItems(playerData);
-        table.getColumns().addAll(numberCol, countryCol, ageCol, firstNameCol, lastNameCol, averageStrengthCol, positionCol, experienceCol, skillGoalkeepingCol, skillTacklingCol, skillPlaymakingCol, skillPassingCol, skillScoringCol);
-
-        return table;
+        return FXCollections.observableArrayList(playerDataRows);
     }
 
     /**
      * Merges the data of the model into a data row in order to use {@link ObservableList}.
+     *
      * @param player the player entity
      * @param playerStats the player statistics entity
      * @return the merged data
      */
-    private PlayerDataRow convertToPlayerDataRow(final Player player, final PlayerStats playerStats) {
+    private static PlayerDataRow convertToPlayerDataRow(final Player player, final PlayerStats playerStats) {
         final PlayerDataRow playerDataRow = new PlayerDataRow();
         playerDataRow.setAge(playerStats.getAge());
         playerDataRow.setAssignments(playerStats.getAssignments());
