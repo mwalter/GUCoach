@@ -116,6 +116,10 @@ public final class PlayerDataRow {
         this.firstName = firstName;
     }
 
+    public String getFullName() {
+        return lastName + ", " + firstName;
+    }
+
     public String getLastName() {
         return lastName;
     }
