@@ -27,7 +27,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <fx.home>C:/Program Files/Java/JavaFX 2.0 SDK/</fx.home>
+                <!-- Path to JavaFX SDK -->
+                <fx.home>C:/Program Files/Java/JavaFX 2.0.3 SDK/</fx.home>
             </properties>
         </profile>
     </profiles>
