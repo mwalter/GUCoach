@@ -22,4 +22,13 @@
     -fx-font-size: 1em;
     -fx-font-weight: bold;
     -fx-text-alignment: left;
+    -fx-size: 20;
+}
+
+.table-cell {
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell {
+    -fx-cell-size: 1.0em;
 }
