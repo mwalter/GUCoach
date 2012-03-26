@@ -122,6 +122,12 @@ public class MainController implements Initializable {
         // TODO replace attributes with constant names
         tableColumnName.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("fullName"));
         tableColumnCountry.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("country"));
+        tableColumnCountry.setCellFactory(new Callback<TableColumn, TableCell>() {
+            public TableCell call(final TableColumn param) {
+                return new CountryValueFlagCell();
+            }
+        });
+
         tableColumnNumber.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("number"));
         tableColumnAge.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("age"));
         tableColumnStrength.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("averageStrength"));
