@@ -1,21 +1,26 @@
-GUCoach - your personal coach for Goalunited (tm).
+GUCoach - your personal coach for Goalunited.
 Copyright (C) 2012 newInstance.org
 
-Goalunited (tm) is a registered trademark of Travian Games GmbH Munich, Germany (goalunited.org).
-
 == About GUCoach ==
-This application manages your Goalunited team player data.
-Player data is imported from CSV files and persisted to an embedded database.
+GUCoach is a manager software for the MMOG Goalunited soccer manager [1].
+It manages and visualises your team player and team development data.
 
-Warning: The software is in alpha stage! Use at your own risk.
+== Technologies ==
+GUCoach is implemented in Java, i.e. Java SE 1.7.0 and JavaFX 2.
 
 == Planned functionality ==
 - show all player information in a table view
 - provide lots of different statistics showing the development of each player and the entire team
-- calculate the best line-up for the next match
+- calculate the best line-up for the next match based on different parameters
 - forecast future development of the team based on collected data
+- support the user to make the most of the team
 
 == Help wanted ==
-I'm looking for Java enthusiasts - especially JavaFX 2.0 programmers - who would like to help developing GUCoach.
-Please feel free to checkout sources at https://github.com/mwalter/GUCoach.
-Your ideas and improvements are welcome!
+I'm looking for Java and JavaFX 2 developers who would like to help developing GUCoach.
+Please have a look at the GUCoach forum at http://forum.gucoach.net and join the team.
+Your ideas and suggestions are welcome!
+
+Warning: This software is in alpha stage. Use at your own risk.
+
+[1] Goalunited (http://www.goalunited.org) is published by Travian Games GmbH Munich, Germany.
+    It was developed by northworks Software GmbH Hamburg, Germany (http://www.northworks.de)
