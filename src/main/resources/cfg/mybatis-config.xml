@@ -45,6 +45,6 @@
         <mapper resource="cfg/PlayerMapper.xml"/>
         <mapper resource="cfg/PlayerStatsMapper.xml"/>
         <mapper resource="cfg/PlayerHistoryMapper.xml"/>
-        <!-- <mapper resource="cfg/TeamMapper.xml"/> -->
+        <mapper resource="cfg/TeamMapper.xml"/>
     </mappers>
 </configuration>
