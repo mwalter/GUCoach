@@ -33,8 +33,6 @@ public final class Team {
     private String name;
     /** Strength. */
     private Float strength;
-    /** Matches played so far. */
-    private Integer matchesPlayed;
     /** Matches won so far. */
     private Integer matchesWon;
     /** Matches drawn so far. */
@@ -66,10 +64,6 @@ public final class Team {
 
     public Integer getMatchesLost() {
         return matchesLost;
-    }
-
-    public Integer getMatchesPlayed() {
-        return matchesPlayed;
     }
 
     public Integer getMatchesWon() {
@@ -112,10 +106,6 @@ public final class Team {
         this.matchesLost = matchesLost;
     }
 
-    public void setMatchesPlayed(final Integer matchesPlayed) {
-        this.matchesPlayed = matchesPlayed;
-    }
-
     public void setMatchesWon(final Integer matchesWon) {
         this.matchesWon = matchesWon;
     }
@@ -144,7 +134,6 @@ public final class Team {
         builder.append("position=").append(position).append(", ");
         builder.append("name=").append(name).append(", ");
         builder.append("strength=").append(strength).append(", ");
-        builder.append("matchesPlayed=").append(matchesPlayed).append(", ");
         builder.append("matchesWon=").append(matchesWon).append(", ");
         builder.append("matchesDrawn=").append(matchesDrawn).append(", ");
         builder.append("matchesLost=").append(matchesLost).append(", ");

@@ -57,13 +57,6 @@ public class TeamTest {
     }
 
     @Test
-    public void testMatchesPlayed() {
-        final Team team = new Team();
-        team.setMatchesPlayed(5);
-        Assert.assertEquals(5, team.getMatchesPlayed().intValue());
-    }
-
-    @Test
     public void testMatchesWon() {
         final Team team = new Team();
         team.setMatchesWon(5);
@@ -110,7 +103,6 @@ public class TeamTest {
         final Team team = new Team();
         team.setId(1L);
         team.setName("FC Barcelona");
-        team.setMatchesPlayed(5);
         team.setMatchesWon(5);
         team.setMatchesDrawn(0);
         team.setMatchesLost(0);
@@ -121,7 +113,6 @@ public class TeamTest {
         final String toString = team.toString();
         Assert.assertTrue(toString.contains("id=1"));
         Assert.assertTrue(toString.contains("name=FC Barcelona"));
-        Assert.assertTrue(toString.contains("matchesPlayed=5"));
         Assert.assertTrue(toString.contains("matchesWon=5"));
         Assert.assertTrue(toString.contains("matchesDrawn=0"));
         Assert.assertTrue(toString.contains("matchesLost=0"));
