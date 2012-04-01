@@ -18,11 +18,13 @@
 
 package org.newinstance.gucoach.service;
 
+import org.apache.ibatis.exceptions.PersistenceException;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.newinstance.gucoach.model.Country;
+import org.newinstance.gucoach.model.Match;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
@@ -41,20 +43,17 @@ import java.util.Random;
  */
 public class DatabaseServiceTest {
 
-    private static DatabaseService databaseService;
+    private DatabaseService databaseService;
 
-    @BeforeClass
-    public static void init() {
+    @Before
+    public void setUp() {
         databaseService = new DatabaseServiceImpl();
         databaseService.createTables();
     }
 
-    @Before
-    public void setUp() {
-        final List<Player> players = databaseService.findAllPlayers();
-        for (final Player player : players) {
-            databaseService.deletePlayer(player.getId());
-        }
+    @After
+    public void tearDown() {
+        databaseService.deleteTables();
     }
 
     @Test
@@ -83,7 +82,7 @@ public class DatabaseServiceTest {
         playerHistory2.setPlayerId(player.getId());
         playerHistory2.setImportDate(cal.getTime());
         databaseService.insertPlayerHistory(playerHistory2);
-        
+
         final List<Date> dates = databaseService.findAllImportDates();
         Assert.assertNotNull(dates);
         Assert.assertFalse(dates.isEmpty());
@@ -107,7 +106,8 @@ public class DatabaseServiceTest {
         playerHistory1.setImportDate(date1);
         databaseService.insertPlayerHistory(playerHistory1);
 
-        cal.roll(Calendar.DAY_OF_MONTH, -1);
+        // reduce import date by one day
+        cal.set(Calendar.DAY_OF_MONTH, -1);
         final Date date2 = cal.getTime();
         final PlayerHistory playerHistory2 = createPlayerHistory();
         playerHistory2.setPlayerId(player.getId());
@@ -223,6 +223,47 @@ public class DatabaseServiceTest {
         Assert.assertTrue(playerHistoryList.isEmpty());
     }
 
+    @Test
+    public void insertUpdateAndDeleteMatchTest() {
+        final Match match = createMatch();
+        databaseService.insertMatch(match);
+
+        List<Match> matchList = databaseService.findAllMatches();
+        Assert.assertNotNull(matchList);
+        Assert.assertFalse(matchList.isEmpty());
+
+        // UPDATE
+        match.setHomeTeamId(10L);
+        match.setVisitingTeamId(7L);
+        match.setMatchResult("2:4");
+        databaseService.updateMatch(match);
+
+        matchList = databaseService.findAllMatches();
+        Assert.assertNotNull(matchList);
+        Assert.assertFalse(matchList.isEmpty());
+
+        // compare updated values
+        Assert.assertFalse(match.getMatchResult().equals(matchList.get(0).getMatchResult()));
+        Assert.assertFalse(match.getHomeTeamId().equals(matchList.get(0).getHomeTeamId()));
+        Assert.assertFalse(match.getVisitingTeamId().equals(matchList.get(0).getVisitingTeamId()));
+
+        // DELETE
+        databaseService.deleteAllMatches();
+
+        matchList = databaseService.findAllMatches();
+        Assert.assertNotNull(matchList);
+        Assert.assertTrue(matchList.isEmpty());
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void insertSameMatchTwiceTest() {
+        final Match match1 = createMatch();
+        final Match match2 = createMatch();
+
+        databaseService.insertMatch(match1);
+        databaseService.insertMatch(match2);
+    }
+
     /**
      * Creates and returns a new {@link Player} entity.
      *
@@ -244,7 +285,7 @@ public class DatabaseServiceTest {
     }
 
     /**
-     * Creates and returns a new {@link PlayerStats}  entity.
+     * Creates and returns a new {@link PlayerStats} entity.
      *
      * @return a new entity
      */
@@ -280,7 +321,7 @@ public class DatabaseServiceTest {
     }
 
     /**
-     * Creates and returns a new {@link PlayerStats}  entity.
+     * Creates and returns a new {@link PlayerStats} entity.
      *
      * @return a new entity
      */
@@ -298,5 +339,19 @@ public class DatabaseServiceTest {
         playerHistory.setSkillTackling(37);
         playerHistory.setImportDate(new Date());
         return playerHistory;
+    }
+
+    /**
+     * Creates and returns a new {@link Match} entity.
+     *
+     * @return a new entity
+     */
+    private Match createMatch() {
+        final Match match = new Match();
+        match.setMatchDay(new Date());
+        match.setMatchResult("2:1");
+        match.setVisitingTeamId(5L);
+        match.setHomeTeamId(3L);
+        return match;
     }
 }

@@ -18,6 +18,7 @@
 
 package org.newinstance.gucoach.service;
 
+import org.newinstance.gucoach.model.Match;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
@@ -35,6 +36,9 @@ public interface DatabaseService {
     /** Creates all required database tables if they do not exist. */
     public void createTables();
 
+    /** Deletes all matches from the database. */
+    public void deleteAllMatches();
+
     /**
      * Deletes the player with the id from the database.
      *
@@ -43,11 +47,9 @@ public interface DatabaseService {
     public void deletePlayer(final Long playerId);
 
     /**
-     * Returns all players from the database.
-     *
-     * @return the list of players
+     * Deletes all database tables.
      */
-    public List<Player> findAllPlayers();
+    public void deleteTables();
 
     /**
      * Returns all dates of past imports.
@@ -55,6 +57,20 @@ public interface DatabaseService {
      * @return the dates
      */
     public List<Date> findAllImportDates();
+
+    /**
+     * Returns all matches from the database.
+     *
+     * @return the list of matches
+     */
+    public List<Match> findAllMatches();
+
+    /**
+     * Returns all players from the database.
+     *
+     * @return the list of players
+     */
+    public List<Player> findAllPlayers();
 
     /**
      * Returns the date of the latest (newest) import.
@@ -88,6 +104,13 @@ public interface DatabaseService {
     public PlayerStats findPlayerStatsByPlayerId(final Long playerId);
 
     /**
+     * Inserts a new match into the database.
+     *
+     * @param match the match to insert
+     */
+    public void insertMatch(final Match match);
+
+    /**
      * Inserts a new player into the database.
      *
      * @param player the player to insert
@@ -107,6 +130,13 @@ public interface DatabaseService {
      * @param playerStats the player statistics to insert
      */
     public void insertPlayerStats(final PlayerStats playerStats);
+
+    /**
+     * Updates the match.
+     *
+     * @param match the match to update
+     */
+    public void updateMatch(final Match match);
 
     /**
      * Updates player statistics.

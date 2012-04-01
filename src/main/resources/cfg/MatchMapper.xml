@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ GUCoach - your personal coach for Goalunited (tm).
+  ~ Copyright (C) 2012 newInstance.org
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.newinstance.gucoach.mapper.MatchMapper">
+    <resultMap id="matchResultMap" type="Match">
+        <result column="home_team_id" property="homeTeamId"/>
+        <result column="visiting_team_id" property="visitingTeamId"/>
+        <result column="match_result" property="matchResult"/>
+        <result column="match_day" property="matchDay"/>
+    </resultMap>
+    <update id="createTableMatch">
+        CREATE TABLE IF NOT EXISTS match (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        home_team_id BIGINT,
+        visiting_team_id BIGINT,
+        match_result VARCHAR(5),
+        match_day DATE,
+        CONSTRAINT match_unq UNIQUE (home_team_id, visiting_team_id)
+        )
+    </update>
+    <delete id="deleteAllMatches">
+        DELETE FROM match
+    </delete>
+    <select id="findAllMatches" resultMap="matchResultMap">
+        SELECT * FROM match
+    </select>
+    <insert id="insertMatch" parameterType="Match" useGeneratedKeys="true">
+        INSERT INTO match (
+        id,
+        home_team_id,
+        visiting_team_id,
+        match_result,
+        match_day
+        )
+        VALUES (
+        #{id},
+        #{homeTeamId},
+        #{visitingTeamId},
+        #{matchResult},
+        #{matchDay}
+        )
+    </insert>
+    <update id="updateMatch" parameterType="Match">
+        UPDATE match SET
+        home_team_id = #{homeTeamId},
+        visiting_team_id = #{visitingTeamId},
+        match_result = #{matchResult},
+        match_day = #{matchDay}
+        WHERE id = #{id}
+    </update>
+    <update id="dropTableMatch">
+        DROP TABLE match
+    </update>
+</mapper>
