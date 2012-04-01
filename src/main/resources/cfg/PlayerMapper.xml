@@ -68,7 +68,10 @@
         #{personality},
         #{birthday},
         #{strongFoot},
-        #{importDate},
+        #{importDate}
         )
     </insert>
+    <update id="dropTablePlayer">
+        DROP TABLE player
+    </update>
 </mapper>

@@ -165,4 +165,7 @@
         import_date = #{importDate}
         WHERE player_id = #{playerId}
     </update>
+    <update id="dropTablePlayerStats">
+        DROP TABLE player_stats
+    </update>
 </mapper>

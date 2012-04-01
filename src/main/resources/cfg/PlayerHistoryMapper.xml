@@ -88,4 +88,7 @@
         #{importDate}
         )
     </insert>
+    <update id="dropTablePlayerHistory">
+        DROP TABLE player_history
+    </update>
 </mapper>
