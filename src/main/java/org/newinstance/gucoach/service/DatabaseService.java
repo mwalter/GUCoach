@@ -22,6 +22,7 @@ import org.newinstance.gucoach.model.Match;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
+import org.newinstance.gucoach.model.Team;
 
 import java.util.Date;
 import java.util.List;
@@ -39,6 +40,9 @@ public interface DatabaseService {
     /** Deletes all matches from the database. */
     public void deleteAllMatches();
 
+    /** Deletes all matches from the database. */
+    public void deleteAllTeams();
+
     /**
      * Deletes the player with the id from the database.
      *
@@ -46,9 +50,7 @@ public interface DatabaseService {
      */
     public void deletePlayer(final Long playerId);
 
-    /**
-     * Deletes all database tables.
-     */
+    /** Deletes all database tables. */
     public void deleteTables();
 
     /**
@@ -71,6 +73,13 @@ public interface DatabaseService {
      * @return the list of players
      */
     public List<Player> findAllPlayers();
+
+    /**
+     * Returns all teams from the database.
+     *
+     * @return the list of teams
+     */
+    public List<Team> findAllTeams();
 
     /**
      * Returns the date of the latest (newest) import.
@@ -132,6 +141,13 @@ public interface DatabaseService {
     public void insertPlayerStats(final PlayerStats playerStats);
 
     /**
+     * Inserts a new team into the database.
+     *
+     * @param team the team to insert
+     */
+    public void insertTeam(final Team team);
+
+    /**
      * Updates the match.
      *
      * @param match the match to update
@@ -144,4 +160,11 @@ public interface DatabaseService {
      * @param playerStats the player statistics to update
      */
     public void updatePlayerStats(final PlayerStats playerStats);
+
+    /**
+     * Updates the team.
+     *
+     * @param team the team to update
+     */
+    public void updateTeam(final Team team);
 }

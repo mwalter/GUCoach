@@ -23,6 +23,7 @@ import org.newinstance.gucoach.model.Match;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
+import org.newinstance.gucoach.model.Team;
 
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,7 @@ public class DatabaseServiceImpl implements DatabaseService {
             session.update(PLAYER_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER);
             session.update(PLAYER_HISTORY_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER_HISTORY);
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER_STATS);
+            session.update(TEAM_MAPPER + SqlStatementName.CREATE_TABLE_TEAM);
         } finally {
             session.close();
         }
@@ -58,6 +60,17 @@ public class DatabaseServiceImpl implements DatabaseService {
         final SqlSession session = getSqlSession();
         try {
             session.delete(MATCH_MAPPER + SqlStatementName.DELETE_ALL_MATCHES);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void deleteAllTeams() {
+        final SqlSession session = getSqlSession();
+        try {
+            session.delete(TEAM_MAPPER + SqlStatementName.DELETE_ALL_TEAMS);
             session.commit();
         } finally {
             session.close();
@@ -83,6 +96,7 @@ public class DatabaseServiceImpl implements DatabaseService {
             session.update(PLAYER_MAPPER + SqlStatementName.DROP_TABLE_PLAYER);
             session.update(PLAYER_HISTORY_MAPPER + SqlStatementName.DROP_TABLE_PLAYER_HISTORY);
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.DROP_TABLE_PLAYER_STATS);
+            session.update(TEAM_MAPPER + SqlStatementName.DROP_TABLE_TEAM);
         } finally {
             session.close();
         }
@@ -116,6 +130,17 @@ public class DatabaseServiceImpl implements DatabaseService {
         final SqlSession session = getSqlSession();
         try {
             return session.selectList(PLAYER_MAPPER + SqlStatementName.FIND_ALL_PLAYERS);
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Team> findAllTeams() {
+        final SqlSession session = getSqlSession();
+        try {
+            return session.selectList(TEAM_MAPPER + SqlStatementName.FIND_ALL_TEAMS);
         } finally {
             session.close();
         }
@@ -207,6 +232,17 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
+    public void insertTeam(final Team team) {
+        final SqlSession session = getSqlSession();
+        try {
+            session.insert(TEAM_MAPPER + SqlStatementName.INSERT_TEAM, team);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
     public void updateMatch(final Match match) {
         final SqlSession session = getSqlSession();
         try {
@@ -222,6 +258,17 @@ public class DatabaseServiceImpl implements DatabaseService {
         final SqlSession session = getSqlSession();
         try {
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.UPDATE_PLAYER_STATS, playerStats);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void updateTeam(final Team team) {
+        final SqlSession session = getSqlSession();
+        try {
+            session.insert(TEAM_MAPPER + SqlStatementName.UPDATE_TEAM, team);
             session.commit();
         } finally {
             session.close();

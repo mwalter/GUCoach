@@ -30,15 +30,18 @@ public final class SqlStatementName {
     public static final String CREATE_TABLE_PLAYER = "createTablePlayer";
     public static final String CREATE_TABLE_PLAYER_HISTORY = "createTablePlayerHistory";
     public static final String CREATE_TABLE_PLAYER_STATS = "createTablePlayerStats";
+    public static final String CREATE_TABLE_TEAM = "createTableTeam";
 
     // --- DELETE ---
     public static final String DELETE_ALL_MATCHES = "deleteAllMatches";
+    public static final String DELETE_ALL_TEAMS = "deleteAllTeams";
     public static final String DELETE_PLAYER = "deletePlayer";
 
     // --- FIND ---
     public static final String FIND_ALL_IMPORT_DATES = "findAllImportDates";
     public static final String FIND_ALL_MATCHES = "findAllMatches";
     public static final String FIND_ALL_PLAYERS = "findAllPlayers";
+    public static final String FIND_ALL_TEAMS = "findAllTeams";
     public static final String FIND_LATEST_IMPORT_DATE = "findLatestImportDate";
     public static final String FIND_PLAYER_BY_PLAYER_ID = "findPlayerByPlayerId";
     public static final String FIND_PLAYER_HISTORY_BY_PLAYER_ID = "findPlayerHistoryByPlayerId";
@@ -49,15 +52,18 @@ public final class SqlStatementName {
     public static final String INSERT_PLAYER = "insertPlayer";
     public static final String INSERT_PLAYER_HISTORY = "insertPlayerHistory";
     public static final String INSERT_PLAYER_STATS = "insertPlayerStats";
+    public static final String INSERT_TEAM = "insertTeam";
 
     // --- UPDATE ---
     public static final String UPDATE_MATCH = "updateMatch";
     public static final String UPDATE_PLAYER_STATS = "updatePlayerStats";
+    public static final String UPDATE_TEAM = "updateTeam";
 
     // --- DROP ---
     public static final String DROP_TABLE_MATCH = "dropTableMatch";
     public static final String DROP_TABLE_PLAYER = "dropTablePlayer";
     public static final String DROP_TABLE_PLAYER_HISTORY = "dropTablePlayerHistory";
     public static final String DROP_TABLE_PLAYER_STATS = "dropTablePlayerStats";
+    public static final String DROP_TABLE_TEAM = "dropTableTeam";
 
 }

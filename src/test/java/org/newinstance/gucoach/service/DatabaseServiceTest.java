@@ -30,6 +30,7 @@ import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.model.Position;
 import org.newinstance.gucoach.model.StrongFoot;
+import org.newinstance.gucoach.model.Team;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -128,6 +129,47 @@ public class DatabaseServiceTest {
     }
 
     @Test
+    public void insertAndDeletePlayerHistoryTest() {
+        final Player player = createPlayer();
+        databaseService.insertPlayer(player);
+
+        final PlayerHistory playerHistory1 = createPlayerHistory();
+        playerHistory1.setPlayerId(player.getId());
+        databaseService.insertPlayerHistory(playerHistory1);
+
+        List<Player> playerList = databaseService.findAllPlayers();
+        Assert.assertNotNull(playerList);
+        Assert.assertFalse(playerList.isEmpty());
+
+        List<PlayerHistory> playerHistoryList = databaseService.findPlayerHistoryByPlayerId(player.getId());
+        Assert.assertNotNull(playerHistoryList);
+        Assert.assertFalse(playerHistoryList.isEmpty());
+        Assert.assertTrue(playerHistoryList.size() == 1);
+        Assert.assertEquals("Player history does not match to player.", player.getId(), playerHistoryList.get(0).getPlayerId());
+
+        // insert another history record
+        final PlayerHistory playerHistory2 = createPlayerHistory();
+        playerHistory2.setPlayerId(player.getId());
+        databaseService.insertPlayerHistory(playerHistory2);
+
+        playerHistoryList = databaseService.findPlayerHistoryByPlayerId(player.getId());
+        Assert.assertNotNull(playerHistoryList);
+        Assert.assertFalse(playerHistoryList.isEmpty());
+        Assert.assertTrue(playerHistoryList.size() == 2);
+
+        // DELETE
+        databaseService.deletePlayer(player.getId());
+
+        playerList = databaseService.findAllPlayers();
+        Assert.assertNotNull(playerList);
+        Assert.assertTrue(playerList.isEmpty());
+
+        playerHistoryList = databaseService.findPlayerHistoryByPlayerId(player.getId());
+        Assert.assertNotNull(playerHistoryList);
+        Assert.assertTrue(playerHistoryList.isEmpty());
+    }
+
+    @Test
     public void insertAndDeletePlayerTest() {
         final Player player = createPlayer();
         databaseService.insertPlayer(player);
@@ -138,6 +180,56 @@ public class DatabaseServiceTest {
         result = databaseService.findAllPlayers();
         Assert.assertNotNull(result);
         Assert.assertTrue("Players found.", result.isEmpty());
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void insertSameMatchTwiceTest() {
+        final Match match1 = createMatch();
+        final Match match2 = createMatch();
+
+        databaseService.insertMatch(match1);
+        databaseService.insertMatch(match2);
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void insertSameTeamTwiceTest() {
+        final Team team1 = createTeam();
+        final Team team2 = createTeam();
+
+        databaseService.insertTeam(team1);
+        databaseService.insertTeam(team2);
+    }
+
+    @Test
+    public void insertUpdateAndDeleteMatchTest() {
+        final Match match = createMatch();
+        databaseService.insertMatch(match);
+
+        List<Match> matchList = databaseService.findAllMatches();
+        Assert.assertNotNull(matchList);
+        Assert.assertFalse(matchList.isEmpty());
+
+        // UPDATE
+        match.setHomeTeamId(10L);
+        match.setVisitingTeamId(7L);
+        match.setMatchResult("2:4");
+        databaseService.updateMatch(match);
+
+        matchList = databaseService.findAllMatches();
+        Assert.assertNotNull(matchList);
+        Assert.assertFalse(matchList.isEmpty());
+
+        // compare updated values
+        Assert.assertFalse(match.getMatchResult().equals(matchList.get(0).getMatchResult()));
+        Assert.assertFalse(match.getHomeTeamId().equals(matchList.get(0).getHomeTeamId()));
+        Assert.assertFalse(match.getVisitingTeamId().equals(matchList.get(0).getVisitingTeamId()));
+
+        // DELETE
+        databaseService.deleteAllMatches();
+
+        matchList = databaseService.findAllMatches();
+        Assert.assertNotNull(matchList);
+        Assert.assertTrue(matchList.isEmpty());
     }
 
     @Test
@@ -183,85 +275,49 @@ public class DatabaseServiceTest {
     }
 
     @Test
-    public void insertAndDeletePlayerHistoryTest() {
-        final Player player = createPlayer();
-        databaseService.insertPlayer(player);
+    public void insertUpdateAndDeleteTeamTest() {
+        final Team team = createTeam();
+        databaseService.insertTeam(team);
 
-        final PlayerHistory playerHistory1 = createPlayerHistory();
-        playerHistory1.setPlayerId(player.getId());
-        databaseService.insertPlayerHistory(playerHistory1);
-
-        List<Player> playerList = databaseService.findAllPlayers();
-        Assert.assertNotNull(playerList);
-        Assert.assertFalse(playerList.isEmpty());
-
-        List<PlayerHistory> playerHistoryList = databaseService.findPlayerHistoryByPlayerId(player.getId());
-        Assert.assertNotNull(playerHistoryList);
-        Assert.assertFalse(playerHistoryList.isEmpty());
-        Assert.assertTrue(playerHistoryList.size() == 1);
-        Assert.assertEquals("Player history does not match to player.", player.getId(), playerHistoryList.get(0).getPlayerId());
-
-        // insert another history record
-        final PlayerHistory playerHistory2 = createPlayerHistory();
-        playerHistory2.setPlayerId(player.getId());
-        databaseService.insertPlayerHistory(playerHistory2);
-
-        playerHistoryList = databaseService.findPlayerHistoryByPlayerId(player.getId());
-        Assert.assertNotNull(playerHistoryList);
-        Assert.assertFalse(playerHistoryList.isEmpty());
-        Assert.assertTrue(playerHistoryList.size() == 2);
-
-        // DELETE
-        databaseService.deletePlayer(player.getId());
-
-        playerList = databaseService.findAllPlayers();
-        Assert.assertNotNull(playerList);
-        Assert.assertTrue(playerList.isEmpty());
-
-        playerHistoryList = databaseService.findPlayerHistoryByPlayerId(player.getId());
-        Assert.assertNotNull(playerHistoryList);
-        Assert.assertTrue(playerHistoryList.isEmpty());
-    }
-
-    @Test
-    public void insertUpdateAndDeleteMatchTest() {
-        final Match match = createMatch();
-        databaseService.insertMatch(match);
-
-        List<Match> matchList = databaseService.findAllMatches();
-        Assert.assertNotNull(matchList);
-        Assert.assertFalse(matchList.isEmpty());
+        List<Team> teamList = databaseService.findAllTeams();
+        Assert.assertNotNull(teamList);
+        Assert.assertFalse(teamList.isEmpty());
 
         // UPDATE
-        match.setHomeTeamId(10L);
-        match.setVisitingTeamId(7L);
-        match.setMatchResult("2:4");
-        databaseService.updateMatch(match);
+        team.setMatchesWon(8);
+        team.setGoalsFor(33);
+        team.setStrength(57.0f);
+        databaseService.updateTeam(team);
 
-        matchList = databaseService.findAllMatches();
-        Assert.assertNotNull(matchList);
-        Assert.assertFalse(matchList.isEmpty());
+        teamList = databaseService.findAllTeams();
+        Assert.assertNotNull(teamList);
+        Assert.assertFalse(teamList.isEmpty());
 
         // compare updated values
-        Assert.assertFalse(match.getMatchResult().equals(matchList.get(0).getMatchResult()));
-        Assert.assertFalse(match.getHomeTeamId().equals(matchList.get(0).getHomeTeamId()));
-        Assert.assertFalse(match.getVisitingTeamId().equals(matchList.get(0).getVisitingTeamId()));
+        Assert.assertFalse(team.getMatchesWon().equals(teamList.get(0).getMatchesWon()));
+        Assert.assertFalse(team.getGoalsFor().equals(teamList.get(0).getGoalsFor()));
+        Assert.assertFalse(team.getStrength().equals(teamList.get(0).getStrength()));
 
         // DELETE
-        databaseService.deleteAllMatches();
+        databaseService.deleteAllTeams();
 
-        matchList = databaseService.findAllMatches();
-        Assert.assertNotNull(matchList);
-        Assert.assertTrue(matchList.isEmpty());
+        teamList = databaseService.findAllTeams();
+        Assert.assertNotNull(teamList);
+        Assert.assertTrue(teamList.isEmpty());
     }
 
-    @Test(expected = PersistenceException.class)
-    public void insertSameMatchTwiceTest() {
-        final Match match1 = createMatch();
-        final Match match2 = createMatch();
-
-        databaseService.insertMatch(match1);
-        databaseService.insertMatch(match2);
+    /**
+     * Creates and returns a new {@link Match} entity.
+     *
+     * @return a new entity
+     */
+    private Match createMatch() {
+        final Match match = new Match();
+        match.setMatchDay(new Date());
+        match.setMatchResult("2:1");
+        match.setVisitingTeamId(5L);
+        match.setHomeTeamId(3L);
+        return match;
     }
 
     /**
@@ -282,6 +338,27 @@ public class DatabaseServiceTest {
         player.setFirstName("John");
         player.setImportDate(new Date());
         return player;
+    }
+
+    /**
+     * Creates and returns a new {@link PlayerStats} entity.
+     *
+     * @return a new entity
+     */
+    private PlayerHistory createPlayerHistory() {
+        final PlayerHistory playerHistory = new PlayerHistory();
+        playerHistory.setAverageStrength(3.4f);
+        playerHistory.setEndurance(77);
+        playerHistory.setEnergy(88);
+        playerHistory.setExperience(100);
+        playerHistory.setForm(90);
+        playerHistory.setSkillGoalkeeping(3);
+        playerHistory.setSkillPassing(19);
+        playerHistory.setSkillPlaymaking(17);
+        playerHistory.setSkillScoring(12);
+        playerHistory.setSkillTackling(37);
+        playerHistory.setImportDate(new Date());
+        return playerHistory;
     }
 
     /**
@@ -321,37 +398,21 @@ public class DatabaseServiceTest {
     }
 
     /**
-     * Creates and returns a new {@link PlayerStats} entity.
+     * Creates and returns a new {@link Team} entity.
      *
      * @return a new entity
      */
-    private PlayerHistory createPlayerHistory() {
-        final PlayerHistory playerHistory = new PlayerHistory();
-        playerHistory.setAverageStrength(3.4f);
-        playerHistory.setEndurance(77);
-        playerHistory.setEnergy(88);
-        playerHistory.setExperience(100);
-        playerHistory.setForm(90);
-        playerHistory.setSkillGoalkeeping(3);
-        playerHistory.setSkillPassing(19);
-        playerHistory.setSkillPlaymaking(17);
-        playerHistory.setSkillScoring(12);
-        playerHistory.setSkillTackling(37);
-        playerHistory.setImportDate(new Date());
-        return playerHistory;
+    private Team createTeam() {
+        final Team team = new Team();
+        team.setPosition(1);
+        team.setName("FC Hardtberg");
+        team.setGoalsFor(30);
+        team.setGoalsAgainst(5);
+        team.setMatchesWon(7);
+        team.setMatchesDrawn(3);
+        team.setMatchesLost(0);
+        team.setStrength(55.0f);
+        return team;
     }
 
-    /**
-     * Creates and returns a new {@link Match} entity.
-     *
-     * @return a new entity
-     */
-    private Match createMatch() {
-        final Match match = new Match();
-        match.setMatchDay(new Date());
-        match.setMatchResult("2:1");
-        match.setVisitingTeamId(5L);
-        match.setHomeTeamId(3L);
-        return match;
-    }
 }
