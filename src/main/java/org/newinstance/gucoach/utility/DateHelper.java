@@ -39,4 +39,8 @@ public final class DateHelper {
         final DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         return df.format(date.getTime());
     }
+
+    private DateHelper() {
+        // hide constructor
+    }
 }
