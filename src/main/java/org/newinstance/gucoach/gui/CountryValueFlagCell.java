@@ -22,6 +22,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.newinstance.gucoach.gui.controller.MainController;
 import org.newinstance.gucoach.model.Country;
 
 /**
