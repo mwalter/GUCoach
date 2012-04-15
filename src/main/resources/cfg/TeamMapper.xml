@@ -87,6 +87,6 @@
         WHERE id = #{id}
     </update>
     <update id="dropTableTeam">
-        DROP TABLE team
+        DROP TABLE IF EXISTS team
     </update>
 </mapper>

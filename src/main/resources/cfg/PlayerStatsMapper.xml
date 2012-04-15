@@ -166,6 +166,6 @@
         WHERE player_id = #{playerId}
     </update>
     <update id="dropTablePlayerStats">
-        DROP TABLE player_stats
+        DROP TABLE IF EXISTS player_stats
     </update>
 </mapper>

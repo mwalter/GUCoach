@@ -72,6 +72,6 @@
         )
     </insert>
     <update id="dropTablePlayer">
-        DROP TABLE player
+        DROP TABLE IF EXISTS player
     </update>
 </mapper>

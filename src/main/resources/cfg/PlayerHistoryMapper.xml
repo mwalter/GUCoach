@@ -89,6 +89,6 @@
         )
     </insert>
     <update id="dropTablePlayerHistory">
-        DROP TABLE player_history
+        DROP TABLE IF EXISTS player_history
     </update>
 </mapper>
