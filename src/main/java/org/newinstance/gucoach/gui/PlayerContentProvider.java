@@ -73,7 +73,6 @@ public final class PlayerContentProvider {
         final PlayerDataRow playerDataRow = new PlayerDataRow();
         playerDataRow.setAge(playerStats.getAge());
         playerDataRow.setAssignments(playerStats.getAssignments());
-        playerDataRow.setAverageStrength(playerStats.getAverageStrength());
         playerDataRow.setBirthday(player.getBirthday());
         playerDataRow.setCountry(player.getCountry());
         playerDataRow.setEndurance(playerStats.getEndurance());
@@ -91,6 +90,7 @@ public final class PlayerContentProvider {
         playerDataRow.setNumber(playerStats.getNumber());
         playerDataRow.setPersonality(player.getPersonality());
         playerDataRow.setPosition(playerStats.getPosition());
+        playerDataRow.setStrength(playerStats.getAverageStrength());
         playerDataRow.setStrongFoot(player.getStrongFoot());
         playerDataRow.setRedCardsSeason(playerStats.getRedCardsSeason());
         playerDataRow.setRedCardsTotal(playerStats.getRedCardsTotal());
