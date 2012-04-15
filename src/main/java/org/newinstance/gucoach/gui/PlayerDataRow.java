@@ -21,6 +21,7 @@ package org.newinstance.gucoach.gui;
 import org.newinstance.gucoach.model.Country;
 import org.newinstance.gucoach.model.Position;
 import org.newinstance.gucoach.model.StrongFoot;
+import org.newinstance.gucoach.utility.DateHelper;
 
 import java.util.Date;
 
@@ -51,8 +52,8 @@ public final class PlayerDataRow {
     private Integer number;
     /** Training - not used. */
     private String training;
-    /** Average strength. */
-    private Float averageStrength;
+    /** Strength. */
+    private Float strength;
     /** Position in line-up. */
     private Position position;
     /** Form. */
@@ -100,279 +101,342 @@ public final class PlayerDataRow {
     /** Date the player was imported into the database. */
     private Date importDate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getFullName() {
-        return lastName + ", " + firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(final String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(final Country country) {
-        this.country = country;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(final Integer height) {
-        this.height = height;
-    }
-
-    public String getPersonality() {
-        return personality;
-    }
-
-    public void setPersonality(final String personality) {
-        this.personality = personality;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(final String birthday) {
-        this.birthday = birthday;
-    }
-
-    public StrongFoot getStrongFoot() {
-        return strongFoot;
-    }
-
-    public void setStrongFoot(final StrongFoot strongFoot) {
-        this.strongFoot = strongFoot;
-    }
-
-    public Date getImportDate() {
-        return importDate;
-    }
-
-    public void setImportDate(final Date importDate) {
-        this.importDate = importDate;
+    public Integer getAge() {
+        return age;
     }
 
     public Integer getAssignments() {
         return assignments;
     }
 
-    public void setAssignments(final Integer assignments) {
-        this.assignments = assignments;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public Integer getGoalsSeason() {
-        return goalsSeason;
-    }
-
-    public void setGoalsSeason(final Integer goalsSeason) {
-        this.goalsSeason = goalsSeason;
-    }
-
-    public Integer getGoalsTotal() {
-        return goalsTotal;
-    }
-
-    public void setGoalsTotal(final Integer goalsTotal) {
-        this.goalsTotal = goalsTotal;
-    }
-
-    public Integer getMarketValue() {
-        return marketValue;
-    }
-
-    public void setMarketValue(final Integer marketValue) {
-        this.marketValue = marketValue;
-    }
-
-    public Integer getYellowCardsSeason() {
-        return yellowCardsSeason;
-    }
-
-    public void setYellowCardsSeason(final Integer yellowCardsSeason) {
-        this.yellowCardsSeason = yellowCardsSeason;
-    }
-
-    public Integer getYellowCardsTotal() {
-        return yellowCardsTotal;
-    }
-
-    public void setYellowCardsTotal(final Integer yellowCardsTotal) {
-        this.yellowCardsTotal = yellowCardsTotal;
-    }
-
-    public Integer getRedCardsSeason() {
-        return redCardsSeason;
-    }
-
-    public void setRedCardsSeason(final Integer redCardsSeason) {
-        this.redCardsSeason = redCardsSeason;
-    }
-
-    public Integer getRedCardsTotal() {
-        return redCardsTotal;
-    }
-
-    public void setRedCardsTotal(final Integer redCardsTotal) {
-        this.redCardsTotal = redCardsTotal;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(final Integer number) {
-        this.number = number;
-    }
-
-    public String getTraining() {
-        return training;
-    }
-
-    public void setTraining(final String training) {
-        this.training = training;
-    }
-
-    public Float getAverageStrength() {
-        return averageStrength;
-    }
-
-    public void setAverageStrength(final Float averageStrength) {
-        this.averageStrength = averageStrength;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(final Position position) {
-        this.position = position;
-    }
-
-    public Integer getForm() {
-        return form;
-    }
-
-    public void setForm(final Integer form) {
-        this.form = form;
-    }
-
-    public Integer getEnergy() {
-        return energy;
-    }
-
-    public void setEnergy(final Integer energy) {
-        this.energy = energy;
+    public Country getCountry() {
+        return country;
     }
 
     public Integer getEndurance() {
         return endurance;
     }
 
-    public void setEndurance(final Integer endurance) {
-        this.endurance = endurance;
+    public Integer getEnergy() {
+        return energy;
     }
 
     public Integer getExperience() {
         return experience;
     }
 
-    public void setExperience(final Integer experience) {
-        this.experience = experience;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public Integer getSkillGoalkeeping() {
-        return skillGoalkeeping;
+    public Integer getForm() {
+        return form;
     }
 
-    public void setSkillGoalkeeping(final Integer skillGoalkeeping) {
-        this.skillGoalkeeping = skillGoalkeeping;
+    public Integer getGoalsSeason() {
+        return goalsSeason;
     }
 
-    public Integer getSkillTackling() {
-        return skillTackling;
+    public Integer getGoalsTotal() {
+        return goalsTotal;
     }
 
-    public void setSkillTackling(final Integer skillTackling) {
-        this.skillTackling = skillTackling;
+    public Integer getHeight() {
+        return height;
     }
 
-    public Integer getSkillPlaymaking() {
-        return skillPlaymaking;
+    public Long getId() {
+        return id;
     }
 
-    public void setSkillPlaymaking(final Integer skillPlaymaking) {
-        this.skillPlaymaking = skillPlaymaking;
+    public Date getImportDate() {
+        return importDate;
     }
 
-    public Integer getSkillPassing() {
-        return skillPassing;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSkillPassing(final Integer skillPassing) {
-        this.skillPassing = skillPassing;
+    public Integer getMarketValue() {
+        return marketValue;
     }
 
-    public Integer getSkillScoring() {
-        return skillScoring;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setSkillScoring(final Integer skillScoring) {
-        this.skillScoring = skillScoring;
+    public String getPersonality() {
+        return personality;
     }
 
-    public String getTalent() {
-        return talent;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setTalent(final String talent) {
-        this.talent = talent;
+    public Integer getRedCardsSeason() {
+        return redCardsSeason;
     }
 
-    public Integer getTalentLevel() {
-        return talentLevel;
-    }
-
-    public void setTalentLevel(final Integer talentLevel) {
-        this.talentLevel = talentLevel;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(final Integer age) {
-        this.age = age;
+    public Integer getRedCardsTotal() {
+        return redCardsTotal;
     }
 
     public Integer getSalary() {
         return salary;
     }
 
+    public Integer getSkillGoalkeeping() {
+        return skillGoalkeeping;
+    }
+
+    public Integer getSkillPassing() {
+        return skillPassing;
+    }
+
+    public Integer getSkillPlaymaking() {
+        return skillPlaymaking;
+    }
+
+    public Integer getSkillScoring() {
+        return skillScoring;
+    }
+
+    public Integer getSkillTackling() {
+        return skillTackling;
+    }
+
+    public Float getStrength() {
+        return strength;
+    }
+
+    public StrongFoot getStrongFoot() {
+        return strongFoot;
+    }
+
+    public String getTalent() {
+        return talent;
+    }
+
+    public Integer getTalentLevel() {
+        return talentLevel;
+    }
+
+    public String getTraining() {
+        return training;
+    }
+
+    public Integer getYellowCardsSeason() {
+        return yellowCardsSeason;
+    }
+
+    public Integer getYellowCardsTotal() {
+        return yellowCardsTotal;
+    }
+
+    public void setAge(final Integer age) {
+        this.age = age;
+    }
+
+    public void setAssignments(final Integer assignments) {
+        this.assignments = assignments;
+    }
+
+    public void setBirthday(final String birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setCountry(final Country country) {
+        this.country = country;
+    }
+
+    public void setEndurance(final Integer endurance) {
+        this.endurance = endurance;
+    }
+
+    public void setEnergy(final Integer energy) {
+        this.energy = energy;
+    }
+
+    public void setExperience(final Integer experience) {
+        this.experience = experience;
+    }
+
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setForm(final Integer form) {
+        this.form = form;
+    }
+
+    public void setGoalsSeason(final Integer goalsSeason) {
+        this.goalsSeason = goalsSeason;
+    }
+
+    public void setGoalsTotal(final Integer goalsTotal) {
+        this.goalsTotal = goalsTotal;
+    }
+
+    public void setHeight(final Integer height) {
+        this.height = height;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public void setImportDate(final Date importDate) {
+        this.importDate = importDate;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setMarketValue(final Integer marketValue) {
+        this.marketValue = marketValue;
+    }
+
+    public void setNumber(final Integer number) {
+        this.number = number;
+    }
+
+    public void setPersonality(final String personality) {
+        this.personality = personality;
+    }
+
+    public void setPosition(final Position position) {
+        this.position = position;
+    }
+
+    public void setRedCardsSeason(final Integer redCardsSeason) {
+        this.redCardsSeason = redCardsSeason;
+    }
+
+    public void setRedCardsTotal(final Integer redCardsTotal) {
+        this.redCardsTotal = redCardsTotal;
+    }
+
     public void setSalary(final Integer salary) {
         this.salary = salary;
     }
+
+    public void setSkillGoalkeeping(final Integer skillGoalkeeping) {
+        this.skillGoalkeeping = skillGoalkeeping;
+    }
+
+    public void setSkillPassing(final Integer skillPassing) {
+        this.skillPassing = skillPassing;
+    }
+
+    public void setSkillPlaymaking(final Integer skillPlaymaking) {
+        this.skillPlaymaking = skillPlaymaking;
+    }
+
+    public void setSkillScoring(final Integer skillScoring) {
+        this.skillScoring = skillScoring;
+    }
+
+    public void setSkillTackling(final Integer skillTackling) {
+        this.skillTackling = skillTackling;
+    }
+
+    public void setStrength(final Float strength) {
+        this.strength = strength;
+    }
+
+    public void setStrongFoot(final StrongFoot strongFoot) {
+        this.strongFoot = strongFoot;
+    }
+
+    public void setTalent(final String talent) {
+        this.talent = talent;
+    }
+
+    public void setTalentLevel(final Integer talentLevel) {
+        this.talentLevel = talentLevel;
+    }
+
+    public void setTraining(final String training) {
+        this.training = training;
+    }
+
+    public void setYellowCardsSeason(final Integer yellowCardsSeason) {
+        this.yellowCardsSeason = yellowCardsSeason;
+    }
+
+    public void setYellowCardsTotal(final Integer yellowCardsTotal) {
+        this.yellowCardsTotal = yellowCardsTotal;
+    }
+
+    public String getFullName() {
+        return lastName + ", " + firstName;
+    }
+
+    public String getGoalsSeasonAndTotal() {
+        return getGoalsSeason().toString() + " (" + getGoalsTotal().toString() + ")";
+    }
+
+    public String getRedCardsSeasonAndTotal() {
+        return getRedCardsSeason().toString() + " (" + getRedCardsTotal().toString() + ")";
+    }
+
+    public String getYellowCardsSeasonAndTotal() {
+        return getYellowCardsSeason().toString() + " (" + getYellowCardsTotal().toString() + ")";
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("PlayerDataRow [");
+        builder.append("id=").append(id).append(", ");
+        builder.append("firstName=").append(firstName).append(", ");
+        builder.append("lastName=").append(lastName).append(", ");
+        builder.append("country=").append(country).append(", ");
+        builder.append("height=").append(height).append(", ");
+        builder.append("personality=").append(personality).append(", ");
+        builder.append("birthday=").append(birthday).append(", ");
+        if (strongFoot != null) {
+            builder.append("strongFoot=").append(strongFoot.name()).append(", ");
+        } else {
+            builder.append("strongFoot=null").append(", ");
+        }
+        builder.append("number=").append(number).append(", ");
+        builder.append("training=").append(training).append(", ");
+        builder.append("strength=").append(strength).append(", ");
+        if (position != null) {
+            builder.append("position=").append(position.name()).append(", ");
+        } else {
+            builder.append("position=null").append(", ");
+        }
+        builder.append("form=").append(form).append(", ");
+        builder.append("energy=").append(energy).append(", ");
+        builder.append("endurance=").append(endurance).append(", ");
+        builder.append("experience=").append(experience).append(", ");
+        builder.append("skillGoalkeeping=").append(skillGoalkeeping).append(", ");
+        builder.append("skillTackling=").append(skillTackling).append(", ");
+        builder.append("skillPlaymaking=").append(skillPlaymaking).append(", ");
+        builder.append("skillPassing=").append(skillPassing).append(", ");
+        builder.append("skillScoring=").append(skillScoring).append(", ");
+        builder.append("talent=").append(talent).append(", ");
+        builder.append("talentLevel=").append(talentLevel).append(", ");
+        builder.append("age=").append(age).append(", ");
+        builder.append("salary=").append(salary).append(", ");
+        builder.append("assignments=").append(assignments).append(", ");
+        builder.append("goalsSeason=").append(goalsSeason).append(", ");
+        builder.append("goalsTotal=").append(goalsTotal).append(", ");
+        builder.append("marketValue=").append(marketValue).append(", ");
+        builder.append("yellowCardsSeason=").append(yellowCardsSeason).append(", ");
+        builder.append("yellowCardsTotal=").append(yellowCardsTotal).append(", ");
+        builder.append("redCardsSeason=").append(redCardsSeason).append(", ");
+        builder.append("redCardsTotal=").append(redCardsTotal).append(", ");
+        builder.append("importDate=").append(DateHelper.formatDate(importDate));
+        builder.append("]");
+        return builder.toString();
+    }
+
 }
