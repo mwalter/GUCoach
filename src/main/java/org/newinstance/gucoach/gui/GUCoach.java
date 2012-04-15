@@ -36,7 +36,7 @@ public class GUCoach extends Application {
     /** The application name. */
     public static final String APPLICATION_TITLE = "GUCoach";
     /** The layout of the main application window. */
-    public static final String LAYOUT_WINDOW_MAIN = "fxml/windowMain.fxml";
+    public static final String LAYOUT_WINDOW_MAIN = "fxml/main.fxml";
 
     /**
      * Executes the application.
