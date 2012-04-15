@@ -24,60 +24,60 @@ import org.junit.Test;
 import java.util.Date;
 
 /**
- * Tests methods of class {@link Match}.
+ * Tests methods of class {@link Fixture}.
  *
  * @author mwalter
  */
-public class MatchTest {
+public class FixtureTest {
 
     @Test
     public void testHomeTeamId() {
-        final Match match = new Match();
-        match.setHomeTeamId(1L);
-        Assert.assertEquals(1L, match.getHomeTeamId().longValue());
+        final Fixture fixture = new Fixture();
+        fixture.setHomeTeamId(1L);
+        Assert.assertEquals(1L, fixture.getHomeTeamId().longValue());
     }
 
     @Test
     public void testId() {
-        final Match match = new Match();
-        match.setId(1L);
-        Assert.assertEquals(1L, match.getId().longValue());
+        final Fixture fixture = new Fixture();
+        fixture.setId(1L);
+        Assert.assertEquals(1L, fixture.getId().longValue());
     }
 
     @Test
     public void testMatchDay() {
-        final Match match = new Match();
+        final Fixture fixture = new Fixture();
         final Date date = new Date();
-        match.setMatchDay(date);
-        Assert.assertEquals(date, match.getMatchDay());
+        fixture.setMatchDay(date);
+        Assert.assertEquals(date, fixture.getMatchDay());
     }
 
     @Test
     public void testMatchResult() {
-        final Match match = new Match();
-        match.setMatchResult("3:1");
-        Assert.assertEquals("3:1", match.getMatchResult());
+        final Fixture fixture = new Fixture();
+        fixture.setMatchResult("3:1");
+        Assert.assertEquals("3:1", fixture.getMatchResult());
     }
 
     @Test
-    public void testVisitingTeamId() {
-        final Match match = new Match();
-        match.setVisitingTeamId(1L);
-        Assert.assertEquals(1L, match.getVisitingTeamId().longValue());
+    public void testAwayTeamId() {
+        final Fixture fixture = new Fixture();
+        fixture.setAwayTeamId(1L);
+        Assert.assertEquals(1L, fixture.getAwayTeamId().longValue());
     }
 
     @Test
     public void testToString() {
-        final Match match = new Match();
-        match.setId(1L);
-        match.setHomeTeamId(3L);
-        match.setVisitingTeamId(5L);
-        match.setMatchResult("2:2");
+        final Fixture fixture = new Fixture();
+        fixture.setId(1L);
+        fixture.setHomeTeamId(3L);
+        fixture.setAwayTeamId(5L);
+        fixture.setMatchResult("2:2");
 
-        final String toString = match.toString();
+        final String toString = fixture.toString();
         Assert.assertTrue(toString.contains("id=1"));
         Assert.assertTrue(toString.contains("homeTeamId=3"));
-        Assert.assertTrue(toString.contains("visitingTeamId=5"));
+        Assert.assertTrue(toString.contains("awayTeamId=5"));
         Assert.assertTrue(toString.contains("matchResult=2:2"));
     }
 

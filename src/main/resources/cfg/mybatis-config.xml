@@ -20,7 +20,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="Match" type="org.newinstance.gucoach.model.Match"/>
+        <typeAlias alias="Fixture" type="org.newinstance.gucoach.model.Fixture"/>
         <typeAlias alias="Player" type="org.newinstance.gucoach.model.Player"/>
         <typeAlias alias="PlayerStats" type="org.newinstance.gucoach.model.PlayerStats"/>
         <typeAlias alias="PlayerHistory" type="org.newinstance.gucoach.model.PlayerHistory"/>
@@ -41,7 +41,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="cfg/MatchMapper.xml"/>
+        <mapper resource="cfg/FixtureMapper.xml"/>
         <mapper resource="cfg/PlayerMapper.xml"/>
         <mapper resource="cfg/PlayerStatsMapper.xml"/>
         <mapper resource="cfg/PlayerHistoryMapper.xml"/>

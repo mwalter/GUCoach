@@ -19,7 +19,7 @@
 package org.newinstance.gucoach.service;
 
 import org.apache.ibatis.session.SqlSession;
-import org.newinstance.gucoach.model.Match;
+import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class DatabaseServiceImpl implements DatabaseService {
 
-    private static final String MATCH_MAPPER = "org.newinstance.gucoach.mapper.MatchMapper.";
+    private static final String FIXTURE_MAPPER = "org.newinstance.gucoach.mapper.FixtureMapper.";
     private static final String PLAYER_MAPPER = "org.newinstance.gucoach.mapper.PlayerMapper.";
     private static final String PLAYER_STATS_MAPPER = "org.newinstance.gucoach.mapper.PlayerStatsMapper.";
     private static final String PLAYER_HISTORY_MAPPER = "org.newinstance.gucoach.mapper.PlayerHistoryMapper.";
@@ -45,7 +45,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public void createTables() {
         final SqlSession session = getSqlSession();
         try {
-            session.update(MATCH_MAPPER + SqlStatementName.CREATE_TABLE_MATCH);
+            session.update(FIXTURE_MAPPER + SqlStatementName.CREATE_TABLE_FIXTURE);
             session.update(PLAYER_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER);
             session.update(PLAYER_HISTORY_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER_HISTORY);
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER_STATS);
@@ -56,10 +56,10 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public void deleteAllMatches() {
+    public void deleteAllFixtures() {
         final SqlSession session = getSqlSession();
         try {
-            session.delete(MATCH_MAPPER + SqlStatementName.DELETE_ALL_MATCHES);
+            session.delete(FIXTURE_MAPPER + SqlStatementName.DELETE_ALL_FIXTURES);
             session.commit();
         } finally {
             session.close();
@@ -92,7 +92,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public void deleteTables() {
         final SqlSession session = getSqlSession();
         try {
-            session.update(MATCH_MAPPER + SqlStatementName.DROP_TABLE_MATCH);
+            session.update(FIXTURE_MAPPER + SqlStatementName.DROP_TABLE_FIXTURE);
             session.update(PLAYER_MAPPER + SqlStatementName.DROP_TABLE_PLAYER);
             session.update(PLAYER_HISTORY_MAPPER + SqlStatementName.DROP_TABLE_PLAYER_HISTORY);
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.DROP_TABLE_PLAYER_STATS);
@@ -115,10 +115,10 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Match> findAllMatches() {
+    public List<Fixture> findAllFixtures() {
         final SqlSession session = getSqlSession();
         try {
-            return session.selectList(MATCH_MAPPER + SqlStatementName.FIND_ALL_MATCHES);
+            return session.selectList(FIXTURE_MAPPER + SqlStatementName.FIND_ALL_FIXTURES);
         } finally {
             session.close();
         }
@@ -188,10 +188,10 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
     
     @Override
-    public void insertMatch(final Match match) {
+    public void insertFixture(final Fixture fixture) {
         final SqlSession session = getSqlSession();
         try {
-            session.insert(MATCH_MAPPER + SqlStatementName.INSERT_MATCH, match);
+            session.insert(FIXTURE_MAPPER + SqlStatementName.INSERT_FIXTURE, fixture);
             session.commit();
         } finally {
             session.close();
@@ -243,10 +243,10 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public void updateMatch(final Match match) {
+    public void updateFixture(final Fixture fixture) {
         final SqlSession session = getSqlSession();
         try {
-            session.insert(MATCH_MAPPER + SqlStatementName.UPDATE_MATCH, match);
+            session.insert(FIXTURE_MAPPER + SqlStatementName.UPDATE_FIXTURE, fixture);
             session.commit();
         } finally {
             session.close();

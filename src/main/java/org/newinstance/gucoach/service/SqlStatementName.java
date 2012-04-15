@@ -26,20 +26,20 @@ package org.newinstance.gucoach.service;
 public final class SqlStatementName {
 
     // --- CREATE ---
-    public static final String CREATE_TABLE_MATCH = "createTableMatch";
+    public static final String CREATE_TABLE_FIXTURE = "createTableFixture";
     public static final String CREATE_TABLE_PLAYER = "createTablePlayer";
     public static final String CREATE_TABLE_PLAYER_HISTORY = "createTablePlayerHistory";
     public static final String CREATE_TABLE_PLAYER_STATS = "createTablePlayerStats";
     public static final String CREATE_TABLE_TEAM = "createTableTeam";
 
     // --- DELETE ---
-    public static final String DELETE_ALL_MATCHES = "deleteAllMatches";
+    public static final String DELETE_ALL_FIXTURES = "deleteAllFixtures";
     public static final String DELETE_ALL_TEAMS = "deleteAllTeams";
     public static final String DELETE_PLAYER = "deletePlayer";
 
     // --- FIND ---
     public static final String FIND_ALL_IMPORT_DATES = "findAllImportDates";
-    public static final String FIND_ALL_MATCHES = "findAllMatches";
+    public static final String FIND_ALL_FIXTURES = "findAllFixtures";
     public static final String FIND_ALL_PLAYERS = "findAllPlayers";
     public static final String FIND_ALL_TEAMS = "findAllTeams";
     public static final String FIND_LATEST_IMPORT_DATE = "findLatestImportDate";
@@ -48,19 +48,19 @@ public final class SqlStatementName {
     public static final String FIND_PLAYER_STATS_BY_PLAYER_ID = "findPlayerStatsByPlayerId";
 
     // --- INSERT ---
-    public static final String INSERT_MATCH = "insertMatch";
+    public static final String INSERT_FIXTURE = "insertFixture";
     public static final String INSERT_PLAYER = "insertPlayer";
     public static final String INSERT_PLAYER_HISTORY = "insertPlayerHistory";
     public static final String INSERT_PLAYER_STATS = "insertPlayerStats";
     public static final String INSERT_TEAM = "insertTeam";
 
     // --- UPDATE ---
-    public static final String UPDATE_MATCH = "updateMatch";
+    public static final String UPDATE_FIXTURE = "updateFixture";
     public static final String UPDATE_PLAYER_STATS = "updatePlayerStats";
     public static final String UPDATE_TEAM = "updateTeam";
 
     // --- DROP ---
-    public static final String DROP_TABLE_MATCH = "dropTableMatch";
+    public static final String DROP_TABLE_FIXTURE = "dropTableFixture";
     public static final String DROP_TABLE_PLAYER = "dropTablePlayer";
     public static final String DROP_TABLE_PLAYER_HISTORY = "dropTablePlayerHistory";
     public static final String DROP_TABLE_PLAYER_STATS = "dropTablePlayerStats";

@@ -18,54 +18,54 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.newinstance.gucoach.mapper.MatchMapper">
-    <resultMap id="matchResultMap" type="Match">
+<mapper namespace="org.newinstance.gucoach.mapper.FixtureMapper">
+    <resultMap id="fixtureResultMap" type="Fixture">
         <result column="home_team_id" property="homeTeamId"/>
-        <result column="visiting_team_id" property="visitingTeamId"/>
+        <result column="away_team_id" property="awayTeamId"/>
         <result column="match_result" property="matchResult"/>
         <result column="match_day" property="matchDay"/>
     </resultMap>
-    <update id="createTableMatch">
-        CREATE TABLE IF NOT EXISTS match (
+    <update id="createTableFixture">
+        CREATE TABLE IF NOT EXISTS fixture (
         id BIGINT PRIMARY KEY AUTO_INCREMENT,
         home_team_id BIGINT,
-        visiting_team_id BIGINT,
+        away_team_id BIGINT,
         match_result VARCHAR(5),
         match_day DATE,
-        CONSTRAINT match_unq UNIQUE (home_team_id, visiting_team_id)
+        CONSTRAINT fixture_unq UNIQUE (home_team_id, away_team_id)
         )
     </update>
-    <delete id="deleteAllMatches">
-        DELETE FROM match
+    <delete id="deleteAllFixtures">
+        DELETE FROM fixture
     </delete>
-    <select id="findAllMatches" resultMap="matchResultMap">
-        SELECT * FROM match
+    <select id="findAllFixtures" resultMap="fixtureResultMap">
+        SELECT * FROM fixture
     </select>
-    <insert id="insertMatch" parameterType="Match" useGeneratedKeys="true">
-        INSERT INTO match (
+    <insert id="insertFixture" parameterType="Fixture" useGeneratedKeys="true">
+        INSERT INTO fixture (
         id,
         home_team_id,
-        visiting_team_id,
+        away_team_id,
         match_result,
         match_day
         )
         VALUES (
         #{id},
         #{homeTeamId},
-        #{visitingTeamId},
+        #{awayTeamId},
         #{matchResult},
         #{matchDay}
         )
     </insert>
-    <update id="updateMatch" parameterType="Match">
-        UPDATE match SET
+    <update id="updateFixture" parameterType="Fixture">
+        UPDATE fixture SET
         home_team_id = #{homeTeamId},
-        visiting_team_id = #{visitingTeamId},
+        away_team_id = #{awayTeamId},
         match_result = #{matchResult},
         match_day = #{matchDay}
         WHERE id = #{id}
     </update>
-    <update id="dropTableMatch">
-        DROP TABLE match
+    <update id="dropTableFixture">
+        DROP TABLE IF EXISTS fixture
     </update>
 </mapper>

@@ -18,7 +18,7 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.model.Match;
+import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
@@ -37,8 +37,8 @@ public interface DatabaseService {
     /** Creates all required database tables if they do not exist. */
     public void createTables();
 
-    /** Deletes all matches from the database. */
-    public void deleteAllMatches();
+    /** Deletes all fixtures from the database. */
+    public void deleteAllFixtures();
 
     /** Deletes all matches from the database. */
     public void deleteAllTeams();
@@ -61,11 +61,11 @@ public interface DatabaseService {
     public List<Date> findAllImportDates();
 
     /**
-     * Returns all matches from the database.
+     * Returns all fixtures from the database.
      *
      * @return the list of matches
      */
-    public List<Match> findAllMatches();
+    public List<Fixture> findAllFixtures();
 
     /**
      * Returns all players from the database.
@@ -113,11 +113,11 @@ public interface DatabaseService {
     public PlayerStats findPlayerStatsByPlayerId(final Long playerId);
 
     /**
-     * Inserts a new match into the database.
+     * Inserts a new fixture into the database.
      *
-     * @param match the match to insert
+     * @param fixture the fixture to insert
      */
-    public void insertMatch(final Match match);
+    public void insertFixture(final Fixture fixture);
 
     /**
      * Inserts a new player into the database.
@@ -148,11 +148,11 @@ public interface DatabaseService {
     public void insertTeam(final Team team);
 
     /**
-     * Updates the match.
+     * Updates the fixture.
      *
-     * @param match the match to update
+     * @param fixture the fixture to update
      */
-    public void updateMatch(final Match match);
+    public void updateFixture(final Fixture fixture);
 
     /**
      * Updates player statistics.

@@ -24,7 +24,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.newinstance.gucoach.model.Country;
-import org.newinstance.gucoach.model.Match;
+import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
@@ -49,6 +49,8 @@ public class DatabaseServiceTest {
     @Before
     public void setUp() {
         databaseService = new DatabaseServiceImpl();
+        // if there are any tables left delete them first
+        databaseService.deleteTables();
         databaseService.createTables();
     }
 
@@ -183,12 +185,12 @@ public class DatabaseServiceTest {
     }
 
     @Test(expected = PersistenceException.class)
-    public void insertSameMatchTwiceTest() {
-        final Match match1 = createMatch();
-        final Match match2 = createMatch();
+    public void insertSameFixtureTwiceTest() {
+        final Fixture fixture1 = createFixture();
+        final Fixture fixture2 = createFixture();
 
-        databaseService.insertMatch(match1);
-        databaseService.insertMatch(match2);
+        databaseService.insertFixture(fixture1);
+        databaseService.insertFixture(fixture2);
     }
 
     @Test(expected = PersistenceException.class)
@@ -201,35 +203,35 @@ public class DatabaseServiceTest {
     }
 
     @Test
-    public void insertUpdateAndDeleteMatchTest() {
-        final Match match = createMatch();
-        databaseService.insertMatch(match);
+    public void insertUpdateAndDeleteFixtureTest() {
+        final Fixture fixture = createFixture();
+        databaseService.insertFixture(fixture);
 
-        List<Match> matchList = databaseService.findAllMatches();
-        Assert.assertNotNull(matchList);
-        Assert.assertFalse(matchList.isEmpty());
+        List<Fixture> fixtureList = databaseService.findAllFixtures();
+        Assert.assertNotNull(fixtureList);
+        Assert.assertFalse(fixtureList.isEmpty());
 
         // UPDATE
-        match.setHomeTeamId(10L);
-        match.setVisitingTeamId(7L);
-        match.setMatchResult("2:4");
-        databaseService.updateMatch(match);
+        fixture.setHomeTeamId(10L);
+        fixture.setAwayTeamId(7L);
+        fixture.setMatchResult("2:4");
+        databaseService.updateFixture(fixture);
 
-        matchList = databaseService.findAllMatches();
-        Assert.assertNotNull(matchList);
-        Assert.assertFalse(matchList.isEmpty());
+        fixtureList = databaseService.findAllFixtures();
+        Assert.assertNotNull(fixtureList);
+        Assert.assertFalse(fixtureList.isEmpty());
 
         // compare updated values
-        Assert.assertFalse(match.getMatchResult().equals(matchList.get(0).getMatchResult()));
-        Assert.assertFalse(match.getHomeTeamId().equals(matchList.get(0).getHomeTeamId()));
-        Assert.assertFalse(match.getVisitingTeamId().equals(matchList.get(0).getVisitingTeamId()));
+        Assert.assertFalse(fixture.getMatchResult().equals(fixtureList.get(0).getMatchResult()));
+        Assert.assertFalse(fixture.getHomeTeamId().equals(fixtureList.get(0).getHomeTeamId()));
+        Assert.assertFalse(fixture.getAwayTeamId().equals(fixtureList.get(0).getAwayTeamId()));
 
         // DELETE
-        databaseService.deleteAllMatches();
+        databaseService.deleteAllFixtures();
 
-        matchList = databaseService.findAllMatches();
-        Assert.assertNotNull(matchList);
-        Assert.assertTrue(matchList.isEmpty());
+        fixtureList = databaseService.findAllFixtures();
+        Assert.assertNotNull(fixtureList);
+        Assert.assertTrue(fixtureList.isEmpty());
     }
 
     @Test
@@ -307,17 +309,17 @@ public class DatabaseServiceTest {
     }
 
     /**
-     * Creates and returns a new {@link Match} entity.
+     * Creates and returns a new {@link Fixture} entity.
      *
      * @return a new entity
      */
-    private Match createMatch() {
-        final Match match = new Match();
-        match.setMatchDay(new Date());
-        match.setMatchResult("2:1");
-        match.setVisitingTeamId(5L);
-        match.setHomeTeamId(3L);
-        return match;
+    private Fixture createFixture() {
+        final Fixture fixture = new Fixture();
+        fixture.setMatchDay(new Date());
+        fixture.setMatchResult("2:1");
+        fixture.setAwayTeamId(5L);
+        fixture.setHomeTeamId(3L);
+        return fixture;
     }
 
     /**

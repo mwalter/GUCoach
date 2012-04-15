@@ -25,15 +25,15 @@ import java.util.Date;
  *
  * @author mwalter
  */
-public final class Match {
+public final class Fixture {
 
     /** Primary key. */
     private Long id;
     /** Primary key of home team. */
     private Long homeTeamId;
-    /** Primary key of visiting team. */
-    private Long visitingTeamId;
-    /** Match result. */
+    /** Primary key of away team. */
+    private Long awayTeamId;
+    /** Fixture result. */
     private String matchResult;
     /** Day of the match. */
     private Date matchDay;
@@ -54,8 +54,8 @@ public final class Match {
         return matchResult;
     }
 
-    public Long getVisitingTeamId() {
-        return visitingTeamId;
+    public Long getAwayTeamId() {
+        return awayTeamId;
     }
 
     public void setHomeTeamId(final Long homeTeamId) {
@@ -74,17 +74,17 @@ public final class Match {
         this.matchResult = matchResult;
     }
 
-    public void setVisitingTeamId(final Long visitingTeamId) {
-        this.visitingTeamId = visitingTeamId;
+    public void setAwayTeamId(final Long awayTeamId) {
+        this.awayTeamId = awayTeamId;
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Match [");
+        builder.append("Fixture [");
         builder.append("id=").append(id).append(", ");
         builder.append("homeTeamId=").append(homeTeamId).append(", ");
-        builder.append("visitingTeamId=").append(visitingTeamId).append(", ");
+        builder.append("awayTeamId=").append(awayTeamId).append(", ");
         builder.append("matchResult=").append(matchResult).append(", ");
         builder.append("matchDay=").append(matchDay);
         builder.append("]");
