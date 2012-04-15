@@ -6,21 +6,22 @@ GUCoach is a manager software for the MMOG Goalunited soccer manager [1].
 It manages and visualises your team player and team development data.
 
 == Technologies ==
-GUCoach is implemented in Java, i.e. Java SE 1.7.0 and JavaFX 2.
+GUCoach is implemented in Java and JavaFX.
 
 == Planned functionality ==
 - show all player information in a table view
+- show league rankings and fixtures
 - provide lots of different statistics showing the development of each player and the entire team
-- calculate the best line-up for the next match based on different parameters
+- calculate the best line-up for the next fixture based on different parameters
 - forecast future development of the team based on collected data
 - support the user to make the most of the team
 
 == Help wanted ==
-I'm looking for Java and JavaFX 2 developers who would like to help developing GUCoach.
+I'm looking for Java and JavaFX developers who would like to help developing GUCoach.
 Please have a look at the GUCoach forum at http://forum.gucoach.net and join the team.
 Your ideas and suggestions are welcome!
 
-Warning: This software is in alpha stage. Use at your own risk.
+This software is in alpha stage.
 
 [1] Goalunited (http://www.goalunited.org) is published by Travian Games GmbH Munich, Germany.
     It was developed by northworks Software GmbH Hamburg, Germany (http://www.northworks.de)
