@@ -36,6 +36,10 @@ public final class DateHelper {
      * @see DateFormat
      */
     public static String formatDate(final Date date) {
+        if (date == null) {
+            throw new IllegalArgumentException("Date must not be null.");
+        }
+
         final DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         return df.format(date.getTime());
     }
