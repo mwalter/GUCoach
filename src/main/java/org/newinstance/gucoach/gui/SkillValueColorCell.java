@@ -32,27 +32,27 @@ public class SkillValueColorCell extends TableCell<PlayerDataRow, Integer> {
         super.updateItem(item, empty);
         if (!isEmpty()) {
             if (item == 100) {
-                this.setStyle("-fx-background-color: #00FF00");
+                this.setStyle("-fx-background-color: #A6FFA6");
             } else if (item > 90) {
-                this.setStyle("-fx-background-color: #33FF00");
+                this.setStyle("-fx-background-color: #B8FFA6");
             } else if (item > 80) {
-                this.setStyle("-fx-background-color: #66FF00");
+                this.setStyle("-fx-background-color: #CAFFA6");
             } else if (item > 70) {
-                this.setStyle("-fx-background-color: #99FF00");
+                this.setStyle("-fx-background-color: #DBFFA6");
             } else if (item > 60) {
-                this.setStyle("-fx-background-color: #CCFF00");
+                this.setStyle("-fx-background-color: #EDFFA6");
             } else if (item > 50) {
-                this.setStyle("-fx-background-color: #FFFF00");
+                this.setStyle("-fx-background-color: #FFFFA6");
             } else if (item > 40) {
-                this.setStyle("-fx-background-color: #FFCC00");
+                this.setStyle("-fx-background-color: #FFEDA6");
             } else if (item > 30) {
-                this.setStyle("-fx-background-color: #FF9900");
+                this.setStyle("-fx-background-color: #FFDBA6");
             } else if (item > 20) {
-                this.setStyle("-fx-background-color: #FF6600");
+                this.setStyle("-fx-background-color: #FFCAA6");
             } else if (item > 10) {
-                this.setStyle("-fx-background-color: #FF3300");
+                this.setStyle("-fx-background-color: #FFB8A6");
             } else {
-                this.setStyle("-fx-background-color: #FF0000");
+                this.setStyle("-fx-background-color: #FFA6A6");
             }
             setText(Integer.toString(item));
         }
