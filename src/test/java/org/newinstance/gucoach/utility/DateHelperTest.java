@@ -29,10 +29,15 @@ import java.util.Date;
  * @author mwalter
  */
 public class DateHelperTest {
-    
+
     @Test
     public void formatDateTest() {
         final String result = DateHelper.formatDate(new Date());
         Assert.assertNotNull(result);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void formatInvalidDate() {
+        DateHelper.formatDate(null);
     }
 }
