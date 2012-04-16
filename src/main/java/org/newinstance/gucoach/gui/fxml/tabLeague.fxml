@@ -26,7 +26,7 @@
         <VBox spacing="5" style="-fx-padding: 10 0 0 10">
             <children>
                 <Label text="%label.title.league" style="-fx-font: NORMAL 16 Tahoma;"/>
-                <Button text="%button.createLeague" onAction="#createLeague"/>
+                <Button text="%button.createLeague" onAction="#showCreateLeagueWindow"/>
                 <Button text="%button.editFixture" onAction="#editFixture"/>
             </children>
         </VBox>
