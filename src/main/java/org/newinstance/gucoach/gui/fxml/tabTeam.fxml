@@ -26,10 +26,10 @@
 
 <Tab text="%tab.team" fx:controller="org.newinstance.gucoach.gui.controller.TeamController" xmlns:fx="http://javafx.com/fxml">
     <content>
-        <VBox spacing="5" style="-fx-padding: 10 0 0 10">
+        <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
                 <Label text="%label.title.players" style="-fx-font: NORMAL 16 Tahoma;"/>
-                <TableView fx:id="tableViewPlayer">
+                <TableView fx:id="tableViewPlayer" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="tableColumnName" text="%label.player.name" minWidth="130"/>
                         <TableColumn fx:id="tableColumnCountry" text="%label.player.country"/>
@@ -74,7 +74,7 @@
                         <TextField fx:id="playerEndurance" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
                         <Label text="%label.player.assignments" GridPane.columnIndex="0" GridPane.rowIndex="12" labelFor="$playerAssignments"/>
                         <TextField fx:id="playerAssignments" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
-                        <!-- -->
+                        <!-- second column -->
                         <Label text="%label.player.position" GridPane.columnIndex="2" GridPane.rowIndex="0" labelFor="$playerPosition"/>
                         <TextField fx:id="playerPosition" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
                         <Label text="%label.player.talent" GridPane.columnIndex="2" GridPane.rowIndex="1" labelFor="$playerTalent"/>
