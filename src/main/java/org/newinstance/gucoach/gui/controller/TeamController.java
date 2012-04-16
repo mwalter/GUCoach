@@ -141,48 +141,41 @@ public class TeamController implements Initializable {
         tableColumnName.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("fullName"));
         tableColumnCountry.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("country"));
         tableColumnCountry.setCellFactory(new Callback<TableColumn, TableCell>() {
-
             public TableCell call(final TableColumn param) {
                 return new CountryValueFlagCell();
             }
         });
-
         tableColumnNumber.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("number"));
         tableColumnAge.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("age"));
-        tableColumnStrength.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("averageStrength"));
+        tableColumnStrength.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("strength"));
         tableColumnPosition.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("position"));
         tableColumnExperience.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("experience"));
         tableColumnSkillGk.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillGoalkeeping"));
         tableColumnSkillGk.setCellFactory(new Callback<TableColumn, TableCell>() {
-
             public TableCell call(final TableColumn param) {
                 return new SkillValueColorCell();
             }
         });
         tableColumnSkillTk.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillTackling"));
         tableColumnSkillTk.setCellFactory(new Callback<TableColumn, TableCell>() {
-
             public TableCell call(final TableColumn param) {
                 return new SkillValueColorCell();
             }
         });
         tableColumnSkillPm.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillPlaymaking"));
         tableColumnSkillPm.setCellFactory(new Callback<TableColumn, TableCell>() {
-
             public TableCell call(final TableColumn param) {
                 return new SkillValueColorCell();
             }
         });
         tableColumnSkillPa.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillPassing"));
         tableColumnSkillPa.setCellFactory(new Callback<TableColumn, TableCell>() {
-
             public TableCell call(final TableColumn param) {
                 return new SkillValueColorCell();
             }
         });
         tableColumnSkillSc.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillScoring"));
         tableColumnSkillSc.setCellFactory(new Callback<TableColumn, TableCell>() {
-
             public TableCell call(final TableColumn param) {
                 return new SkillValueColorCell();
             }
