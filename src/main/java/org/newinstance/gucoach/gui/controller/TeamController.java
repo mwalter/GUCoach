@@ -188,8 +188,11 @@ public class TeamController implements Initializable {
         tableViewPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlayerDataRow>() {
 
             @Override
-            public void changed(ObservableValue<? extends PlayerDataRow> observable, PlayerDataRow oldValue, PlayerDataRow newValue) {
-                fillPlayerDataIntoTextFields(newValue);
+            public void changed(final ObservableValue<? extends PlayerDataRow> observable, final PlayerDataRow oldValue, final PlayerDataRow newValue) {
+                // only update fields if user selected a new row - prevents NPE if user clicks to sort a column
+                if (newValue != null) {
+                    fillPlayerDataIntoTextFields(newValue);
+                }
             }
         });
     }
