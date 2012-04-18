@@ -24,13 +24,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
 
 /**
- * TODO document me
+ * Controls user interaction in the league tab pane.
  *
  * @author mwalter
  */
@@ -53,9 +54,11 @@ public class LeagueController {
         }
 
         final Scene scene = new Scene(root);
+        scene.getStylesheets().add("stylesheet.css");
         final Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(TITLE_CREATE_LEAGUE);
         stage.show();
     }
