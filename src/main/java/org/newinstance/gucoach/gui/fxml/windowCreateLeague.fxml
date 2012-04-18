@@ -37,7 +37,7 @@
     <center>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
-                <GridPane alignment="top_left" hgap="8" vgap="2" style="-fx-padding: 0 0 0 0" gridLinesVisible="true">
+                <GridPane alignment="top_left" hgap="8" vgap="2" style="-fx-padding: 0 0 0 0">
                     <children>
                         <Label text="%label.team.rank1" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$team1"/>
                         <TextField fx:id="team1" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
