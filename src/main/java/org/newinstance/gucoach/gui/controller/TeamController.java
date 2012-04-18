@@ -40,7 +40,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controls user interaction in the main application window and initialises player data.
+ * Controls user interaction in the team tab pane.
  *
  * @author mwalter
  */
