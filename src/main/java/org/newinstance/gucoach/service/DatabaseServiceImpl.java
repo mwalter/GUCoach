@@ -232,10 +232,10 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public void insertTeam(final Team team) {
+    public void insertTeams(final List<Team> teams) {
         final SqlSession session = getSqlSession();
         try {
-            session.insert(TEAM_MAPPER + SqlStatementName.INSERT_TEAM, team);
+            session.insert(TEAM_MAPPER + SqlStatementName.INSERT_TEAMS, teams);
             session.commit();
         } finally {
             session.close();

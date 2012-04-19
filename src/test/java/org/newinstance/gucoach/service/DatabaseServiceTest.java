@@ -32,6 +32,7 @@ import org.newinstance.gucoach.model.Position;
 import org.newinstance.gucoach.model.StrongFoot;
 import org.newinstance.gucoach.model.Team;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -184,6 +185,28 @@ public class DatabaseServiceTest {
         Assert.assertTrue("Players found.", result.isEmpty());
     }
 
+    @Test
+    public void insertListOfTeams() {
+        final Team team1 = createTeam("FC Basel", 1);
+        final Team team2 = createTeam("FC Sion", 2);
+        final Team team3 = createTeam("Young Boys", 3);
+
+        final List<Team> teams = new ArrayList<Team>();
+        teams.add(team1);
+        teams.add(team2);
+        teams.add(team3);
+
+        databaseService.insertTeams(teams);
+
+        final List<Team> result = databaseService.findAllTeams();
+        Assert.assertNotNull(result);
+        Assert.assertEquals(teams.size(), result.size());
+
+        for (final Team team : result) {
+            Assert.assertNotNull(team.getId());
+        }
+    }
+
     @Test(expected = PersistenceException.class)
     public void insertSameFixtureTwiceTest() {
         final Fixture fixture1 = createFixture();
@@ -195,11 +218,14 @@ public class DatabaseServiceTest {
 
     @Test(expected = PersistenceException.class)
     public void insertSameTeamTwiceTest() {
-        final Team team1 = createTeam();
-        final Team team2 = createTeam();
+        final Team team1 = createTeam("Arsenal", 1);
+        final Team team2 = createTeam("Arsenal", 2);
 
-        databaseService.insertTeam(team1);
-        databaseService.insertTeam(team2);
+        final List<Team> teams = new ArrayList<Team>();
+        teams.add(team1);
+        teams.add(team2);
+
+        databaseService.insertTeams(teams);
     }
 
     @Test
@@ -277,28 +303,36 @@ public class DatabaseServiceTest {
     }
 
     @Test
-    public void insertUpdateAndDeleteTeamTest() {
-        final Team team = createTeam();
-        databaseService.insertTeam(team);
+    public void insertUpdateAndDeleteTeamsTest() {
+        final Team team1 = createTeam("Juventus", 1);
+        final Team team2 = createTeam("AC Milan", 2);
+        final Team team3 = createTeam("AS Roma", 3);
+
+        final List<Team> teams = new ArrayList<Team>();
+        teams.add(team1);
+        teams.add(team2);
+        teams.add(team3);
+
+        databaseService.insertTeams(teams);
 
         List<Team> teamList = databaseService.findAllTeams();
         Assert.assertNotNull(teamList);
         Assert.assertFalse(teamList.isEmpty());
 
         // UPDATE
-        team.setMatchesWon(8);
-        team.setGoalsFor(33);
-        team.setStrength(57.0f);
-        databaseService.updateTeam(team);
+        team1.setMatchesWon(8);
+        team1.setGoalsFor(33);
+        team1.setStrength(57.0f);
+        databaseService.updateTeam(team1);
 
         teamList = databaseService.findAllTeams();
         Assert.assertNotNull(teamList);
         Assert.assertFalse(teamList.isEmpty());
 
         // compare updated values
-        Assert.assertFalse(team.getMatchesWon().equals(teamList.get(0).getMatchesWon()));
-        Assert.assertFalse(team.getGoalsFor().equals(teamList.get(0).getGoalsFor()));
-        Assert.assertFalse(team.getStrength().equals(teamList.get(0).getStrength()));
+        Assert.assertFalse(team1.getMatchesWon().equals(teamList.get(0).getMatchesWon()));
+        Assert.assertFalse(team1.getGoalsFor().equals(teamList.get(0).getGoalsFor()));
+        Assert.assertFalse(team1.getStrength().equals(teamList.get(0).getStrength()));
 
         // DELETE
         databaseService.deleteAllTeams();
@@ -402,12 +436,14 @@ public class DatabaseServiceTest {
     /**
      * Creates and returns a new {@link Team} entity.
      *
+     * @param name the team name
+     * @param position the team's position
      * @return a new entity
      */
-    private Team createTeam() {
+    private Team createTeam(final String name, final int position) {
         final Team team = new Team();
-        team.setPosition(1);
-        team.setName("FC Hardtberg");
+        team.setPosition(position);
+        team.setName(name);
         team.setGoalsFor(30);
         team.setGoalsAgainst(5);
         team.setMatchesWon(7);

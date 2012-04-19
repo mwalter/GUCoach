@@ -141,11 +141,11 @@ public interface DatabaseService {
     public void insertPlayerStats(final PlayerStats playerStats);
 
     /**
-     * Inserts a new team into the database.
+     * Inserts a list of new teams into the database.
      *
-     * @param team the team to insert
+     * @param teams the list with teams to insert
      */
-    public void insertTeam(final Team team);
+    public void insertTeams(final List<Team> teams);
 
     /**
      * Updates the fixture.

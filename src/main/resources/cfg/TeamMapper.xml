@@ -47,7 +47,7 @@
     <select id="findAllTeams" resultMap="teamResultMap">
         SELECT * FROM team ORDER BY position ASC
     </select>
-    <insert id="insertTeam" parameterType="Team" useGeneratedKeys="true">
+    <insert id="insertTeams" parameterType="java.util.List" useGeneratedKeys="true">
         INSERT INTO team (
         id,
         position,
@@ -60,18 +60,19 @@
         goals_for,
         goals_against
         )
-        VALUES (
-        #{id},
-        #{position},
-        #{name},
-        #{strength},
-        #{matchesWon},
-        #{matchesDrawn},
-        #{matchesLost},
-        #{points},
-        #{goalsFor},
-        #{goalsAgainst}
-        )
+        VALUES
+        <foreach collection="list" item="team" open="(" close=")" separator="),(">
+            #{team.id},
+            #{team.position},
+            #{team.name},
+            #{team.strength},
+            #{team.matchesWon},
+            #{team.matchesDrawn},
+            #{team.matchesLost},
+            #{team.points},
+            #{team.goalsFor},
+            #{team.goalsAgainst}
+        </foreach>
     </insert>
     <update id="updateTeam" parameterType="Team">
         UPDATE team SET

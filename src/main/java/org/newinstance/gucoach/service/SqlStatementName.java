@@ -52,7 +52,7 @@ public final class SqlStatementName {
     public static final String INSERT_PLAYER = "insertPlayer";
     public static final String INSERT_PLAYER_HISTORY = "insertPlayerHistory";
     public static final String INSERT_PLAYER_STATS = "insertPlayerStats";
-    public static final String INSERT_TEAM = "insertTeam";
+    public static final String INSERT_TEAMS = "insertTeams";
 
     // --- UPDATE ---
     public static final String UPDATE_FIXTURE = "updateFixture";
