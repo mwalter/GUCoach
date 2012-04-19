@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.service.ImportController;
@@ -70,7 +71,8 @@ public class MainController {
 
     @FXML
     protected void handleMenuItemExitAction(final ActionEvent event) {
-        System.exit(0);
+        final Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
     }
 
 }
