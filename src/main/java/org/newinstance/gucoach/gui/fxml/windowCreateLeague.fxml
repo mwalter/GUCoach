@@ -37,7 +37,7 @@
     <center>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
-                <GridPane alignment="top_left" hgap="8" vgap="2" style="-fx-padding: 0 0 0 0">
+                <GridPane fx:id="gridPaneTeamNames" alignment="top_left" hgap="8" vgap="2">
                     <children>
                         <Label text="%label.team.rank1" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$team1"/>
                         <TextField fx:id="team1" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
@@ -66,16 +66,22 @@
                     </children>
                     <properties>
                         <backgroundColor>
-                            <Color blue="1.0" green="0.7" red="0.5" />
+                            <Color blue="1.0" green="0.7" red="0.5"/>
                         </backgroundColor>
                         <elementLockSel>
-                            <Boolean fx:value="true" />
+                            <Boolean fx:value="true"/>
                         </elementLockSel>
                     </properties>
                 </GridPane>
+                <GridPane alignment="top_left" hgap="8" vgap="2">
+                    <children>
+                        <Label text="%label.firstMatchday" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$matchday"/>
+                        <TextField fx:id="fMatchday" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    </children>
+                </GridPane>
                 <HBox alignment="center" spacing="5" style="-fx-padding: 20 0 0 0">
                     <children>
-                        <Button prefWidth="100.0" text="%button.createLeague"/>
+                        <Button prefWidth="100.0" text="%button.createLeague" onAction="#createLeague"/>
                         <Button prefWidth="100.0" text="%button.cancel" onAction="#closeWindow"/>
                     </children>
                 </HBox>
