@@ -33,7 +33,9 @@ public enum MessageId {
     E006("error.unknown.date.format"),
     V001("file.already.imported"),
     V002("missing.history.record"),
-    V003("missing.import.data");
+    V003("missing.import.data"),
+    V004("validation.date.invalid"),
+    V005("validation.teams.incomplete");
 
     private String messageKey;
 
