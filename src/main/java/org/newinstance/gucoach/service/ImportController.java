@@ -21,7 +21,7 @@ package org.newinstance.gucoach.service;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 
-import java.io.InputStreamReader;
+import java.io.File;
 
 /**
  * The import controller provides methods for the import process.
@@ -33,9 +33,9 @@ public interface ImportController {
     /**
      * Executes an import process for a given file. Validates and persists the data.
      *
-     * @param inputStreamReader the reader to read the file
+     * @param file the file to import
      * @throws ImportException if an import error occurs
      * @throws ValidationException if a validation error occurs
      */
-    public void executeImport(final InputStreamReader inputStreamReader) throws ImportException, ValidationException;
+    public void executeImport(final File file) throws ImportException, ValidationException;
 }

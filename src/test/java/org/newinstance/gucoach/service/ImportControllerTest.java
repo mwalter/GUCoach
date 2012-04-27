@@ -27,8 +27,7 @@ import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
 
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -70,9 +69,8 @@ public class ImportControllerTest {
     
     @Test
     public void executeImportTest() throws Exception {
-        final InputStreamReader fileReader = new InputStreamReader(new FileInputStream(SAMPLE_IMPORT_FILE), ImportService.FILE_ENCODING);
         ImportController importController = new ImportControllerImpl();
-        importController.executeImport(fileReader);
+        importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         final List<Player> players = databaseService.findAllPlayers();
         Assert.assertFalse(players.isEmpty());
         for (final Player player : players) {
@@ -87,14 +85,12 @@ public class ImportControllerTest {
 
     @Test(expected = ValidationException.class)
     public void executeImportFileAlreadyImportedTest() throws Exception {
-        InputStreamReader fileReader = new InputStreamReader(new FileInputStream(SAMPLE_IMPORT_FILE), ImportService.FILE_ENCODING);
         ImportController importController = new ImportControllerImpl();
-        importController.executeImport(fileReader);
+        importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import same file a second time
         try {
-            fileReader = new InputStreamReader(new FileInputStream(SAMPLE_IMPORT_FILE), ImportService.FILE_ENCODING);
             importController = new ImportControllerImpl();
-            importController.executeImport(fileReader);
+            importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         } catch (final ValidationException e) {
             e.printStackTrace();
             throw e;
@@ -103,13 +99,11 @@ public class ImportControllerTest {
 
     @Test
     public void executeImportUpdateTest() throws Exception {
-        InputStreamReader fileReader = new InputStreamReader(new FileInputStream(SAMPLE_IMPORT_FILE), ImportService.FILE_ENCODING);
         ImportController importController = new ImportControllerImpl();
-        importController.executeImport(fileReader);
+        importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import new file to update player data
-        fileReader = new InputStreamReader(new FileInputStream(SAMPLE_IMPORT_FILE_UPDATE), ImportService.FILE_ENCODING);
         importController = new ImportControllerImpl();
-        importController.executeImport(fileReader);
+        importController.executeImport(new File(SAMPLE_IMPORT_FILE_UPDATE));
         final Player deletedPlayer = databaseService.findPlayerByPlayerId(4848870L);
         Assert.assertNull(deletedPlayer);
     }

@@ -25,7 +25,11 @@ import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +43,7 @@ public class ImportControllerImpl implements ImportController {
 
     private DatabaseService databaseService;
     private ImportService importService;
+    private File importFile;
 
     /** The default constructor initialises the services. */
     public ImportControllerImpl() {
@@ -47,11 +52,19 @@ public class ImportControllerImpl implements ImportController {
     }
 
     @Override
-    public void executeImport(final InputStreamReader inputStreamReader) throws ImportException, ValidationException {
+    public void executeImport(final File file) throws ImportException, ValidationException {
+        importFile = file;
         // -- 1 -- create database tables if they do not exist
         databaseService.createTables();
         // -- 2 -- import data
-        importService.importData(inputStreamReader);
+        try {
+            importService.importData(new InputStreamReader(new FileInputStream(file), ImportService.FILE_ENCODING));
+            // TODO handle errors
+        } catch (final FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (final UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         // -- 3 -- validate import data
         validateImportData();
         // -- 4 -- persist import data
@@ -120,7 +133,8 @@ public class ImportControllerImpl implements ImportController {
         final List<Date> allImportDatesInDb = databaseService.findAllImportDates();
         final Date importDateOfFile = importService.getImportDate();
         if (allImportDatesInDb.contains(importDateOfFile)) {
-            throw new ValidationException(ResourceLoader.getMessage(MessageId.V001.getMessageKey()));
+            final String message = ResourceLoader.getMessage(MessageId.V001.getMessageKey(), importFile.getName());
+            throw new ValidationException(message);
         }
 
         // does every player have its own history data record?
