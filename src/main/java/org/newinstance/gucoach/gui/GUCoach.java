@@ -34,9 +34,11 @@ import java.util.ResourceBundle;
 public class GUCoach extends Application {
 
     /** The application name. */
-    public static final String APPLICATION_TITLE = "GUCoach";
+    private static final String APPLICATION_TITLE = "GUCoach - your personal coach for Goalunited";
     /** The layout of the main application window. */
-    public static final String LAYOUT_WINDOW_MAIN = "fxml/main.fxml";
+    private static final String FXML_MAIN = "fxml/main.fxml";
+    /** The main stylesheets. */
+    private static final String FILE_STYLESHEETS = "stylesheet.css";
 
     /**
      * Executes the application.
@@ -49,14 +51,13 @@ public class GUCoach extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        stage.setTitle(APPLICATION_TITLE);
-
         // load main window layout and resources
-        final Parent root = FXMLLoader.load(getClass().getResource(LAYOUT_WINDOW_MAIN), ResourceBundle.getBundle("ApplicationResources"));
+        final Parent root = FXMLLoader.load(getClass().getResource(FXML_MAIN), ResourceBundle.getBundle("ApplicationResources"));
 
         // create scene and display window
         final Scene scene = new Scene(root, 1300, 900);
-        scene.getStylesheets().add("stylesheet.css");
+        scene.getStylesheets().add(FILE_STYLESHEETS);
+        stage.setTitle(APPLICATION_TITLE);
         stage.setScene(scene);
         stage.show();
     }
