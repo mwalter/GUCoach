@@ -27,13 +27,8 @@ import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportControllerImpl;
-import org.newinstance.gucoach.service.ImportService;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Controls user interaction in the main application window and initialises player data.
@@ -55,15 +50,11 @@ public class MainController {
 
         final ImportController importController = new ImportControllerImpl();
         try {
-            importController.executeImport(new InputStreamReader(new FileInputStream(importFile), ImportService.FILE_ENCODING));
+            importController.executeImport(importFile);
             // TODO show error messages in status bar
-        } catch (final FileNotFoundException e) {
-            e.printStackTrace();
         } catch (final ImportException e) {
             e.printStackTrace();
         } catch (final ValidationException e) {
-            e.printStackTrace();
-        } catch (final UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         // TODO reload table here to show new imported data
