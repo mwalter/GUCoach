@@ -21,6 +21,8 @@ package org.newinstance.gucoach.utility;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Locale;
+
 /**
  * Tests the methods of the {@link ResourceLoader}.
  *
@@ -30,15 +32,17 @@ public class ResourceLoaderTest {
     
     @Test
     public void getMessageTest() {
+        Locale.setDefault(Locale.ENGLISH);
         final String message = ResourceLoader.getMessage(MessageId.E001.getMessageKey());
         Assert.assertNotNull(message);
         Assert.assertEquals("Error initialising Mybatis configuration.", message);
     }
 
     @Test
-    public void getMessageWithParametersTest() {
-        final String message = ResourceLoader.getMessage(MessageId.V002.getMessageKey(), 1234);
+    public void getMessageWithParameterTest() {
+        Locale.setDefault(Locale.ENGLISH);
+        final String message = ResourceLoader.getMessage(MessageId.V002.getMessageKey(), "Messi");
         Assert.assertNotNull(message);
-        Assert.assertEquals("No history data record found for player with id [1'234]. Maybe import file is corrupt.", message);
+        Assert.assertEquals("Could not find data for player Messi.", message);
     }
 }

@@ -26,16 +26,17 @@ package org.newinstance.gucoach.utility;
 public enum MessageId {
 
     E001("error.init.mybatis"),
-    E002("error.parsing.file"),
-    E003("error.empty.file"),
-    E004("error.reading.file"),
-    E005("error.reading.first.line"),
-    E006("error.unknown.date.format"),
-    V001("file.already.imported"),
-    V002("missing.history.record"),
-    V003("missing.import.data"),
+    E002("error.import.parsing.file"),
+    E003("error.import.empty.file"),
+    E004("error.import.reading.file"),
+    E005("error.import.date.not.found"),
+    E006("error.import.unknown.date.format"),
+    V001("validation.import.file.already.imported"),
+    V002("validation.import.missing.player.record"),
+    V003("validation.import.missing.player.data"),
     V004("validation.date.invalid"),
-    V005("validation.teams.incomplete");
+    V005("validation.teams.incomplete"),
+    V006("validation.teams.duplicate.team.name");
 
     private String messageKey;
 

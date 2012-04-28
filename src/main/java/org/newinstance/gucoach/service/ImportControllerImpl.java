@@ -137,11 +137,11 @@ public class ImportControllerImpl implements ImportController {
             throw new ValidationException(message);
         }
 
-        // does every player have its own history data record?
+        // does every player have his own history data record?
         final List<Player> players = importService.getPlayers();
         for (final Player player : players) {
             if (!importService.getHistory().containsKey(player.getId())) {
-                final String message = ResourceLoader.getMessage(MessageId.V002.getMessageKey(), player.getId());
+                final String message = ResourceLoader.getMessage(MessageId.V002.getMessageKey(), player.getLastName());
                 throw new ValidationException(message);
             }
         }
