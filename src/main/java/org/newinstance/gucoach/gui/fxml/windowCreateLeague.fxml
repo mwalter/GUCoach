@@ -16,17 +16,16 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<?import java.lang.Boolean?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 
-<BorderPane fx:id="borderPane" fx:controller="org.newinstance.gucoach.gui.controller.LeagueController" xmlns:fx="http://javafx.com/fxml">
+<BorderPane fx:id="root" fx:controller="org.newinstance.gucoach.gui.controller.CreateLeagueController" xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
@@ -37,46 +36,46 @@
     <center>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
-                <GridPane fx:id="gridPaneTeamNames" alignment="top_left" hgap="8" vgap="2">
+                <GridPane fx:id="gpTeamNames" alignment="top_left" hgap="5" vgap="5">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="20"/>
+                        <ColumnConstraints prefWidth="180"/>
+                    </columnConstraints>
                     <children>
-                        <Label text="%label.team.rank1" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$team1"/>
-                        <TextField fx:id="team1" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                        <Label text="%label.team.rank2" GridPane.columnIndex="0" GridPane.rowIndex="1" labelFor="$team2"/>
-                        <TextField fx:id="team2" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <Label text="%label.team.rank3" GridPane.columnIndex="0" GridPane.rowIndex="2" labelFor="$team3"/>
-                        <TextField fx:id="team3" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <Label text="%label.team.rank4" GridPane.columnIndex="0" GridPane.rowIndex="3" labelFor="$team4"/>
-                        <TextField fx:id="team4" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <Label text="%label.team.rank5" GridPane.columnIndex="0" GridPane.rowIndex="4" labelFor="$team5"/>
-                        <TextField fx:id="team5" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <Label text="%label.team.rank6" GridPane.columnIndex="0" GridPane.rowIndex="5" labelFor="$team6"/>
-                        <TextField fx:id="team6" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <Label text="%label.team.rank7" GridPane.columnIndex="0" GridPane.rowIndex="6" labelFor="$team7"/>
-                        <TextField fx:id="team7" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <Label text="%label.team.rank8" GridPane.columnIndex="0" GridPane.rowIndex="7" labelFor="$team8"/>
-                        <TextField fx:id="team8" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        <Label text="%label.team.rank9" GridPane.columnIndex="0" GridPane.rowIndex="8" labelFor="$team9"/>
-                        <TextField fx:id="team9" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                        <Label text="%label.team.rank10" GridPane.columnIndex="0" GridPane.rowIndex="9" labelFor="$team10"/>
-                        <TextField fx:id="team10" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                        <Label text="%label.team.rank11" GridPane.columnIndex="0" GridPane.rowIndex="10" labelFor="$team11"/>
-                        <TextField fx:id="team11" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                        <Label text="%label.team.rank12" GridPane.columnIndex="0" GridPane.rowIndex="11" labelFor="$team12"/>
-                        <TextField fx:id="team12" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+                        <Label text="%label.team.rank1" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$tfTeam1"/>
+                        <TextField fx:id="tfTeam1" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="%label.team.rank2" GridPane.columnIndex="0" GridPane.rowIndex="1" labelFor="$tfTeam2"/>
+                        <TextField fx:id="tfTeam2" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label text="%label.team.rank3" GridPane.columnIndex="0" GridPane.rowIndex="2" labelFor="$tfTeam3"/>
+                        <TextField fx:id="tfTeam3" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Label text="%label.team.rank4" GridPane.columnIndex="0" GridPane.rowIndex="3" labelFor="$tfTeam4"/>
+                        <TextField fx:id="tfTeam4" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <Label text="%label.team.rank5" GridPane.columnIndex="0" GridPane.rowIndex="4" labelFor="$tfTeam5"/>
+                        <TextField fx:id="tfTeam5" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Label text="%label.team.rank6" GridPane.columnIndex="0" GridPane.rowIndex="5" labelFor="$tfTeam6"/>
+                        <TextField fx:id="tfTeam6" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <Label text="%label.team.rank7" GridPane.columnIndex="0" GridPane.rowIndex="6" labelFor="$tfTeam7"/>
+                        <TextField fx:id="tfTeam7" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        <Label text="%label.team.rank8" GridPane.columnIndex="0" GridPane.rowIndex="7" labelFor="$tfTeam8"/>
+                        <TextField fx:id="tfTeam8" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        <Label text="%label.team.rank9" GridPane.columnIndex="0" GridPane.rowIndex="8" labelFor="$tfTeam9"/>
+                        <TextField fx:id="tfTeam9" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        <Label text="%label.team.rank10" GridPane.columnIndex="0" GridPane.rowIndex="9" labelFor="$tfTeam10"/>
+                        <TextField fx:id="tfTeam10" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                        <Label text="%label.team.rank11" GridPane.columnIndex="0" GridPane.rowIndex="10" labelFor="$tfTeam11"/>
+                        <TextField fx:id="tfTeam11" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                        <Label text="%label.team.rank12" GridPane.columnIndex="0" GridPane.rowIndex="11" labelFor="$tfTeam12"/>
+                        <TextField fx:id="tfTeam12" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
                     </children>
-                    <properties>
-                        <backgroundColor>
-                            <Color blue="1.0" green="0.7" red="0.5"/>
-                        </backgroundColor>
-                        <elementLockSel>
-                            <Boolean fx:value="true"/>
-                        </elementLockSel>
-                    </properties>
                 </GridPane>
-                <GridPane alignment="top_left" hgap="8" vgap="2">
+                <GridPane alignment="top_left" hgap="5" vgap="5">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="80"/>
+                        <ColumnConstraints prefWidth="120"/>
+                    </columnConstraints>
                     <children>
-                        <Label text="%label.firstMatchday" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$matchday"/>
-                        <TextField fx:id="fMatchday" prefColumnCount="20" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="%label.firstMatchday" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$tfMatchday"/>
+                        <TextField fx:id="tfMatchday" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                     </children>
                 </GridPane>
                 <HBox alignment="center" spacing="5" style="-fx-padding: 20 0 0 0">
