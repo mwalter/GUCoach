@@ -19,11 +19,9 @@
 package org.newinstance.gucoach.gui.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -38,13 +36,15 @@ import java.util.ResourceBundle;
 public class LeagueController {
 
     /** The window title. */
-    public static final String TITLE_CREATE_LEAGUE = "Create League";
+    private static final String TITLE_CREATE_LEAGUE = "label.title.createLeague";
     /** The layout of the main application window. */
-    public static final String SCENE_CREATE_LEAGUE = "../fxml/windowCreateLeague.fxml";
+    private static final String SCENE_CREATE_LEAGUE = "../fxml/windowCreateLeague.fxml";
 
-    @FXML
-    private BorderPane borderPane;
-
+    /**
+     * Builds and shows the dialogue to create a new league.
+     *
+     * @param event the action event
+     */
     public void showCreateLeagueWindow(final ActionEvent event) {
         Parent root = null;
         try {
@@ -59,7 +59,7 @@ public class LeagueController {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle(TITLE_CREATE_LEAGUE);
+        stage.setTitle(ResourceBundle.getBundle("ApplicationResources").getString(TITLE_CREATE_LEAGUE));
         stage.show();
     }
 
@@ -67,13 +67,4 @@ public class LeagueController {
 
     }
 
-    /**
-     * Cancels the create league process and closes the window.
-     *
-     * @param event the event
-     */
-    public void closeWindow(final ActionEvent event) {
-        final Stage stage = (Stage) borderPane.getScene().getWindow();
-        stage.close();
-    }
 }
