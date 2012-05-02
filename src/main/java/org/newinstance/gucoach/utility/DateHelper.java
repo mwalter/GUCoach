@@ -19,6 +19,7 @@
 package org.newinstance.gucoach.utility;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -42,6 +43,18 @@ public final class DateHelper {
 
         final DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
         return df.format(date.getTime());
+    }
+
+    /**
+     * Parses text to produce a date.
+     *
+     * @param text the text to parse
+     * @return the date parsed from the string
+     * @throws ParseException if an error occurs during parsing
+     */
+    public static Date parseDate(final String text) throws ParseException {
+        final DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        return df.parse(text);
     }
 
     private DateHelper() {

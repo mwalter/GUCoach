@@ -21,7 +21,9 @@ package org.newinstance.gucoach.utility;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Tests the methods of the {@link DateHelper}.
@@ -39,5 +41,20 @@ public class DateHelperTest {
     @Test(expected = IllegalArgumentException.class)
     public void formatInvalidDate() {
         DateHelper.formatDate(null);
+    }
+
+    @Test
+    public void parseDate() throws Exception {
+        // keep test independent from execution environment
+        Locale.setDefault(Locale.GERMANY);
+        final Date result = DateHelper.parseDate("02.05.2012");
+        Assert.assertNotNull(result);
+    }
+
+    @Test(expected = ParseException.class)
+    public void parseInvalidDate() throws Exception {
+        // keep test independent from execution environment
+        Locale.setDefault(Locale.US);
+        DateHelper.parseDate("02.05.2012");
     }
 }
