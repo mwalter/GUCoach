@@ -22,27 +22,42 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import org.newinstance.gucoach.gui.component.AlignedTableCellFactory?>
+<?import org.newinstance.gucoach.gui.component.CountryFlagCellFactory?>
 
 <Tab text="%tab.team" fx:controller="org.newinstance.gucoach.gui.controller.TeamController" xmlns:fx="http://javafx.com/fxml">
     <content>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
                 <Label text="%label.title.players" style="-fx-font: NORMAL 16 Tahoma;"/>
-                <TableView fx:id="tableViewPlayer" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tableViewPlayer" VBox.vgrow="ALWAYS" HBox.hgrow="NEVER">
                     <columns>
-                        <TableColumn fx:id="tableColumnName" text="%label.player.name" minWidth="130"/>
-                        <TableColumn fx:id="tableColumnCountry" text="%label.player.country"/>
-                        <TableColumn fx:id="tableColumnNumber" text="%label.player.number"/>
-                        <TableColumn fx:id="tableColumnAge" text="%label.player.age"/>
-                        <TableColumn fx:id="tableColumnStrength" text="%label.player.strength"/>
-                        <TableColumn fx:id="tableColumnPosition" text="%label.player.position"/>
-                        <TableColumn fx:id="tableColumnExperience" text="%label.player.experience"/>
-                        <TableColumn fx:id="tableColumnSkillGk" text="%label.player.goalkeeping"/>
-                        <TableColumn fx:id="tableColumnSkillTk" text="%label.player.tackling"/>
-                        <TableColumn fx:id="tableColumnSkillPm" text="%label.player.playmaking"/>
-                        <TableColumn fx:id="tableColumnSkillPa" text="%label.player.passing"/>
-                        <TableColumn fx:id="tableColumnSkillSc" text="%label.player.scoring"/>
+                        <TableColumn fx:id="tableColumnNumber" resizable="false" text="%label.player.number" minWidth="30" maxWidth="30">
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tableColumnName" resizable="false" text="%label.player.name" minWidth="130"/>
+                        <TableColumn fx:id="tableColumnCountry" resizable="false" text="%label.player.country" minWidth="30" maxWidth="30">
+                            <cellFactory>
+                                <CountryFlagCellFactory/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tableColumnAge" resizable="false" text="%label.player.age" minWidth="30" maxWidth="30"/>
+                        <TableColumn fx:id="tableColumnStrength" resizable="false" text="%label.player.strength" minWidth="40" maxWidth="40"/>
+                        <TableColumn fx:id="tableColumnPosition" resizable="false" text="%label.player.position">
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="tableColumnExperience" resizable="false" text="%label.player.experience"/>
+                        <TableColumn fx:id="tableColumnSkillGk" resizable="false" text="%label.table.player.skill.goalkeeping" minWidth="40" maxWidth="40"/>
+                        <TableColumn fx:id="tableColumnSkillTk" resizable="false" text="%label.table.player.skill.tackling" minWidth="40" maxWidth="40"/>
+                        <TableColumn fx:id="tableColumnSkillPm" resizable="false" text="%label.table.player.skill.playmaking" minWidth="40" maxWidth="40"/>
+                        <TableColumn fx:id="tableColumnSkillPa" resizable="false" text="%label.table.player.skill.passing" minWidth="40" maxWidth="40"/>
+                        <TableColumn fx:id="tableColumnSkillSc" resizable="false" text="%label.table.player.skill.scoring" minWidth="40" maxWidth="40"/>
                     </columns>
                 </TableView>
                 <Label text="%label.title.playerDetails" style="-fx-font: NORMAL 16 Tahoma;"/>

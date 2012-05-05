@@ -31,7 +31,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
-import org.newinstance.gucoach.gui.CountryValueFlagCell;
 import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.PlayerDataRow;
 import org.newinstance.gucoach.gui.SkillValueColorCell;
@@ -140,11 +139,6 @@ public class TeamController implements Initializable {
         // TODO replace attributes with constant names
         tableColumnName.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("fullName"));
         tableColumnCountry.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("country"));
-        tableColumnCountry.setCellFactory(new Callback<TableColumn, TableCell>() {
-            public TableCell call(final TableColumn param) {
-                return new CountryValueFlagCell();
-            }
-        });
         tableColumnNumber.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("number"));
         tableColumnAge.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("age"));
         tableColumnStrength.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("strength"));
