@@ -25,12 +25,8 @@
     -fx-size: 20;
 }
 
-.table-cell {
-    -fx-padding: 0.0em;
-}
-
 .table-row-cell {
-    -fx-cell-size: 1.0em;
+    -fx-cell-size: 20;
 }
 
 .text-field:focused {
