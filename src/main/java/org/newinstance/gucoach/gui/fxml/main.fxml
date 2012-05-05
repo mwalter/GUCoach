@@ -37,6 +37,12 @@
                         <MenuItem text="%menu.file.exit" onAction="#handleMenuItemExitAction"/>
                     </items>
                 </Menu>
+                <Menu text="%menu.league">
+                    <items>
+                        <MenuItem text="%menu.league.create"/>
+                        <MenuItem text="%menu.league.edit"/>
+                    </items>
+                </Menu>
                 <Menu text="%menu.statistics">
                 </Menu>
                 <Menu text="%menu.help">
