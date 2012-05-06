@@ -19,7 +19,7 @@
 package org.newinstance.gucoach.utility;
 
 /**
- * Provides all message ids used by the application.
+ * Provides all message ids used by the application. The keys map to the corresponding messages in the resource bundle.
  *
  * @author mwalter
  */
@@ -36,8 +36,10 @@ public enum MessageId {
     V003("validation.import.missing.player.data"),
     V004("validation.date.invalid"),
     V005("validation.teams.incomplete"),
-    V006("validation.teams.duplicate.team.name");
+    V006("validation.teams.duplicate.team.name"),
+    I001("info.player.data.not.available");
 
+    /** The message key in the resource bundle. */
     private String messageKey;
 
     MessageId(final String messageKey) {
