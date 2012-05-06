@@ -27,7 +27,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-<BorderPane fx:id="borderPane" fx:controller="org.newinstance.gucoach.gui.controller.MainController" xmlns:fx="http://javafx.com/fxml">
+<BorderPane fx:id="root" fx:controller="org.newinstance.gucoach.gui.controller.MainController" xmlns:fx="http://javafx.com/fxml">
     <top>
         <MenuBar>
             <menus>

@@ -31,19 +31,19 @@ import org.newinstance.gucoach.service.ImportControllerImpl;
 import java.io.File;
 
 /**
- * Controls user interaction in the main application window and initialises player data.
+ * Controls user interaction in the main application window.
  *
  * @author mwalter
  */
 public class MainController {
 
     @FXML
-    private BorderPane borderPane;
+    private BorderPane root;
 
     @FXML
     protected void handleMenuItemImportCsvAction(final ActionEvent event) {
         final FileChooser fileChooser = new FileChooser();
-        final File importFile = fileChooser.showOpenDialog(borderPane.getScene().getWindow());
+        final File importFile = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (importFile == null) {
             return;
         }
@@ -62,7 +62,7 @@ public class MainController {
 
     @FXML
     protected void handleMenuItemExitAction(final ActionEvent event) {
-        final Stage stage = (Stage) borderPane.getScene().getWindow();
+        final Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
     }
 
