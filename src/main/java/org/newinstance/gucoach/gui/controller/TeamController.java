@@ -20,20 +20,19 @@ package org.newinstance.gucoach.gui.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Control;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
 import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.PlayerDataRow;
-import org.newinstance.gucoach.gui.SkillValueColorCell;
+import org.newinstance.gucoach.utility.MessageId;
+import org.newinstance.gucoach.utility.ResourceLoader;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,33 +45,7 @@ import java.util.ResourceBundle;
 public class TeamController implements Initializable {
 
     @FXML
-    private BorderPane borderPane;
-    @FXML
     private TableView tableViewPlayer;
-    @FXML
-    private TableColumn tableColumnName;
-    @FXML
-    private TableColumn tableColumnCountry;
-    @FXML
-    private TableColumn tableColumnNumber;
-    @FXML
-    private TableColumn tableColumnAge;
-    @FXML
-    private TableColumn tableColumnStrength;
-    @FXML
-    private TableColumn tableColumnPosition;
-    @FXML
-    private TableColumn tableColumnExperience;
-    @FXML
-    private TableColumn tableColumnSkillGk;
-    @FXML
-    private TableColumn tableColumnSkillTk;
-    @FXML
-    private TableColumn tableColumnSkillPm;
-    @FXML
-    private TableColumn tableColumnSkillPa;
-    @FXML
-    private TableColumn tableColumnSkillSc;
     @FXML
     private TextField playerName;
     @FXML
@@ -129,56 +102,27 @@ public class TeamController implements Initializable {
     @Override
     @SuppressWarnings("unchecked")
     public void initialize(final URL location, final ResourceBundle resources) {
+        // load player data and fill team table
         final ObservableList<PlayerDataRow> playerData = PlayerContentProvider.getPlayerData();
+        tableViewPlayer.setItems(playerData);
         if (playerData.isEmpty()) {
-            // TODO create internationalised no data message
-            tableViewPlayer.setPlaceholder(null);
+            final Label message = new Label();
+            message.setText(ResourceLoader.getMessage(MessageId.I001.getMessageKey()));
+            tableViewPlayer.setPlaceholder(message);
             return;
         }
 
-        // TODO replace attributes with constant names
-        tableColumnName.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("fullName"));
-        tableColumnCountry.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("country"));
-        tableColumnNumber.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("number"));
-        tableColumnAge.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("age"));
-        tableColumnStrength.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("strength"));
-        tableColumnPosition.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("position"));
-        tableColumnExperience.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("experience"));
-        tableColumnSkillGk.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillGoalkeeping"));
-        tableColumnSkillGk.setCellFactory(new Callback<TableColumn, TableCell>() {
-            public TableCell call(final TableColumn param) {
-                return new SkillValueColorCell();
-            }
-        });
-        tableColumnSkillTk.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillTackling"));
-        tableColumnSkillTk.setCellFactory(new Callback<TableColumn, TableCell>() {
-            public TableCell call(final TableColumn param) {
-                return new SkillValueColorCell();
-            }
-        });
-        tableColumnSkillPm.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillPlaymaking"));
-        tableColumnSkillPm.setCellFactory(new Callback<TableColumn, TableCell>() {
-            public TableCell call(final TableColumn param) {
-                return new SkillValueColorCell();
-            }
-        });
-        tableColumnSkillPa.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillPassing"));
-        tableColumnSkillPa.setCellFactory(new Callback<TableColumn, TableCell>() {
-            public TableCell call(final TableColumn param) {
-                return new SkillValueColorCell();
-            }
-        });
-        tableColumnSkillSc.setCellValueFactory(new PropertyValueFactory<PlayerDataRow, String>("skillScoring"));
-        tableColumnSkillSc.setCellFactory(new Callback<TableColumn, TableCell>() {
-            public TableCell call(final TableColumn param) {
-                return new SkillValueColorCell();
-            }
-        });
-        tableColumnName.getTableView().setItems(playerData);
-        tableColumnName.getTableView().setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tableColumnName.getTableView().setMinHeight(Control.USE_PREF_SIZE);
-        tableColumnName.getTableView().setMaxWidth(Control.USE_PREF_SIZE);
+        double tableWidth = 0;
+        final ObservableList<TableColumn> columns = tableViewPlayer.getColumns();
+        for (final TableColumn column : columns) {
+            tableWidth += column.getWidth();
+        }
+        // tableViewPlayer.setMinWidth(tableWidth);
+        // tableViewPlayer.setMaxWidth(tableWidth);
+        tableViewPlayer.setMinWidth(Control.USE_COMPUTED_SIZE);
+        tableViewPlayer.setMaxWidth(Control.USE_COMPUTED_SIZE);
 
+        // add listener for row selection
         tableViewPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlayerDataRow>() {
 
             @Override
@@ -187,6 +131,15 @@ public class TeamController implements Initializable {
                 if (newValue != null) {
                     fillPlayerDataIntoTextFields(newValue);
                 }
+            }
+        });
+
+        // add listener for player list changes
+        playerData.addListener(new ListChangeListener<PlayerDataRow>() {
+
+            @Override
+            public void onChanged(final Change<? extends PlayerDataRow> change) {
+                tableViewPlayer.setItems(change.getList());
             }
         });
     }

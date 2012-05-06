@@ -16,6 +16,7 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
@@ -34,88 +35,181 @@
                 <Label text="%label.title.players" style="-fx-font: NORMAL 16 Tahoma;"/>
                 <TableView fx:id="tableViewPlayer" VBox.vgrow="ALWAYS" HBox.hgrow="NEVER">
                     <columns>
-                        <TableColumn fx:id="tableColumnNumber" resizable="false" text="%label.player.number" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.player.number" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="number"/>
+                            </cellValueFactory>
                             <cellFactory>
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn fx:id="tableColumnName" resizable="false" text="%label.player.name" minWidth="130"/>
-                        <TableColumn fx:id="tableColumnCountry" resizable="false" text="%label.player.country" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.player.name" minWidth="130">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="fullName"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="country"/>
+                            </cellValueFactory>
                             <cellFactory>
                                 <CountryFlagCellFactory/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn fx:id="tableColumnAge" resizable="false" text="%label.player.age" minWidth="30" maxWidth="30"/>
-                        <TableColumn fx:id="tableColumnStrength" resizable="false" text="%label.player.strength" minWidth="40" maxWidth="40"/>
-                        <TableColumn fx:id="tableColumnPosition" resizable="false" text="%label.player.position">
+                        <TableColumn resizable="false" text="%label.table.player.age" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="age"/>
+                            </cellValueFactory>
                             <cellFactory>
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn fx:id="tableColumnExperience" resizable="false" text="%label.player.experience"/>
-                        <TableColumn fx:id="tableColumnSkillGk" resizable="false" text="%label.table.player.skill.goalkeeping" minWidth="40" maxWidth="40"/>
-                        <TableColumn fx:id="tableColumnSkillTk" resizable="false" text="%label.table.player.skill.tackling" minWidth="40" maxWidth="40"/>
-                        <TableColumn fx:id="tableColumnSkillPm" resizable="false" text="%label.table.player.skill.playmaking" minWidth="40" maxWidth="40"/>
-                        <TableColumn fx:id="tableColumnSkillPa" resizable="false" text="%label.table.player.skill.passing" minWidth="40" maxWidth="40"/>
-                        <TableColumn fx:id="tableColumnSkillSc" resizable="false" text="%label.table.player.skill.scoring" minWidth="40" maxWidth="40"/>
+                        <TableColumn resizable="false" text="%label.table.player.strength" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="strength"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.position" minWidth="35" maxWidth="35">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="position"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.player.experience">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="experience"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.skill.goalkeeping" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="skillGoalkeeping"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.skill.tackling" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="skillTackling"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.skill.playmaking" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="skillPlaymaking"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.skill.passing" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="skillPassing"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.skill.scoring" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="skillScoring"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.form" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="form"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.energy" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="energy"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.player.endurance" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="endurance"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
                     </columns>
                 </TableView>
                 <Label text="%label.title.playerDetails" style="-fx-font: NORMAL 16 Tahoma;"/>
                 <GridPane alignment="top_left" hgap="8" vgap="2" style="-fx-padding: 0 0 0 0">
                     <children>
                         <Label text="%label.player.name" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$playerName"/>
-                        <TextField fx:id="playerName" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <TextField fx:id="playerName" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
                         <Label text="%label.player.age" GridPane.columnIndex="0" GridPane.rowIndex="1" labelFor="$playerAge"/>
-                        <TextField fx:id="playerAge" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <TextField fx:id="playerAge" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                         <Label text="%label.player.height" GridPane.columnIndex="0" GridPane.rowIndex="2" labelFor="$playerAge"/>
-                        <TextField fx:id="playerHeight" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <TextField fx:id="playerHeight" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                         <Label text="%label.player.country" GridPane.columnIndex="0" GridPane.rowIndex="3" labelFor="$playerCountry"/>
-                        <TextField fx:id="playerCountry" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <TextField fx:id="playerCountry" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                         <Label text="%label.player.personality" GridPane.columnIndex="0" GridPane.rowIndex="4" labelFor="$playerPersonality"/>
-                        <TextField fx:id="playerPersonality" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <TextField fx:id="playerPersonality" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                         <Label text="%label.player.birthday" GridPane.columnIndex="0" GridPane.rowIndex="5" labelFor="$playerBirthday"/>
-                        <TextField fx:id="playerBirthday" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <TextField fx:id="playerBirthday" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                         <Label text="%label.player.foot" GridPane.columnIndex="0" GridPane.rowIndex="6" labelFor="$playerFoot"/>
-                        <TextField fx:id="playerFoot" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        <TextField fx:id="playerFoot" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                         <Label text="%label.player.yellowCards" GridPane.columnIndex="0" GridPane.rowIndex="7" labelFor="$playerYellowCards"/>
-                        <TextField fx:id="playerYellowCards" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        <TextField fx:id="playerYellowCards" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
                         <Label text="%label.player.experience" GridPane.columnIndex="0" GridPane.rowIndex="8" labelFor="$playerExperience"/>
-                        <TextField fx:id="playerExperience" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        <TextField fx:id="playerExperience" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                         <Label text="%label.player.form" GridPane.columnIndex="0" GridPane.rowIndex="9" labelFor="$playerForm"/>
-                        <TextField fx:id="playerForm" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                        <TextField fx:id="playerForm" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
                         <Label text="%label.player.energy" GridPane.columnIndex="0" GridPane.rowIndex="10" labelFor="$playerEnergy"/>
-                        <TextField fx:id="playerEnergy" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                        <TextField fx:id="playerEnergy" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
                         <Label text="%label.player.endurance" GridPane.columnIndex="0" GridPane.rowIndex="11" labelFor="$playerEndurance"/>
-                        <TextField fx:id="playerEndurance" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+                        <TextField fx:id="playerEndurance" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
                         <Label text="%label.player.assignments" GridPane.columnIndex="0" GridPane.rowIndex="12" labelFor="$playerAssignments"/>
-                        <TextField fx:id="playerAssignments" editable="false" prefColumnCount="10" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+                        <TextField fx:id="playerAssignments" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
                         <!-- second column -->
                         <Label text="%label.player.position" GridPane.columnIndex="2" GridPane.rowIndex="0" labelFor="$playerPosition"/>
-                        <TextField fx:id="playerPosition" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                        <TextField fx:id="playerPosition" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
                         <Label text="%label.player.talent" GridPane.columnIndex="2" GridPane.rowIndex="1" labelFor="$playerTalent"/>
-                        <TextField fx:id="playerTalent" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                        <TextField fx:id="playerTalent" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
                         <Label text="%label.player.number" GridPane.columnIndex="2" GridPane.rowIndex="2" labelFor="$playerTalent"/>
-                        <TextField fx:id="playerNumber" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                        <TextField fx:id="playerNumber" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
                         <Label text="%label.player.goals" GridPane.columnIndex="2" GridPane.rowIndex="3" labelFor="$playerGoals"/>
-                        <TextField fx:id="playerGoals" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                        <TextField fx:id="playerGoals" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
                         <Label text="%label.player.salary" GridPane.columnIndex="2" GridPane.rowIndex="4" labelFor="$playerSalary"/>
-                        <TextField fx:id="playerSalary" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                        <TextField fx:id="playerSalary" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
                         <Label text="%label.player.marketValue" GridPane.columnIndex="2" GridPane.rowIndex="5" labelFor="$playerMarketValue"/>
-                        <TextField fx:id="playerMarketValue" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                        <TextField fx:id="playerMarketValue" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
                         <Label text="%label.player.strength" GridPane.columnIndex="2" GridPane.rowIndex="6" labelFor="$playerStrength"/>
-                        <TextField fx:id="playerStrength" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
+                        <TextField fx:id="playerStrength" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
                         <Label text="%label.player.redCards" GridPane.columnIndex="2" GridPane.rowIndex="7" labelFor="$playerRedCards"/>
-                        <TextField fx:id="playerRedCards" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
+                        <TextField fx:id="playerRedCards" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
                         <Label text="%label.player.goalkeeping" GridPane.columnIndex="2" GridPane.rowIndex="8" labelFor="$playerGoalkeeping"/>
-                        <TextField fx:id="playerGoalkeeping" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="8"/>
+                        <TextField fx:id="playerGoalkeeping" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="8"/>
                         <Label text="%label.player.tackling" GridPane.columnIndex="2" GridPane.rowIndex="9" labelFor="$playerTackling"/>
-                        <TextField fx:id="playerTackling" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="9"/>
+                        <TextField fx:id="playerTackling" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="9"/>
                         <Label text="%label.player.playmaking" GridPane.columnIndex="2" GridPane.rowIndex="10" labelFor="$playerPlaymaking"/>
-                        <TextField fx:id="playerPlaymaking" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="10"/>
+                        <TextField fx:id="playerPlaymaking" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="10"/>
                         <Label text="%label.player.passing" GridPane.columnIndex="2" GridPane.rowIndex="11" labelFor="$playerPassing"/>
-                        <TextField fx:id="playerPassing" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="11"/>
+                        <TextField fx:id="playerPassing" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="11"/>
                         <Label text="%label.player.scoring" GridPane.columnIndex="2" GridPane.rowIndex="12" labelFor="$playerScoring"/>
-                        <TextField fx:id="playerScoring" editable="false" prefColumnCount="10" GridPane.columnIndex="3" GridPane.rowIndex="12"/>
+                        <TextField fx:id="playerScoring" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="12"/>
                     </children>
                 </GridPane>
             </children>
