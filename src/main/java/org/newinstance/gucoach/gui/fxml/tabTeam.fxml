@@ -33,7 +33,7 @@
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
                 <Label text="%label.title.players" style="-fx-font: NORMAL 16 Tahoma;"/>
-                <TableView fx:id="tableViewPlayer" VBox.vgrow="ALWAYS" HBox.hgrow="NEVER">
+                <TableView fx:id="tableViewPlayer" VBox.vgrow="NEVER" HBox.hgrow="NEVER">
                     <columns>
                         <TableColumn resizable="false" text="%label.player.number" minWidth="30" maxWidth="30">
                             <cellValueFactory>
@@ -80,7 +80,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.player.experience">
+                        <TableColumn resizable="false" text="%label.player.experience" minWidth="30" maxWidth="30">
                             <cellValueFactory>
                                 <PropertyValueFactory property="experience"/>
                             </cellValueFactory>
