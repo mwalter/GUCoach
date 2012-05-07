@@ -24,7 +24,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -117,10 +116,10 @@ public class TeamController implements Initializable {
         for (final TableColumn column : columns) {
             tableWidth += column.getWidth();
         }
-        // tableViewPlayer.setMinWidth(tableWidth);
-        // tableViewPlayer.setMaxWidth(tableWidth);
-        tableViewPlayer.setMinWidth(Control.USE_COMPUTED_SIZE);
-        tableViewPlayer.setMaxWidth(Control.USE_COMPUTED_SIZE);
+        tableViewPlayer.setMinWidth(tableWidth + 10);
+        tableViewPlayer.setMaxWidth(tableWidth + 10);
+        tableViewPlayer.setMinHeight(((playerData.size() + 1) * 20) + 10);
+        tableViewPlayer.setMaxHeight(((playerData.size() + 1) * 20) + 10);
 
         // add listener for row selection
         tableViewPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlayerDataRow>() {
