@@ -25,6 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
+import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportControllerImpl;
 
@@ -57,7 +58,9 @@ public class MainController {
         } catch (final ValidationException e) {
             e.printStackTrace();
         }
-        // TODO reload table here to show new imported data
+
+        // update team table after import to show new player data
+        ControllerProvider.getInstance().getTeamController().setPlayerData(PlayerContentProvider.getPlayerData());
     }
 
     @FXML
