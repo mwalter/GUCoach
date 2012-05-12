@@ -20,10 +20,14 @@ package org.newinstance.gucoach.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.newinstance.gucoach.gui.controller.ControllerProvider;
+import org.newinstance.gucoach.gui.controller.MainController;
 
+import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
@@ -52,7 +56,17 @@ public class GUCoach extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         // load main window layout and resources
-        final Parent root = FXMLLoader.load(getClass().getResource(FXML_MAIN), ResourceBundle.getBundle("ApplicationResources"));
+        // final Parent root = FXMLLoader.load(getClass().getResource(FXML_MAIN), ResourceBundle.getBundle("ApplicationResources"));
+
+        final URL location = getClass().getResource(FXML_MAIN);
+        final FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(location);
+        loader.setBuilderFactory(new JavaFXBuilderFactory());
+        loader.setResources(ResourceBundle.getBundle("ApplicationResources"));
+        final Parent root = (Parent) loader.load(location.openStream());
+
+        // set controller into provider
+        ControllerProvider.getInstance().setMainController((MainController) loader.getController());
 
         // create scene and display window
         final Scene scene = new Scene(root, 1300, 900);
