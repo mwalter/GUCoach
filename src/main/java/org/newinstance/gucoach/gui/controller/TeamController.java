@@ -25,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import org.newinstance.gucoach.gui.PlayerContentProvider;
@@ -98,28 +97,43 @@ public class TeamController implements Initializable {
     @FXML
     private TextField playerScoring;
 
+    private ObservableList<PlayerDataRow> playerData;
+
     @Override
     @SuppressWarnings("unchecked")
     public void initialize(final URL location, final ResourceBundle resources) {
+        // set controller into provider
+        ControllerProvider.getInstance().setTeamController(this);
+
         // load player data and fill team table
-        final ObservableList<PlayerDataRow> playerData = PlayerContentProvider.getPlayerData();
+        playerData = PlayerContentProvider.getPlayerData();
         tableViewPlayer.setItems(playerData);
+
+        // if there are no players yet display import player data message
         if (playerData.isEmpty()) {
             final Label message = new Label();
             message.setText(ResourceLoader.getMessage(MessageId.I001.getMessageKey()));
             tableViewPlayer.setPlaceholder(message);
-            return;
         }
 
-        double tableWidth = 0;
-        final ObservableList<TableColumn> columns = tableViewPlayer.getColumns();
-        for (final TableColumn column : columns) {
-            tableWidth += column.getWidth();
-        }
-        tableViewPlayer.setMinWidth(tableWidth + 10);
-        tableViewPlayer.setMaxWidth(tableWidth + 10);
-        tableViewPlayer.setMinHeight(((playerData.size() + 1) * 20) + 10);
-        tableViewPlayer.setMaxHeight(((playerData.size() + 1) * 20) + 10);
+        //        double tableWidth = 0;
+        //        final ObservableList<TableColumn> columns = tableViewPlayer.getColumns();
+        //        for (final TableColumn column : columns) {
+        //            tableWidth += column.getWidth();
+        //        }
+        //        tableViewPlayer.setMinWidth(tableWidth + 10);
+        //        tableViewPlayer.setMaxWidth(tableWidth + 10);
+        //        tableViewPlayer.setMinHeight(((playerData.size() + 1) * 20) + 10);
+        //        tableViewPlayer.setMaxHeight(((playerData.size() + 1) * 20) + 10);
+
+        // add listener for player list changes
+        playerData.addListener(new ListChangeListener<PlayerDataRow>() {
+
+            @Override
+            public void onChanged(final Change<? extends PlayerDataRow> change) {
+                tableViewPlayer.setItems(change.getList());
+            }
+        });
 
         // add listener for row selection
         tableViewPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlayerDataRow>() {
@@ -130,15 +144,6 @@ public class TeamController implements Initializable {
                 if (newValue != null) {
                     fillPlayerDataIntoTextFields(newValue);
                 }
-            }
-        });
-
-        // add listener for player list changes
-        playerData.addListener(new ListChangeListener<PlayerDataRow>() {
-
-            @Override
-            public void onChanged(final Change<? extends PlayerDataRow> change) {
-                tableViewPlayer.setItems(change.getList());
             }
         });
     }
@@ -178,4 +183,12 @@ public class TeamController implements Initializable {
         playerScoring.setText(playerData.getSkillScoring().toString());
     }
 
+    /**
+     * Sets the list of players.
+     *
+     * @param list the list of players to set
+     */
+    public void setPlayerData(final ObservableList<PlayerDataRow> list) {
+        playerData.setAll(list);
+    }
 }
