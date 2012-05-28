@@ -37,7 +37,8 @@ public enum MessageId {
     V004("validation.date.invalid"),
     V005("validation.teams.incomplete"),
     V006("validation.teams.duplicate.team.name"),
-    I001("info.player.data.not.available");
+    I001("info.player.data.unavailable"),
+    I002("info.standings.data.unavailable");
 
     /** The message key in the resource bundle. */
     private String messageKey;
