@@ -320,8 +320,6 @@ public class DatabaseServiceTest {
         Assert.assertFalse(teamList.isEmpty());
 
         // UPDATE
-        team1.setMatchesWon(8);
-        team1.setGoalsFor(33);
         team1.setStrength(57.0f);
         databaseService.updateTeam(team1);
 
@@ -330,8 +328,6 @@ public class DatabaseServiceTest {
         Assert.assertFalse(teamList.isEmpty());
 
         // compare updated values
-        Assert.assertFalse(team1.getMatchesWon().equals(teamList.get(0).getMatchesWon()));
-        Assert.assertFalse(team1.getGoalsFor().equals(teamList.get(0).getGoalsFor()));
         Assert.assertFalse(team1.getStrength().equals(teamList.get(0).getStrength()));
 
         // DELETE
@@ -437,18 +433,13 @@ public class DatabaseServiceTest {
      * Creates and returns a new {@link Team} entity.
      *
      * @param name the team name
-     * @param position the team's position
+     * @param position the team's starting position
      * @return a new entity
      */
     private Team createTeam(final String name, final int position) {
         final Team team = new Team();
-        team.setPosition(position);
+        team.setStartingPosition(position);
         team.setName(name);
-        team.setGoalsFor(30);
-        team.setGoalsAgainst(5);
-        team.setMatchesWon(7);
-        team.setMatchesDrawn(3);
-        team.setMatchesLost(0);
         team.setStrength(55.0f);
         return team;
     }

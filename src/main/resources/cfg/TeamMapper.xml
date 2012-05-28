@@ -20,24 +20,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.newinstance.gucoach.mapper.TeamMapper">
     <resultMap id="teamResultMap" type="Team">
-        <result column="matches_won" property="matchesWon"/>
-        <result column="matches_drawn" property="matchesDrawn"/>
-        <result column="matches_lost" property="matchesLost"/>
-        <result column="goals_for" property="goalsFor"/>
-        <result column="goals_against" property="goalsAgainst"/>
+        <result column="starting_position" property="startingPosition"/>
     </resultMap>
     <update id="createTableTeam">
         CREATE TABLE IF NOT EXISTS team (
         id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        position TINYINT,
+        startingPosition TINYINT,
         name VARCHAR(50),
         strength REAL(2),
-        matches_won TINYINT,
-        matches_drawn TINYINT,
-        matches_lost TINYINT,
-        points TINYINT,
-        goals_for TINYINT,
-        goals_against TINYINT,
         CONSTRAINT team_name_unq UNIQUE (name)
         )
     </update>
@@ -45,46 +35,28 @@
         DELETE FROM team
     </delete>
     <select id="findAllTeams" resultMap="teamResultMap">
-        SELECT * FROM team ORDER BY position ASC
+        SELECT * FROM team
     </select>
     <insert id="insertTeams" parameterType="java.util.List" useGeneratedKeys="true">
         INSERT INTO team (
         id,
-        position,
+        startingPosition,
         name,
-        strength,
-        matches_won,
-        matches_drawn,
-        matches_lost,
-        points,
-        goals_for,
-        goals_against
+        strength
         )
         VALUES
         <foreach collection="list" item="team" open="(" close=")" separator="),(">
             #{team.id},
-            #{team.position},
+            #{team.startingPosition},
             #{team.name},
-            #{team.strength},
-            #{team.matchesWon},
-            #{team.matchesDrawn},
-            #{team.matchesLost},
-            #{team.points},
-            #{team.goalsFor},
-            #{team.goalsAgainst}
+            #{team.strength}
         </foreach>
     </insert>
     <update id="updateTeam" parameterType="Team">
         UPDATE team SET
-        position = #{position},
+        startingPosition = #{startingPosition},
         name = #{name},
-        strength = #{strength},
-        matches_won = #{matchesWon},
-        matches_drawn = #{matchesDrawn},
-        matches_lost = #{matchesLost},
-        points = #{points},
-        goals_for = #{goalsFor},
-        goals_against = #{goalsAgainst}
+        strength = #{strength}
         WHERE id = #{id}
     </update>
     <update id="dropTableTeam">
