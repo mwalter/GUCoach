@@ -29,73 +29,17 @@ import org.junit.Test;
 public class TeamTest {
 
     @Test
-    public void testId() {
+    public void testTeam() {
         final Team team = new Team();
         team.setId(1L);
-        Assert.assertEquals(1L, team.getId().longValue());
-    }
-
-    @Test
-    public void testPosition() {
-        final Team team = new Team();
-        team.setPosition(1);
-        Assert.assertEquals(1, team.getPosition().intValue());
-    }
-
-    @Test
-    public void testName() {
-        final Team team = new Team();
         team.setName("FC Barcelona");
-        Assert.assertEquals("FC Barcelona", team.getName());
-    }
-
-    @Test
-    public void testStrength() {
-        final Team team = new Team();
+        team.setStartingPosition(3);
         team.setStrength(3.2f);
+
+        Assert.assertEquals(1L, team.getId().longValue());
+        Assert.assertEquals("FC Barcelona", team.getName());
+        Assert.assertEquals(3, team.getStartingPosition().intValue());
         Assert.assertEquals(3.2f, team.getStrength(), 0);
-    }
-
-    @Test
-    public void testMatchesWon() {
-        final Team team = new Team();
-        team.setMatchesWon(5);
-        Assert.assertEquals(5, team.getMatchesWon().intValue());
-    }
-
-    @Test
-    public void testMatchesDrawn() {
-        final Team team = new Team();
-        team.setMatchesDrawn(5);
-        Assert.assertEquals(5, team.getMatchesDrawn().intValue());
-    }
-
-    @Test
-    public void testMatchesLost() {
-        final Team team = new Team();
-        team.setMatchesLost(5);
-        Assert.assertEquals(5, team.getMatchesLost().intValue());
-    }
-
-    @Test
-    public void testPoints() {
-        final Team team = new Team();
-        team.setPoints(9);
-        Assert.assertEquals(9, team.getPoints().intValue());
-    }
-
-    @Test
-    public void testGoalsFor() {
-        final Team team = new Team();
-        team.setGoalsFor(5);
-        Assert.assertEquals(5, team.getGoalsFor().intValue());
-    }
-
-    @Test
-    public void testGoalsAgainst() {
-        final Team team = new Team();
-        team.setGoalsAgainst(5);
-        Assert.assertEquals(5, team.getGoalsAgainst().intValue());
     }
 
     @Test
@@ -103,21 +47,13 @@ public class TeamTest {
         final Team team = new Team();
         team.setId(1L);
         team.setName("FC Barcelona");
-        team.setMatchesWon(5);
-        team.setMatchesDrawn(0);
-        team.setMatchesLost(0);
-        team.setPoints(15);
-        team.setGoalsFor(27);
-        team.setGoalsAgainst(3);
+        team.setStartingPosition(3);
+        team.setStrength(3.2f);
 
         final String toString = team.toString();
         Assert.assertTrue(toString.contains("id=1"));
         Assert.assertTrue(toString.contains("name=FC Barcelona"));
-        Assert.assertTrue(toString.contains("matchesWon=5"));
-        Assert.assertTrue(toString.contains("matchesDrawn=0"));
-        Assert.assertTrue(toString.contains("matchesLost=0"));
-        Assert.assertTrue(toString.contains("points=15"));
-        Assert.assertTrue(toString.contains("goalsFor=27"));
-        Assert.assertTrue(toString.contains("goalsAgainst=3"));
+        Assert.assertTrue(toString.contains("startingPosition=3"));
+        Assert.assertTrue(toString.contains("strength=3.2"));
     }
 }
