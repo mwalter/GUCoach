@@ -25,7 +25,7 @@
     <update id="createTableTeam">
         CREATE TABLE IF NOT EXISTS team (
         id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        startingPosition TINYINT,
+        starting_position TINYINT,
         name VARCHAR(50),
         strength REAL(2),
         CONSTRAINT team_name_unq UNIQUE (name)
@@ -40,7 +40,7 @@
     <insert id="insertTeams" parameterType="java.util.List" useGeneratedKeys="true">
         INSERT INTO team (
         id,
-        startingPosition,
+        starting_position,
         name,
         strength
         )
@@ -54,7 +54,7 @@
     </insert>
     <update id="updateTeam" parameterType="Team">
         UPDATE team SET
-        startingPosition = #{startingPosition},
+        starting_position = #{startingPosition},
         name = #{name},
         strength = #{strength}
         WHERE id = #{id}
