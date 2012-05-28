@@ -59,7 +59,7 @@ public final class PlayerContentProvider {
             playerDataRows.add(convertToPlayerDataRow(player, playerStats));
         }
 
-        return FXCollections.observableArrayList(playerDataRows);
+        return FXCollections.observableList(playerDataRows);
     }
 
     /**
