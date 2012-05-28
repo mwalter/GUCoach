@@ -35,6 +35,14 @@ public class ControllerProviderTest {
     }
 
     @Test
+    public void testLeagueController() {
+        final LeagueController leagueController = new LeagueController();
+        ControllerProvider.getInstance().setLeagueController(leagueController);
+        Assert.assertNotNull(ControllerProvider.getInstance().getLeagueController());
+        Assert.assertEquals(leagueController, ControllerProvider.getInstance().getLeagueController());
+    }
+
+    @Test
     public void testMainController() {
         final MainController mainController = new MainController();
         ControllerProvider.getInstance().setMainController(mainController);

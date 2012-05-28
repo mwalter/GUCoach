@@ -27,6 +27,8 @@ public final class ControllerProvider {
 
     /** The singleton instance. */
     private static ControllerProvider instance;
+    /** The league controller. */
+    private LeagueController leagueController;
     /** The main controller. */
     private MainController mainController;
     /** The team controller. */
@@ -43,6 +45,24 @@ public final class ControllerProvider {
      */
     public static ControllerProvider getInstance() {
         return instance;
+    }
+
+    /**
+     * Returns the league controller.
+     *
+     * @return the league controller
+     */
+    public LeagueController getLeagueController() {
+        return leagueController;
+    }
+
+    /**
+     * Sets the league controller.
+     *
+     * @param controller the league controller to set
+     */
+    public void setLeagueController(final LeagueController controller) {
+        leagueController = controller;
     }
 
     /**
