@@ -16,18 +16,101 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
+<?import org.newinstance.gucoach.gui.component.AlignedTableCellFactory?>
 
 <Tab text="%tab.league" fx:controller="org.newinstance.gucoach.gui.controller.LeagueController" xmlns:fx="http://javafx.com/fxml">
     <content>
-        <VBox spacing="5" style="-fx-padding: 10 0 0 10">
+        <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
                 <Label text="%label.title.league" style="-fx-font: NORMAL 16 Tahoma;"/>
-                <Button text="%button.createLeague" onAction="#showCreateLeagueWindow"/>
-                <Button text="%button.editFixture" onAction="#editFixture"/>
+                <TableView fx:id="tableViewStandings">
+                    <columns>
+                        <TableColumn resizable="false" text="%label.table.standings.rank" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="rank"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.team" minWidth="130">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="team"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.matches.played" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="matchesPlayed"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.matches.won" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="matchesWon"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.matches.drawn" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="matchesDrawn"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.matches.lost" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="matchesLost"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.goals.for" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="goalsFor"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.goals.against" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="goalsAgainst"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.goals.diff" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="goalsDiff"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="%label.table.standings.points" minWidth="30" maxWidth="30">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="points"/>
+                            </cellValueFactory>
+                            <cellFactory>
+                                <AlignedTableCellFactory alignment="center"/>
+                            </cellFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
             </children>
         </VBox>
     </content>
