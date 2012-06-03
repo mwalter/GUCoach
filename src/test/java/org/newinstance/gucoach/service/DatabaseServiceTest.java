@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Tests the methods of the {@link DatabaseService}.
+ * Tests methods of class {@link DatabaseService}.
  *
  * @author mwalter
  */
