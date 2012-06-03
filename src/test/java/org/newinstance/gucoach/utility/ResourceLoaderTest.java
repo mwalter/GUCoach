@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 
 /**
  * Tests the methods of the {@link ResourceLoader}.
@@ -44,5 +45,19 @@ public class ResourceLoaderTest {
         final String message = ResourceLoader.getMessage(MessageId.V002.getMessageKey(), "Messi");
         Assert.assertNotNull(message);
         Assert.assertEquals("Could not find data for player Messi.", message);
+    }
+
+    @Test
+    public void getResourceTest() {
+        Locale.setDefault(Locale.ENGLISH);
+        final String value = ResourceLoader.getResource("label.title.createLeague");
+        Assert.assertNotNull(value);
+        Assert.assertEquals("Create League", value);
+    }
+
+    @Test(expected = MissingResourceException.class)
+    public void getMissingResource() {
+        Locale.setDefault(Locale.ENGLISH);
+        ResourceLoader.getResource("foobar");
     }
 }

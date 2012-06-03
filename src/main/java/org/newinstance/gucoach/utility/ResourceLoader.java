@@ -19,17 +19,18 @@
 package org.newinstance.gucoach.utility;
 
 import java.text.MessageFormat;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Loads messages used by the application. Default language is english. Other languages are not supported yet.
+ * Loads messages and resources used by the application with default locale.
+ * TODO maybe improve error handling by catching possible exceptions like MissingResourceException
  *
  * @author mwalter
  */
 public final class ResourceLoader {
 
     private static final String APPLICATION_MESSAGES = "ApplicationMessages";
+    private static final String APPLICATION_RESOURCES = "ApplicationResources";
 
     private ResourceLoader() {
         // hide constructor
@@ -43,8 +44,18 @@ public final class ResourceLoader {
      * @return the message
      */
     public static String getMessage(final String key, final Object... params) {
-        final ResourceBundle bundle = ResourceBundle.getBundle(APPLICATION_MESSAGES, Locale.ENGLISH);
+        final ResourceBundle bundle = ResourceBundle.getBundle(APPLICATION_MESSAGES);
         return MessageFormat.format(bundle.getString(key), params);
     }
 
+    /**
+     * Returns the resource value for the specified key.
+     *
+     * @param key the resource key
+     * @return the resource value
+     */
+    public static String getResource(final String key) {
+        final ResourceBundle bundle = ResourceBundle.getBundle(APPLICATION_RESOURCES);
+        return bundle.getString(key);
+    }
 }
