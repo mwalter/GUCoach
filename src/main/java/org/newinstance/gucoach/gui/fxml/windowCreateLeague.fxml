@@ -34,7 +34,7 @@
         </VBox>
     </top>
     <center>
-        <VBox spacing="5" style="-fx-padding: 10 10 10 10">
+        <VBox fx:id="vbContent" spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
                 <GridPane fx:id="gpTeamNames" alignment="top_left" hgap="5" vgap="5">
                     <columnConstraints>
