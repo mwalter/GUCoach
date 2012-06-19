@@ -22,7 +22,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,10 +30,10 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.newinstance.gucoach.gui.StandingsContentProvider;
+import org.newinstance.gucoach.gui.builder.LeagueBuilder;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -89,12 +88,16 @@ public class LeagueController implements Initializable {
      * @param event the action event
      */
     public void showCreateLeagueWindow(final ActionEvent event) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource(SCENE_CREATE_LEAGUE), ResourceBundle.getBundle("ApplicationResources"));
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
+        // build dialogue with builder
+        final Parent root = LeagueBuilder.buildCreateLeagueDialogue();
+
+        // build dialogue with FXML
+        //        Parent root = null;
+        //        try {
+        //            root = FXMLLoader.load(getClass().getResource(SCENE_CREATE_LEAGUE), ResourceBundle.getBundle("ApplicationResources"));
+        //        } catch (final IOException e) {
+        //            e.printStackTrace();
+        //        }
 
         final Scene scene = new Scene(root);
         scene.getStylesheets().add("stylesheet.css");
