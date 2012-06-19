@@ -20,14 +20,19 @@ package org.newinstance.gucoach.gui.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.gui.PlayerContentProvider;
+import org.newinstance.gucoach.gui.builder.LeagueBuilder;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportControllerImpl;
+import org.newinstance.gucoach.utility.ResourceLoader;
 
 import java.io.File;
 
@@ -69,4 +74,22 @@ public class MainController {
         stage.close();
     }
 
+    /**
+     * Builds and shows the dialogue to create a new league.
+     *
+     * @param event the action event
+     */
+    @FXML
+    protected void showCreateLeagueWindow(final ActionEvent event) {
+        // build dialogue with builder
+        final Parent root = LeagueBuilder.buildCreateLeagueDialogue();
+        final Scene scene = new Scene(root);
+        scene.getStylesheets().add("stylesheet.css");
+        final Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(ResourceLoader.getResource("label.title.createLeague"));
+        stage.show();
+    }
 }
