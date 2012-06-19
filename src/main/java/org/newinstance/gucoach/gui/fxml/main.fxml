@@ -39,7 +39,7 @@
                 </Menu>
                 <Menu text="%menu.league">
                     <items>
-                        <MenuItem text="%menu.league.create"/>
+                        <MenuItem text="%menu.league.create" onAction="#showCreateLeagueWindow"/>
                         <MenuItem text="%menu.league.edit"/>
                     </items>
                 </Menu>
