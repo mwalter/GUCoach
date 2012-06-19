@@ -18,36 +18,32 @@
 
 package org.newinstance.gucoach.gui.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.newinstance.gucoach.model.Team;
 import org.newinstance.gucoach.service.DatabaseService;
 import org.newinstance.gucoach.service.DatabaseServiceImpl;
+import org.newinstance.gucoach.utility.DateHelper;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.newinstance.gucoach.utility.TextInputHelper;
 
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,13 +56,9 @@ import java.util.ResourceBundle;
  */
 public class CreateLeagueController implements Initializable {
 
-    /** The pattern of the date to be entered. */
-    private static final String DATE_PATTERN = "dd.MM.yyyy";
-
-    private Tooltip searchErrorTooltip = new Tooltip();
-    private Timeline searchErrorTooltipHidder = null;
-
+    /** The database service. */
     private DatabaseService databaseService = new DatabaseServiceImpl();
+
     @FXML
     private BorderPane root;
     @FXML
@@ -97,6 +89,8 @@ public class CreateLeagueController implements Initializable {
     private TextField tfTeam11;
     @FXML
     private TextField tfTeam12;
+    @FXML
+    private VBox vbContent;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -127,13 +121,17 @@ public class CreateLeagueController implements Initializable {
 
     public void createLeague(final ActionEvent event) {
         // get matchday
-        final String matchdayString = tfMatchday.getText();
+        Date matchday = null;
         try {
-            final SimpleDateFormat format = new SimpleDateFormat(DATE_PATTERN);
-            final Date matchdayDate = format.parse(matchdayString);
+            matchday = DateHelper.parseDate(tfMatchday.getText());
         } catch (final ParseException e) {
             // invalid date format
-            showError(ResourceLoader.getMessage(MessageId.V004.getMessageKey()));
+            final TextArea message = new TextArea();
+            message.setMaxWidth(Integer.MAX_VALUE);
+            message.setWrapText(true);
+            message.setEditable(false);
+            message.setText(ResourceLoader.getMessage(MessageId.V004.getMessageKey()));
+            vbContent.getChildren().add(message);
             return;
         }
 
@@ -145,12 +143,12 @@ public class CreateLeagueController implements Initializable {
                 final String teamName = ((TextField) child).getText().trim();
                 // team names must not be empty
                 if (StringUtils.isBlank(teamName)) {
-                    showError(ResourceLoader.getMessage(MessageId.V005.getMessageKey()));
+                    // showError(ResourceLoader.getMessage(MessageId.V005.getMessageKey()));
                     return;
                 }
                 // team names must be unique
                 if (teamNames.contains(teamName)) {
-                    showError(ResourceLoader.getMessage(MessageId.V006.getMessageKey(), teamName));
+                    // showError(ResourceLoader.getMessage(MessageId.V006.getMessageKey(), teamName));
                     return;
                 }
                 teamNames.add(teamName);
@@ -197,30 +195,6 @@ public class CreateLeagueController implements Initializable {
         new Thread(saveTask).start();
     }
 
-    // TODO should be moved to an utility class
-    private void showError(final String message) {
-        searchErrorTooltip.setText(message);
-        if (searchErrorTooltipHidder != null) {
-            searchErrorTooltipHidder.stop();
-        }
-        if (message != null) {
-            final Point2D toolTipPos = tfMatchday.localToScene(0, tfMatchday.getLayoutBounds().getHeight());
-            final double x = toolTipPos.getX() + tfMatchday.getScene().getX() + tfMatchday.getScene().getWindow().getX();
-            final double y = toolTipPos.getY() + tfMatchday.getScene().getY() + tfMatchday.getScene().getWindow().getY();
-            searchErrorTooltip.show(tfMatchday.getScene().getWindow(), x, y);
-            searchErrorTooltipHidder = new Timeline();
-            searchErrorTooltipHidder.getKeyFrames().add(new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent t) {
-                    searchErrorTooltip.hide();
-                    searchErrorTooltip.setText(null);
-                }
-            }));
-            searchErrorTooltipHidder.play();
-        } else {
-            searchErrorTooltip.hide();
-        }
-    }
-
     /**
      * Creates a new team entity. Besides starting position and name all values are set to zero.
      *
@@ -230,14 +204,8 @@ public class CreateLeagueController implements Initializable {
      */
     private Team createTeam(final int position, final String name) {
         final Team team = new Team();
-        team.setPosition(position);
+        team.setStartingPosition(position);
         team.setName(name);
-        team.setGoalsFor(0);
-        team.setGoalsAgainst(0);
-        team.setMatchesWon(0);
-        team.setMatchesDrawn(0);
-        team.setMatchesLost(0);
-        team.setPoints(0);
         team.setStrength(0f);
         return team;
     }
