@@ -105,7 +105,7 @@ public class LeagueController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle(ResourceBundle.getBundle("ApplicationResources").getString(TITLE_CREATE_LEAGUE));
+        stage.setTitle(ResourceLoader.getResource(TITLE_CREATE_LEAGUE));
         stage.show();
     }
 
