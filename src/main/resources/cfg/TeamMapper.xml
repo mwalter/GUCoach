@@ -20,12 +20,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.newinstance.gucoach.mapper.TeamMapper">
     <resultMap id="teamResultMap" type="Team">
-        <result column="starting_position" property="startingPosition"/>
+        <result column="start_pos" property="startPos"/>
     </resultMap>
     <update id="createTableTeam">
         CREATE TABLE IF NOT EXISTS team (
         id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        starting_position TINYINT,
+        start_pos TINYINT,
         name VARCHAR(50),
         strength REAL(2),
         CONSTRAINT team_name_unq UNIQUE (name)
@@ -40,21 +40,21 @@
     <insert id="insertTeams" parameterType="java.util.List" useGeneratedKeys="true">
         INSERT INTO team (
         id,
-        starting_position,
+        start_pos,
         name,
         strength
         )
         VALUES
         <foreach collection="list" item="team" open="(" close=")" separator="),(">
             #{team.id},
-            #{team.startingPosition},
+            #{team.startPos},
             #{team.name},
             #{team.strength}
         </foreach>
     </insert>
     <update id="updateTeam" parameterType="Team">
         UPDATE team SET
-        starting_position = #{startingPosition},
+        start_pos = #{startPos},
         name = #{name},
         strength = #{strength}
         WHERE id = #{id}

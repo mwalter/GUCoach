@@ -204,7 +204,7 @@ public class CreateLeagueController implements Initializable {
      */
     private Team createTeam(final int position, final String name) {
         final Team team = new Team();
-        team.setStartingPosition(position);
+        team.setStartPos(position);
         team.setName(name);
         team.setStrength(0f);
         return team;

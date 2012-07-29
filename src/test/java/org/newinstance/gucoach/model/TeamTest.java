@@ -33,12 +33,12 @@ public class TeamTest {
         final Team team = new Team();
         team.setId(1L);
         team.setName("FC Barcelona");
-        team.setStartingPosition(3);
+        team.setStartPos(3);
         team.setStrength(3.2f);
 
         Assert.assertEquals(1L, team.getId().longValue());
         Assert.assertEquals("FC Barcelona", team.getName());
-        Assert.assertEquals(3, team.getStartingPosition().intValue());
+        Assert.assertEquals(3, team.getStartPos().intValue());
         Assert.assertEquals(3.2f, team.getStrength(), 0);
     }
 
@@ -47,13 +47,13 @@ public class TeamTest {
         final Team team = new Team();
         team.setId(1L);
         team.setName("FC Barcelona");
-        team.setStartingPosition(3);
+        team.setStartPos(3);
         team.setStrength(3.2f);
 
         final String toString = team.toString();
         Assert.assertTrue(toString.contains("id=1"));
         Assert.assertTrue(toString.contains("name=FC Barcelona"));
-        Assert.assertTrue(toString.contains("startingPosition=3"));
+        Assert.assertTrue(toString.contains("startPos=3"));
         Assert.assertTrue(toString.contains("strength=3.2"));
     }
 }

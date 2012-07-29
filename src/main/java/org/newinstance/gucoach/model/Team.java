@@ -30,8 +30,8 @@ public final class Team {
     /** Team name. */
     private String name;
     /** The starting position of the team in the league. */ 
-    private Integer startingPosition;
-    /** Strength. */
+    private Integer startPos;
+    /** Team strength - for future use. */
     private Float strength;
 
     public Long getId() {
@@ -42,8 +42,8 @@ public final class Team {
         return name;
     }
 
-    public Integer getStartingPosition() {
-        return startingPosition;
+    public Integer getStartPos() {
+        return startPos;
     }
 
     public Float getStrength() {
@@ -58,8 +58,8 @@ public final class Team {
         this.name = name;
     }
 
-    public void setStartingPosition(final Integer startingPosition) {
-        this.startingPosition = startingPosition;
+    public void setStartPos(final Integer startPos) {
+        this.startPos = startPos;
     }
 
     public void setStrength(final Float strength) {
@@ -72,7 +72,7 @@ public final class Team {
         builder.append("Team [");
         builder.append("id=").append(id).append(", ");
         builder.append("name=").append(name).append(", ");
-        builder.append("startingPosition=").append(startingPosition).append(", ");
+        builder.append("startPos=").append(startPos).append(", ");
         builder.append("strength=").append(strength);
         builder.append("]");
         return builder.toString();

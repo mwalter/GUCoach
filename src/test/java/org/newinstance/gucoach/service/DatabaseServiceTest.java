@@ -438,7 +438,7 @@ public class DatabaseServiceTest {
      */
     private Team createTeam(final String name, final int position) {
         final Team team = new Team();
-        team.setStartingPosition(position);
+        team.setStartPos(position);
         team.setName(name);
         team.setStrength(55.0f);
         return team;
