@@ -48,7 +48,7 @@ public final class FixtureGenerator {
             {{9, 1}, {8, 2}, {12, 3}, {6, 4}, {5, 10}, {7, 11}}, {{4, 5}, {2, 6}, {3, 7}, {1, 8}, {11, 9}, {10, 12}}};
 
     /**
-     * Generated the fixtures for all teams playing in a league based on the fixtures table.
+     * Generates the fixtures for all teams playing in a league based on the fixtures table.
      *
      * @param teamIds the ids of the teams playing in the league
      * @param firstMatchday the first matchday of the season, needed to calculate all following matchdays
@@ -68,7 +68,7 @@ public final class FixtureGenerator {
         // iterate over matchdays
         for (int day = 0; day < FIXTURES.length; day++) {
             final Map<Integer, Long[]> fixturesOfMatchday = new LinkedHashMap<Integer, Long[]>();
-            // iterate over fixtures of a matchday
+            // iterate over all fixtures of a single matchday
             for (int fixture = 0; fixture < FIXTURES[day].length; fixture++) {
                 // get home team id
                 final Long homeTeamId = teams[FIXTURES[day][fixture][0] - 1];
