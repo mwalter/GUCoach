@@ -23,10 +23,13 @@ import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
+import org.newinstance.gucoach.model.StandingsHistory;
 import org.newinstance.gucoach.model.Team;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implements all database services related to player data. DDL and finder statements do not need a commit.
@@ -39,6 +42,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     private static final String PLAYER_MAPPER = "org.newinstance.gucoach.mapper.PlayerMapper.";
     private static final String PLAYER_STATS_MAPPER = "org.newinstance.gucoach.mapper.PlayerStatsMapper.";
     private static final String PLAYER_HISTORY_MAPPER = "org.newinstance.gucoach.mapper.PlayerHistoryMapper.";
+    private static final String STANDINGS_HISTORY_MAPPER = "org.newinstance.gucoach.mapper.StandingsHistoryMapper.";
     private static final String TEAM_MAPPER = "org.newinstance.gucoach.mapper.TeamMapper.";
 
     @Override
@@ -49,6 +53,7 @@ public class DatabaseServiceImpl implements DatabaseService {
             session.update(PLAYER_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER);
             session.update(PLAYER_HISTORY_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER_HISTORY);
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.CREATE_TABLE_PLAYER_STATS);
+            session.update(STANDINGS_HISTORY_MAPPER + SqlStatementName.CREATE_TABLE_STANDINGS_HISTORY);
             session.update(TEAM_MAPPER + SqlStatementName.CREATE_TABLE_TEAM);
         } finally {
             session.close();
@@ -60,6 +65,17 @@ public class DatabaseServiceImpl implements DatabaseService {
         final SqlSession session = getSqlSession();
         try {
             session.delete(FIXTURE_MAPPER + SqlStatementName.DELETE_ALL_FIXTURES);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void deleteAllStandingsHistory() {
+        final SqlSession session = getSqlSession();
+        try {
+            session.delete(STANDINGS_HISTORY_MAPPER + SqlStatementName.DELETE_ALL_STANDINGS_HISTORY);
             session.commit();
         } finally {
             session.close();
@@ -96,6 +112,7 @@ public class DatabaseServiceImpl implements DatabaseService {
             session.update(PLAYER_MAPPER + SqlStatementName.DROP_TABLE_PLAYER);
             session.update(PLAYER_HISTORY_MAPPER + SqlStatementName.DROP_TABLE_PLAYER_HISTORY);
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.DROP_TABLE_PLAYER_STATS);
+            session.update(STANDINGS_HISTORY_MAPPER + SqlStatementName.DROP_TABLE_STANDINGS_HISTORY);
             session.update(TEAM_MAPPER + SqlStatementName.DROP_TABLE_TEAM);
         } finally {
             session.close();
@@ -186,7 +203,21 @@ public class DatabaseServiceImpl implements DatabaseService {
             session.close();
         }
     }
-    
+
+    @Override
+    public StandingsHistory findStandingsHistoryByTeamAndDate(final Long teamId, final Date matchDay) {
+        final Map<String, Object> parameterMap = new HashMap<String, Object>();
+        parameterMap.put("teamId", teamId);
+        parameterMap.put("matchDay", matchDay);
+
+        final SqlSession session = getSqlSession();
+        try {
+            return (StandingsHistory) session.selectOne(STANDINGS_HISTORY_MAPPER + SqlStatementName.FIND_STANDINGS_HISTORY_BY_TEAM_ID_AND_DATE, parameterMap);
+        } finally {
+            session.close();
+        }
+    }
+
     @Override
     public void insertFixture(final Fixture fixture) {
         final SqlSession session = getSqlSession();
@@ -232,6 +263,17 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
+    public void insertStandingsHistory(final StandingsHistory standingsHistory) {
+        final SqlSession session = getSqlSession();
+        try {
+            session.insert(STANDINGS_HISTORY_MAPPER + SqlStatementName.INSERT_STANDINGS_HISTORY, standingsHistory);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
     public void insertTeams(final List<Team> teams) {
         final SqlSession session = getSqlSession();
         try {
@@ -258,6 +300,17 @@ public class DatabaseServiceImpl implements DatabaseService {
         final SqlSession session = getSqlSession();
         try {
             session.update(PLAYER_STATS_MAPPER + SqlStatementName.UPDATE_PLAYER_STATS, playerStats);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void updateStandingsHistory(final StandingsHistory standingsHistory) {
+        final SqlSession session = getSqlSession();
+        try {
+            session.update(STANDINGS_HISTORY_MAPPER + SqlStatementName.UPDATE_STANDINGS_HISTORY, standingsHistory);
             session.commit();
         } finally {
             session.close();

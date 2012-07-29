@@ -30,11 +30,13 @@ public final class SqlStatementName {
     public static final String CREATE_TABLE_PLAYER = "createTablePlayer";
     public static final String CREATE_TABLE_PLAYER_HISTORY = "createTablePlayerHistory";
     public static final String CREATE_TABLE_PLAYER_STATS = "createTablePlayerStats";
+    public static final String CREATE_TABLE_STANDINGS_HISTORY = "createTableStandingsHistory";
     public static final String CREATE_TABLE_TEAM = "createTableTeam";
 
     // --- DELETE ---
     public static final String DELETE_ALL_FIXTURES = "deleteAllFixtures";
     public static final String DELETE_ALL_TEAMS = "deleteAllTeams";
+    public static final String DELETE_ALL_STANDINGS_HISTORY = "deleteAllStandingsHistory";
     public static final String DELETE_PLAYER = "deletePlayer";
 
     // --- FIND ---
@@ -45,6 +47,7 @@ public final class SqlStatementName {
     public static final String FIND_LATEST_IMPORT_DATE = "findLatestImportDate";
     public static final String FIND_PLAYER_BY_PLAYER_ID = "findPlayerByPlayerId";
     public static final String FIND_PLAYER_HISTORY_BY_PLAYER_ID = "findPlayerHistoryByPlayerId";
+    public static final String FIND_STANDINGS_HISTORY_BY_TEAM_ID_AND_DATE = "findStandingsHistoryByTeamIdAndDate";
     public static final String FIND_PLAYER_STATS_BY_PLAYER_ID = "findPlayerStatsByPlayerId";
 
     // --- INSERT ---
@@ -52,11 +55,13 @@ public final class SqlStatementName {
     public static final String INSERT_PLAYER = "insertPlayer";
     public static final String INSERT_PLAYER_HISTORY = "insertPlayerHistory";
     public static final String INSERT_PLAYER_STATS = "insertPlayerStats";
+    public static final String INSERT_STANDINGS_HISTORY = "insertStandingsHistory";
     public static final String INSERT_TEAMS = "insertTeams";
 
     // --- UPDATE ---
     public static final String UPDATE_FIXTURE = "updateFixture";
     public static final String UPDATE_PLAYER_STATS = "updatePlayerStats";
+    public static final String UPDATE_STANDINGS_HISTORY = "updateStandingsHistory";
     public static final String UPDATE_TEAM = "updateTeam";
 
     // --- DROP ---
@@ -64,6 +69,7 @@ public final class SqlStatementName {
     public static final String DROP_TABLE_PLAYER = "dropTablePlayer";
     public static final String DROP_TABLE_PLAYER_HISTORY = "dropTablePlayerHistory";
     public static final String DROP_TABLE_PLAYER_STATS = "dropTablePlayerStats";
+    public static final String DROP_TABLE_STANDINGS_HISTORY = "dropTableStandingsHistory";
     public static final String DROP_TABLE_TEAM = "dropTableTeam";
 
 }

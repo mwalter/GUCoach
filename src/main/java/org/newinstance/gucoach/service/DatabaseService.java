@@ -22,6 +22,7 @@ import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
+import org.newinstance.gucoach.model.StandingsHistory;
 import org.newinstance.gucoach.model.Team;
 
 import java.util.Date;
@@ -39,6 +40,9 @@ public interface DatabaseService {
 
     /** Deletes all fixtures from the database. */
     public void deleteAllFixtures();
+
+    /** Deletes all standings from the database. */
+    public void deleteAllStandingsHistory();
 
     /** Deletes all matches from the database. */
     public void deleteAllTeams();
@@ -97,7 +101,7 @@ public interface DatabaseService {
     public Player findPlayerByPlayerId(final Long playerId);
 
     /**
-     * Returns all players histories about a player from the database.
+     * Returns all player histories about a player from the database.
      *
      * @param playerId the primary key of the player to get the history from
      * @return the list of player histories
@@ -111,6 +115,15 @@ public interface DatabaseService {
      * @return the player statistics
      */
     public PlayerStats findPlayerStatsByPlayerId(final Long playerId);
+
+    /**
+     * Returns the standings for a team at the specified date.
+     *
+     * @param teamId the id of the team
+     * @param date the date of the standings record
+     * @return the standings history
+     */
+    public StandingsHistory findStandingsHistoryByTeamAndDate(final Long teamId, final Date date);
 
     /**
      * Inserts a new fixture into the database.
@@ -141,6 +154,13 @@ public interface DatabaseService {
     public void insertPlayerStats(final PlayerStats playerStats);
 
     /**
+     * Inserts standings history into the database.
+     *
+     * @param standingsHistory the standings history to insert
+     */
+    public void insertStandingsHistory(final StandingsHistory standingsHistory);
+
+    /**
      * Inserts a list of new teams into the database.
      *
      * @param teams the list with teams to insert
@@ -160,6 +180,13 @@ public interface DatabaseService {
      * @param playerStats the player statistics to update
      */
     public void updatePlayerStats(final PlayerStats playerStats);
+
+    /**
+     * Updates standings history.
+     *
+     * @param standingsHistory the standings history to update
+     */
+    public void updateStandingsHistory(final StandingsHistory standingsHistory);
 
     /**
      * Updates the team.
