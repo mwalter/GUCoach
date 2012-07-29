@@ -25,7 +25,7 @@ import java.util.Date;
  *
  * @author mwalter
  */
-public final class Standings {
+public final class StandingsHistory {
 
     /** Primary key. */
     private Long id;
@@ -133,7 +133,7 @@ public final class Standings {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Standings [");
+        builder.append("StandingsHistory [");
         builder.append("id=").append(id).append(", ");
         builder.append("teamId=").append(teamId).append(", ");
         builder.append("position=").append(position).append(", ");

@@ -24,7 +24,7 @@
         <typeAlias alias="Player" type="org.newinstance.gucoach.model.Player"/>
         <typeAlias alias="PlayerStats" type="org.newinstance.gucoach.model.PlayerStats"/>
         <typeAlias alias="PlayerHistory" type="org.newinstance.gucoach.model.PlayerHistory"/>
-        <typeAlias alias="Standings" type="org.newinstance.gucoach.model.Standings"/>
+        <typeAlias alias="StandingsHistory" type="org.newinstance.gucoach.model.StandingsHistory"/>
         <typeAlias alias="Team" type="org.newinstance.gucoach.model.Team"/>
     </typeAliases>
 
@@ -46,7 +46,7 @@
         <mapper resource="cfg/PlayerMapper.xml"/>
         <mapper resource="cfg/PlayerStatsMapper.xml"/>
         <mapper resource="cfg/PlayerHistoryMapper.xml"/>
-        <mapper resource="cfg/StandingsMapper.xml"/>
+        <mapper resource="cfg/StandingsHistoryMapper.xml"/>
         <mapper resource="cfg/TeamMapper.xml"/>
     </mappers>
 </configuration>

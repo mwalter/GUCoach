@@ -18,8 +18,8 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.newinstance.gucoach.mapper.StandingsMapper">
-    <resultMap id="standingsResultMap" type="Standings">
+<mapper namespace="org.newinstance.gucoach.mapper.StandingsHistoryMapper">
+    <resultMap id="standingsHistoryResultMap" type="StandingsHistory">
         <result column="team_id" property="teamId"/>
         <result column="matches_won" property="matchesWon"/>
         <result column="matches_drawn" property="matchesDrawn"/>
@@ -28,8 +28,12 @@
         <result column="goals_against" property="goalsAgainst"/>
         <result column="match_day" property="matchDay"/>
     </resultMap>
-    <update id="createTableStandings">
-        CREATE TABLE IF NOT EXISTS standings (
+    <parameterMap id="teamIdAndDateMap" type="java.util.Map">
+        <parameter property="teamId" javaType="java.lang.Long"/>
+        <parameter property="matchDay" javaType="java.util.Date"/>
+    </parameterMap>
+    <update id="createTableStandingsHistory">
+        CREATE TABLE IF NOT EXISTS standings_history (
         id BIGINT PRIMARY KEY AUTO_INCREMENT,
         position TINYINT,
         team_id BIGINT,
@@ -42,14 +46,14 @@
         CONSTRAINT standings_team_day_unq UNIQUE (team_id, match_day)
         )
     </update>
-    <delete id="deleteAllStandings">
-        DELETE FROM standings
+    <delete id="deleteAllStandingsHistory">
+        DELETE FROM standings_history
     </delete>
-    <select id="findAllStandings" resultMap="standingsResultMap">
-        SELECT * FROM standings
+    <select id="findStandingsHistoryByTeamIdAndDate" parameterMap="teamIdAndDateMap" parameterType="java.util.Map" resultMap="standingsHistoryResultMap">
+        SELECT * FROM standings_history WHERE team_id = #{teamId} AND match_day = #{matchDay}
     </select>
-    <insert id="insertStandings" parameterType="java.util.List" useGeneratedKeys="true">
-        INSERT INTO standings (
+    <insert id="insertStandingsHistory" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO standings_history (
         id,
         position,
         team_id,
@@ -61,20 +65,20 @@
         match_day
         )
         VALUES
-        <foreach collection="list" item="standings" open="(" close=")" separator="),(">
-            #{standings.id},
-            #{standings.position},
-            #{standings.teamId},
-            #{standings.matchesWon},
-            #{standings.matchesDrawn},
-            #{standings.matchesLost},
-            #{standings.goalsFor},
-            #{standings.goalsAgainst},
-            #{standings.matchDay}
+        <foreach collection="list" item="standingsHistory" open="(" close=")" separator="),(">
+            #{standingsHistory.id},
+            #{standingsHistory.position},
+            #{standingsHistory.teamId},
+            #{standingsHistory.matchesWon},
+            #{standingsHistory.matchesDrawn},
+            #{standingsHistory.matchesLost},
+            #{standingsHistory.goalsFor},
+            #{standingsHistory.goalsAgainst},
+            #{standingsHistory.matchDay}
         </foreach>
     </insert>
-    <update id="updateStandings" parameterType="Standings">
-        UPDATE standings SET
+    <update id="updateStandingsHistory" parameterType="StandingsHistory">
+        UPDATE standings_history SET
         position = #{position},
         team_id = #{teamId},
         matches_won = #{matchesWon},
@@ -85,7 +89,7 @@
         match_day = #{matchDay}
         WHERE id = #{id}
     </update>
-    <update id="dropTableStandings">
-        DROP TABLE IF EXISTS standings
+    <update id="dropTableStandingsHistory">
+        DROP TABLE IF EXISTS standings_history
     </update>
 </mapper>
