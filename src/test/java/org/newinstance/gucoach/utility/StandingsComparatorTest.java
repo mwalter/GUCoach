@@ -48,7 +48,7 @@ public class StandingsComparatorTest {
         standings.add(row4);
         standings.add(row5);
 
-        Collections.sort(standings, new StandingsComparator());
+        Collections.sort(standings, new StandingsComparator<StandingsContentProvider.StandingsDataRow>());
         Assert.assertEquals(5, standings.size());
 
         Assert.assertEquals("Aleppo", standings.get(0).getTeamName());
