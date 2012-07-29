@@ -18,32 +18,19 @@
 
 package org.newinstance.gucoach.gui.builder;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
- * Tests methods of class {@link LeagueBuilder}.
+ * Abstract class for all scene builders.
  *
  * @author mwalter
  */
-public class LeagueBuilderTest {
+public abstract class AbstractSceneBuilder {
 
-    @Test
-    public void buildCreateLeagueDialogueTest() {
-        final Parent root = LeagueBuilder.buildCreateLeagueDialogue();
-        Assert.assertNotNull(root);
-        final ObservableList<Node> children = root.getChildrenUnmodifiable();
-        // two VBoxes
-        Assert.assertEquals(2, children.size());
-        final Node tfMatchday = root.lookup("#idTfMatchday");
-        Assert.assertNotNull(tfMatchday);
-        final TextField matchday = (TextField) tfMatchday;
-        final String date = "04.06.2012";
-        matchday.setText(date);
-        Assert.assertEquals(date, matchday.getText());
-    }
+    /**
+     * Builds the scene with the UI components.
+     *
+     * @return the parent node containing all UI components
+     */
+    public abstract Parent buildScene();
 }

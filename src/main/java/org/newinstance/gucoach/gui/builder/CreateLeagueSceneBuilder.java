@@ -49,19 +49,11 @@ import org.newinstance.gucoach.utility.TextInputHelper;
  *
  * @author mwalter
  */
-public final class LeagueBuilder {
+public final class CreateLeagueSceneBuilder extends AbstractSceneBuilder {
 
-    private LeagueBuilder() {
-        // hide constructor
-    }
-
-    /**
-     * Builds the dialogue for creating a new league.
-     *
-     * @return the parent node containing all ui components
-     */
-    public static Parent buildCreateLeagueDialogue() {
-        final BorderPane root = BorderPaneBuilder.create().build();
+    @Override
+    public Parent buildScene() {
+        final BorderPane parent = BorderPaneBuilder.create().build();
 
         // text fields for team names
         final TextField tfTeamRnk1 = TextFieldBuilder.create().build();
@@ -100,7 +92,7 @@ public final class LeagueBuilder {
             public void handle(final ActionEvent event) {
                 // TODO validate and save data to database
                 final Team team1 = new Team();
-                team1.setStartingPosition(1);
+                team1.setStartPos(1);
                 team1.setName(tfTeamRnk1.getText());
             }
         }).prefWidth(100.0).build();
@@ -109,7 +101,7 @@ public final class LeagueBuilder {
         final Button buttonCancel = ButtonBuilder.create().text(ResourceLoader.getResource("button.cancel")).onAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                final Stage stage = (Stage) root.getScene().getWindow();
+                final Stage stage = (Stage) parent.getScene().getWindow();
                 stage.close();
             }
         }).prefWidth(100.0).build();
@@ -171,8 +163,8 @@ public final class LeagueBuilder {
 
         final VBox vBoxCenter = VBoxBuilder.create().children(gpTeams, gpMatchday, hBoxButtonArea).spacing(5.0).padding(new Insets(10, 10, 10, 10)).build();
 
-        root.setTop(vBoxTop);
-        root.setCenter(vBoxCenter);
-        return root;
+        parent.setTop(vBoxTop);
+        parent.setCenter(vBoxCenter);
+        return parent;
     }
 }

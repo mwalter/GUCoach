@@ -30,7 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.newinstance.gucoach.gui.StandingsContentProvider;
-import org.newinstance.gucoach.gui.builder.LeagueBuilder;
+import org.newinstance.gucoach.gui.builder.CreateLeagueSceneBuilder;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 
@@ -89,7 +89,7 @@ public class LeagueController implements Initializable {
      */
     public void showCreateLeagueWindow(final ActionEvent event) {
         // build dialogue with builder
-        final Parent root = LeagueBuilder.buildCreateLeagueDialogue();
+        final Parent root = new CreateLeagueSceneBuilder().buildScene();
 
         // build dialogue with FXML
         //        Parent root = null;

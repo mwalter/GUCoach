@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.gui.PlayerContentProvider;
-import org.newinstance.gucoach.gui.builder.LeagueBuilder;
+import org.newinstance.gucoach.gui.builder.CreateLeagueSceneBuilder;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportControllerImpl;
 import org.newinstance.gucoach.utility.ResourceLoader;
@@ -82,7 +82,7 @@ public class MainController {
     @FXML
     protected void showCreateLeagueWindow(final ActionEvent event) {
         // build dialogue with builder
-        final Parent root = LeagueBuilder.buildCreateLeagueDialogue();
+        final Parent root = new CreateLeagueSceneBuilder().buildScene();
         final Scene scene = new Scene(root);
         scene.getStylesheets().add("stylesheet.css");
         final Stage stage = new Stage();
