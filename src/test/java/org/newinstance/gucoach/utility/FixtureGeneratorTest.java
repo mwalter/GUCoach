@@ -44,7 +44,7 @@ public class FixtureGeneratorTest {
     public void checkGenerateFixtures() {
         final Map<Calendar, Map<Integer, Long[]>> fixtures = FixtureGenerator.generateFixtures(getTeamIds(), Calendar.getInstance());
         for (Map<Integer, Long[]> fixturesOfMatchday : fixtures.values()) {
-            // there have to be allways 6 fixtures per matchday
+            // there always have to be 6 fixtures per matchday
             Assert.assertEquals(6, fixturesOfMatchday.size());
 
             final List<Long> allTeams = getTeamIds();
@@ -57,6 +57,9 @@ public class FixtureGeneratorTest {
             // if list is empty all teams had been lined up for a fixture
             Assert.assertTrue(allTeams.isEmpty());
         }
+
+        // there are 22 matchdays per season
+        Assert.assertEquals(22, fixtures.size());
     }
 
     /**
