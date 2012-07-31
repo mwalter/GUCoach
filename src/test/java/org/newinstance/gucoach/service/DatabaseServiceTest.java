@@ -29,6 +29,7 @@ import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.model.Position;
+import org.newinstance.gucoach.model.StandingsHistory;
 import org.newinstance.gucoach.model.StrongFoot;
 import org.newinstance.gucoach.model.Team;
 
@@ -183,6 +184,28 @@ public class DatabaseServiceTest {
         result = databaseService.findAllPlayers();
         Assert.assertNotNull(result);
         Assert.assertTrue("Players found.", result.isEmpty());
+    }
+
+    @Test
+    public void insertAndDeleteStandingsHistoryTest() {
+        Team team = createTeam("Olympique Marseille", 1);
+        final List<Team> teams = new ArrayList<Team>();
+        teams.add(team);
+        databaseService.insertTeams(teams);
+        final Date matchDay = new Date();
+        team = databaseService.findAllTeams().get(0);
+        final StandingsHistory standingsHistory = createStandingsHistory(team.getId(), matchDay);
+        databaseService.insertStandingsHistory(standingsHistory);
+
+        StandingsHistory result = databaseService.findStandingsHistoryByTeamAndDate(team.getId(), matchDay);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(team.getId(), result.getTeamId());
+
+        // DELETE
+        databaseService.deleteAllStandingsHistory();
+
+        result = databaseService.findStandingsHistoryByTeamAndDate(team.getId(), new Date());
+        Assert.assertNull(result);
     }
 
     @Test
@@ -427,6 +450,26 @@ public class DatabaseServiceTest {
         playerStats.setYellowCardsTotal(7);
         playerStats.setImportDate(new Date());
         return playerStats;
+    }
+
+    /**
+     * Creates and returns a new {@link StandingsHistory} entity.
+     *
+     * @param teamId the team id
+     * @param matchDay the date of the matchday
+     * @return a new entity
+     */
+    private StandingsHistory createStandingsHistory(final Long teamId, final Date matchDay) {
+        final StandingsHistory standingsHistory = new StandingsHistory();
+        standingsHistory.setMatchesWon(2);
+        standingsHistory.setMatchesDrawn(1);
+        standingsHistory.setMatchesLost(3);
+        standingsHistory.setGoalsFor(4);
+        standingsHistory.setGoalsAgainst(7);
+        standingsHistory.setMatchDay(matchDay);
+        standingsHistory.setPosition(6);
+        standingsHistory.setTeamId(teamId);
+        return standingsHistory;
     }
 
     /**
