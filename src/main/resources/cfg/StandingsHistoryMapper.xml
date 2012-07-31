@@ -29,8 +29,8 @@
         <result column="match_day" property="matchDay"/>
     </resultMap>
     <parameterMap id="teamIdAndDateMap" type="java.util.Map">
-        <parameter property="teamId" javaType="java.lang.Long"/>
-        <parameter property="matchDay" javaType="java.util.Date"/>
+        <parameter property="teamId" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <parameter property="matchDay" javaType="java.util.Date" jdbcType="DATE"/>
     </parameterMap>
     <update id="createTableStandingsHistory">
         CREATE TABLE IF NOT EXISTS standings_history (
@@ -50,9 +50,9 @@
         DELETE FROM standings_history
     </delete>
     <select id="findStandingsHistoryByTeamIdAndDate" parameterMap="teamIdAndDateMap" parameterType="java.util.Map" resultMap="standingsHistoryResultMap">
-        SELECT * FROM standings_history WHERE team_id = #{teamId} AND match_day = #{matchDay}
+        SELECT * FROM standings_history WHERE team_id = ? AND match_day = ?
     </select>
-    <insert id="insertStandingsHistory" parameterType="java.util.List" useGeneratedKeys="true">
+    <insert id="insertStandingsHistory" parameterType="StandingsHistory" useGeneratedKeys="true">
         INSERT INTO standings_history (
         id,
         position,
@@ -64,18 +64,17 @@
         goals_against,
         match_day
         )
-        VALUES
-        <foreach collection="list" item="standingsHistory" open="(" close=")" separator="),(">
-            #{standingsHistory.id},
-            #{standingsHistory.position},
-            #{standingsHistory.teamId},
-            #{standingsHistory.matchesWon},
-            #{standingsHistory.matchesDrawn},
-            #{standingsHistory.matchesLost},
-            #{standingsHistory.goalsFor},
-            #{standingsHistory.goalsAgainst},
-            #{standingsHistory.matchDay}
-        </foreach>
+        VALUES (
+        #{id},
+        #{position},
+        #{teamId},
+        #{matchesWon},
+        #{matchesDrawn},
+        #{matchesLost},
+        #{goalsFor},
+        #{goalsAgainst},
+        #{matchDay}
+        )
     </insert>
     <update id="updateStandingsHistory" parameterType="StandingsHistory">
         UPDATE standings_history SET
