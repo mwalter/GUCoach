@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.newinstance.gucoach.gui.controller.ControllerProvider;
 import org.newinstance.gucoach.gui.controller.MainController;
@@ -37,6 +38,8 @@ import java.util.ResourceBundle;
  */
 public class GUCoach extends Application {
 
+    /** The application icon. */
+    private static final String APPLICATION_ICON = "../../../../images/gucoach-icon.png";
     /** The application name. */
     private static final String APPLICATION_TITLE = "GUCoach - your personal coach for Goalunited";
     /** The layout of the main application window. */
@@ -72,6 +75,7 @@ public class GUCoach extends Application {
         final Scene scene = new Scene(root, 1300, 900);
         scene.getStylesheets().add(FILE_STYLESHEETS);
         stage.setTitle(APPLICATION_TITLE);
+        stage.getIcons().add(new Image(getClass().getResource(APPLICATION_ICON).toString()));
         stage.setScene(scene);
         stage.show();
     }
