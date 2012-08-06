@@ -1,9 +1,10 @@
 GUCoach - your personal coach for Goalunited.
-Copyright (C) 2012 newInstance.org
+Licenced under General Public Licence v3 (GPLv3)
+newInstance.org, 2012
 
 == About GUCoach ==
-GUCoach is a manager software for the MMOG Goalunited soccer manager [1].
-It manages and visualises your team player and team development data.
+GUCoach is a manager software for the MMOG Goalunited [1].
+It manages and visualises your team players and team development.
 
 == Technologies ==
 GUCoach is implemented in Java and JavaFX.
@@ -17,9 +18,7 @@ GUCoach is implemented in Java and JavaFX.
 - support the user to make the most of the team
 
 == Help wanted ==
-I'm looking for Java and JavaFX developers who would like to help developing GUCoach.
-Please have a look at the GUCoach forum at http://forum.gucoach.net and join the team.
-Your ideas and suggestions are welcome!
+I'm looking for Java and JavaFX developers who would like to help developing GUCoach. Please have a look at the GUCoach forum at http://forum.gucoach.net and join the team. Your ideas and suggestions are welcome!
 
 This software is in alpha stage.
 
