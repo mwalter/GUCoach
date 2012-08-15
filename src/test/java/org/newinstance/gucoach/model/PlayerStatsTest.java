@@ -39,10 +39,13 @@ public class PlayerStatsTest {
     }
 
     @Test
-    public void testPlayerId() {
+    public void testPlayer() {
+        final Player player = new Player();
+        player.setLastName("Messi");
+        player.setFirstName("Lionel");
         final PlayerStats playerStats = new PlayerStats();
-        playerStats.setPlayerId(1L);
-        Assert.assertEquals(1L, playerStats.getPlayerId().longValue());
+        playerStats.setPlayer(player);
+        Assert.assertEquals(player.getLastName(), playerStats.getPlayer().getLastName());
     }
 
     @Test

@@ -20,6 +20,15 @@ package org.newinstance.gucoach.model;
 
 import org.newinstance.gucoach.utility.DateHelper;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 /**
@@ -27,63 +36,110 @@ import java.util.Date;
  *
  * @author mwalter
  */
+@Entity
 public final class PlayerStats {
 
     /** Primary key. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    /** Player foreign key */
-    private Long playerId;
+
+    /** Player. */
+    @OneToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+
     /** Number in team. */
     private Integer number;
+
     /** Training - not used. */
     private String training;
+
     /** Average strength. */
     private Float averageStrength;
+
     /** Position in line-up. */
     private Position position;
+
     /** Form. */
     private Integer form;
+
     /** Energy. */
     private Integer energy;
+
     /** Endurance. */
     private Integer endurance;
+
     /** Experience. */
     private Integer experience;
+
     /** Goalkeeping skill. */
+    @Column(name = "skill_goalkeeping")
     private Integer skillGoalkeeping;
+
     /** Tackling skill. */
+    @Column(name = "skill_tackling")
     private Integer skillTackling;
+
     /** Playmaking skill. */
+    @Column(name = "skill_playmaking")
     private Integer skillPlaymaking;
+
     /** Passing skill. */
+    @Column(name = "skill_passing")
     private Integer skillPassing;
+
     /** Scoring skill. */
+    @Column(name = "skill_scoring")
     private Integer skillScoring;
+
     /** Talent. */
     private String talent;
+
     /** Talent level. */
+    @Column(name = "talent_level")
     private Integer talentLevel;
+
     /** Age. */
     private Integer age;
+
     /** Salary. */
     private Integer salary;
+
     /** Number of assignments. */
     private Integer assignments;
+
     /** Goals scored in current season. */
+    @Column(name = "goals_season")
     private Integer goalsSeason;
+
     /** Goals scored in total. */
+    @Column(name = "goals_total")
     private Integer goalsTotal;
+
     /** Market value. */
+    @Column(name = "market_value")
     private Integer marketValue;
+
     /** Yellow cards seen in current season. */
+    @Column(name = "yellow_cards_season")
     private Integer yellowCardsSeason;
+
     /** Yellow cards seen in total. */
+    @Column(name = "yellow_cards_total")
     private Integer yellowCardsTotal;
+
     /** Red cards seen in current season. */
+    @Column(name = "red_cards_season")
     private Integer redCardsSeason;
+
     /** Red cards seen in total. */
+    @Column(name = "red_cards_total")
     private Integer redCardsTotal;
+
     /** Date the statistics were imported into the database. */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "import_date")
     private Date importDate;
 
     public Integer getAge() {
@@ -138,8 +194,8 @@ public final class PlayerStats {
         return number;
     }
 
-    public Long getPlayerId() {
-        return playerId;
+    public Player getPlayer() {
+        return player;
     }
 
     public Position getPosition() {
@@ -250,8 +306,8 @@ public final class PlayerStats {
         this.number = number;
     }
 
-    public void setPlayerId(final Long playerId) {
-        this.playerId = playerId;
+    public void setPlayer(final Player player) {
+        this.player = player;
     }
 
     public void setPosition(final Position position) {
@@ -315,7 +371,7 @@ public final class PlayerStats {
         final StringBuilder builder = new StringBuilder();
         builder.append("PlayerStats [");
         builder.append("id=").append(id).append(", ");
-        builder.append("playerId=").append(playerId).append(", ");
+        builder.append("playerId=").append(player.getId()).append(", ");
         builder.append("number=").append(number).append(", ");
         builder.append("training=").append(training).append(", ");
         builder.append("averageStrength=").append(averageStrength).append(", ");
@@ -364,7 +420,7 @@ public final class PlayerStats {
                 ps.getGoalsTotal().equals(goalsTotal) &&
                 // ps.getMarketValue().equals(marketValue) &&
                 ps.getNumber().equals(number) &&
-                ps.getPlayerId().equals(playerId) &&
+                ps.getPlayer().getId().equals(player.getId()) &&
                 ps.getPosition().equals(position) &&
                 ps.getRedCardsSeason().equals(redCardsSeason) &&
                 ps.getRedCardsTotal().equals(redCardsTotal) &&

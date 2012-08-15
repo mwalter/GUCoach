@@ -18,6 +18,17 @@
 
 package org.newinstance.gucoach.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import java.util.Date;
 
 /**
@@ -25,26 +36,47 @@ import java.util.Date;
  *
  * @author mwalter
  */
+@Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"team_id", "match_day"}))
 public final class StandingsHistory {
 
     /** Primary key. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     /** The date this standings record is valid from. */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "match_day")
     private Date matchDay;
+
     /** Number of matches won. */
+    @Column(name = "matches_won")
     private Integer matchesWon;
+
     /** Number of matches drawn. */
+    @Column(name = "matches_drawn")
     private Integer matchesDrawn;
+
     /** Number of matches lost. */
+    @Column(name = "matches_lost")
     private Integer matchesLost;
+
     /** Number of goals scored. */
+    @Column(name = "goals_for")
     private Integer goalsFor;
+
     /** Number of goals received. */
+    @Column(name = "goals_against")
     private Integer goalsAgainst;
+
     /** Current position in standings. */
     private Integer position;
+
     /** The team's primary key. */
-    private Long teamId;
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public Long getId() {
         return id;
@@ -122,12 +154,12 @@ public final class StandingsHistory {
         this.position = position;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(final Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(final Team team) {
+        this.team = team;
     }
 
     @Override
@@ -135,7 +167,7 @@ public final class StandingsHistory {
         final StringBuilder builder = new StringBuilder();
         builder.append("StandingsHistory [");
         builder.append("id=").append(id).append(", ");
-        builder.append("teamId=").append(teamId).append(", ");
+        builder.append("teamId=").append(team.getId()).append(", ");
         builder.append("position=").append(position).append(", ");
         builder.append("matchDay=").append(matchDay).append(", ");
         builder.append("matchesWon=").append(matchesWon).append(", ");

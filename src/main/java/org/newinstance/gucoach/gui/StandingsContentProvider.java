@@ -22,8 +22,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Team;
-import org.newinstance.gucoach.service.DatabaseService;
-import org.newinstance.gucoach.service.DatabaseServiceImpl;
+import org.newinstance.gucoach.service.FixtureService;
+import org.newinstance.gucoach.service.TeamService;
+import org.newinstance.gucoach.utility.PersistenceHelper;
 import org.newinstance.gucoach.utility.StandingsComparator;
 
 import java.util.ArrayList;
@@ -41,8 +42,10 @@ public final class StandingsContentProvider {
     private static final int POINTS_MATCH_DRAWN = 1;
     private static final int POINTS_MATCH_LOST = 0;
     private static final int POINTS_MATCH_WON = 3;
-    /** The database service. */
-    private static DatabaseService databaseService = new DatabaseServiceImpl();
+    /** The team service. */
+    private static TeamService teamService = new TeamService(PersistenceHelper.getInstance().createEntityManager());
+    /** The fixture service. */
+    private static FixtureService fixtureService = new FixtureService(PersistenceHelper.getInstance().createEntityManager());
 
     private StandingsContentProvider() {
         // hide constructor
@@ -55,11 +58,9 @@ public final class StandingsContentProvider {
      */
     public static ObservableList<StandingsDataRow> getStandingsData() {
         // make sure to initialise tables
-        // TODO should not be called here
-        databaseService.createTables();
         final List<StandingsDataRow> standingsDataRows = new ArrayList<StandingsDataRow>();
-        final List<Team> teams = databaseService.findAllTeams();
-        final List<Fixture> fixtures = databaseService.findAllFixtures();
+        final List<Team> teams = teamService.findAllTeams();
+        final List<Fixture> fixtures = fixtureService.findAllFixtures();
 
         // collect all data for every team in fixture list
         for (final Team team : teams) {
@@ -82,13 +83,13 @@ public final class StandingsContentProvider {
 
         for (final Fixture fixture : fixtures) {
             // is this team part of this fixture?
-            if (fixture.getHomeTeamId().equals(team.getId()) || fixture.getAwayTeamId().equals(team.getId())) {
+            if (fixture.getHomeTeam().equals(team) || fixture.getAwayTeam().equals(team)) {
                 matchesPlayed++;
                 final String[] results = fixture.getMatchResult().split(":");
                 final int goalsHomeTeam = Integer.parseInt(results[0]);
                 final int goalsAwayTeam = Integer.parseInt(results[1]);
                 // is this the home or away team?
-                if (fixture.getHomeTeamId().equals(team.getId())) {
+                if (fixture.getHomeTeam().equals(team)) {
                     goalsFor += goalsHomeTeam;
                     goalsAgainst += goalsAwayTeam;
                     switch (calculatePoints(goalsHomeTeam, goalsAwayTeam)) {

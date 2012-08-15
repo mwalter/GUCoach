@@ -1,0 +1,55 @@
+<!--
+  ~ GUCoach - your personal coach for Goalunited (tm).
+  ~ Copyright (C) 2012 newInstance.org
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+    <named-query name="FIND_ALL_FIXTURE">
+        <query><![CDATA[SELECT f FROM Fixture f]]></query>
+    </named-query>
+    <named-query name="FIND_ALL_IMPORT_DATE">
+        <query><![CDATA[SELECT DISTINCT ph.importDate FROM PlayerHistory ph]]></query>
+    </named-query>
+    <named-query name="FIND_ALL_PLAYER">
+        <query><![CDATA[SELECT p FROM Player p]]></query>
+    </named-query>
+    <named-query name="FIND_ALL_TEAM">
+        <query><![CDATA[SELECT t FROM Team t]]></query>
+    </named-query>
+    <named-query name="FIND_LATEST_IMPORT_DATE">
+        <query><![CDATA[SELECT MAX(ph.importDate) FROM PlayerHistory ph]]></query>
+    </named-query>
+    <named-query name="FIND_PLAYER_HISTORY_BY_PLAYER">
+        <query><![CDATA[SELECT ph FROM PlayerHistory ph WHERE ph.player = :player ORDER BY ph.importDate DESC]]></query>
+    </named-query>
+    <named-query name="FIND_PLAYER_STATS_BY_PLAYER">
+        <query><![CDATA[SELECT ps FROM PlayerStats ps WHERE ps.player = :player ORDER BY ps.importDate DESC]]></query>
+    </named-query>
+    <named-query name="FIND_STANDINGS_HISTORY_BY_TEAM_AND_DATE">
+        <query><![CDATA[SELECT sh FROM StandingsHistory sh WHERE sh.team = :team AND sh.matchDay = :matchDay]]></query>
+    </named-query>
+    <named-query name="REMOVE_ALL_FIXTURE">
+        <query><![CDATA[DELETE FROM Fixture f]]></query>
+    </named-query>
+    <named-query name="REMOVE_ALL_STANDINGS_HISTORY">
+        <query><![CDATA[DELETE FROM StandingsHistory sh]]></query>
+    </named-query>
+    <named-query name="REMOVE_ALL_TEAM">
+        <query><![CDATA[DELETE FROM Team t]]></query>
+    </named-query>
+</entity-mappings>

@@ -16,26 +16,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
-
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.junit.Assert;
-import org.junit.Test;
-import org.newinstance.gucoach.model.Player;
+package org.newinstance.gucoach.utility;
 
 /**
- * Tests the methods of the {@link ConnectionFactory}.
+ * Contains all named queries.
  *
  * @author mwalter
- * @version 07.02.12
  */
-public class ConnectionFactoryTest {
-
-    @Test
-    public void initialiseConnectionTest() {
-        final SqlSessionFactory session = ConnectionFactory.getInstance();
-        Assert.assertNotNull(session);
-        final Class type = session.getConfiguration().getTypeAliasRegistry().resolveAlias("Player");
-        Assert.assertEquals(Player.class.getCanonicalName(), type.getName());
-    }
+public enum NamedQuery {
+    FIND_ALL_FIXTURE,
+    FIND_ALL_IMPORT_DATE,
+    FIND_ALL_PLAYER,
+    FIND_ALL_TEAM,
+    FIND_LATEST_IMPORT_DATE,
+    FIND_PLAYER_HISTORY_BY_PLAYER,
+    FIND_PLAYER_STATS_BY_PLAYER,
+    FIND_STANDINGS_HISTORY_BY_TEAM_AND_DATE,
+    REMOVE_ALL_FIXTURE,
+    REMOVE_ALL_STANDINGS_HISTORY,
+    REMOVE_ALL_TEAM
 }

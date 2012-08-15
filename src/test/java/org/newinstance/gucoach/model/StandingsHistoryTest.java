@@ -32,6 +32,10 @@ public class StandingsHistoryTest {
 
     @Test
     public void testStandings() {
+        final Team team = new Team();
+        team.setName("FC Liverpool");
+        team.setId(1L);
+
         final StandingsHistory standingsHistory = new StandingsHistory();
         standingsHistory.setId(1L);
         standingsHistory.setGoalsAgainst(5);
@@ -42,10 +46,10 @@ public class StandingsHistoryTest {
         standingsHistory.setMatchesLost(3);
         standingsHistory.setMatchesWon(5);
         standingsHistory.setPosition(2);
-        standingsHistory.setTeamId(1L);
+        standingsHistory.setTeam(team);
 
         Assert.assertEquals(1L, standingsHistory.getId().longValue());
-        Assert.assertEquals(1L, standingsHistory.getTeamId().longValue());
+        Assert.assertEquals(1L, standingsHistory.getTeam().getId().longValue());
         Assert.assertEquals(6, standingsHistory.getGoalsDiff().intValue());
         Assert.assertEquals(11, standingsHistory.getGoalsFor().intValue());
         Assert.assertEquals(5, standingsHistory.getGoalsAgainst().intValue());
@@ -60,6 +64,10 @@ public class StandingsHistoryTest {
 
     @Test
     public void testToString() {
+        final Team team = new Team();
+        team.setName("FC Liverpool");
+        team.setId(1L);
+
         final StandingsHistory standingsHistory = new StandingsHistory();
         standingsHistory.setId(1L);
         standingsHistory.setGoalsAgainst(5);
@@ -70,7 +78,7 @@ public class StandingsHistoryTest {
         standingsHistory.setMatchesLost(3);
         standingsHistory.setMatchesWon(5);
         standingsHistory.setPosition(2);
-        standingsHistory.setTeamId(1L);
+        standingsHistory.setTeam(team);
 
         final String toString = standingsHistory.toString();
         Assert.assertTrue(toString.contains("id=1"));

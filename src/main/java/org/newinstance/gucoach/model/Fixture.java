@@ -18,6 +18,17 @@
 
 package org.newinstance.gucoach.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import java.util.Date;
 
 /**
@@ -25,21 +36,40 @@ import java.util.Date;
  *
  * @author mwalter
  */
+@Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"home_team_id", "away_team_id"}))
 public final class Fixture {
 
     /** Primary key. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    /** Primary key of home team. */
-    private Long homeTeamId;
-    /** Primary key of away team. */
-    private Long awayTeamId;
+
+    /** Home team. */
+    @ManyToOne
+    @JoinColumn(name = "home_team_id")
+    private Team homeTeam;
+
+    /** Away team. */
+    @ManyToOne
+    @JoinColumn(name = "away_team_id")
+    private Team awayTeam;
+
     /** Fixture result. */
+    @Column(name = "match_result")
     private String matchResult;
+
     /** Day of the match. */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "match_day")
     private Date matchDay;
 
-    public Long getHomeTeamId() {
-        return homeTeamId;
+    public Team getAwayTeam() {
+        return awayTeam;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
     }
 
     public Long getId() {
@@ -54,12 +84,12 @@ public final class Fixture {
         return matchResult;
     }
 
-    public Long getAwayTeamId() {
-        return awayTeamId;
+    public void setAwayTeam(final Team awayTeam) {
+        this.awayTeam = awayTeam;
     }
 
-    public void setHomeTeamId(final Long homeTeamId) {
-        this.homeTeamId = homeTeamId;
+    public void setHomeTeam(final Team homeTeam) {
+        this.homeTeam = homeTeam;
     }
 
     public void setId(final Long id) {
@@ -74,17 +104,13 @@ public final class Fixture {
         this.matchResult = matchResult;
     }
 
-    public void setAwayTeamId(final Long awayTeamId) {
-        this.awayTeamId = awayTeamId;
-    }
-
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Fixture [");
         builder.append("id=").append(id).append(", ");
-        builder.append("homeTeamId=").append(homeTeamId).append(", ");
-        builder.append("awayTeamId=").append(awayTeamId).append(", ");
+        builder.append("homeTeamId=").append(homeTeam.getId()).append(", ");
+        builder.append("awayTeamId=").append(awayTeam.getId()).append(", ");
         builder.append("matchResult=").append(matchResult).append(", ");
         builder.append("matchDay=").append(matchDay);
         builder.append("]");

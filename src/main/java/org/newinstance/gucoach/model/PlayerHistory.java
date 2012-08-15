@@ -20,6 +20,15 @@ package org.newinstance.gucoach.model;
 
 import org.newinstance.gucoach.utility.DateHelper;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 /**
@@ -27,33 +36,58 @@ import java.util.Date;
  *
  * @author mwalter
  */
+@Entity
 public final class PlayerHistory {
 
     /** Primary key. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    /** Player foreign key */
-    private Long playerId;
+
+    /** Player. */
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+
     /** Average strength. */
+    @Column(name = "avg_strength")
     private Float averageStrength;
+
     /** Form. */
     private Integer form;
+
     /** Energy. */
     private Integer energy;
+
     /** Endurance. */
     private Integer endurance;
+
     /** Experience. */
     private Integer experience;
+
     /** Goalkeeping skill. */
+    @Column(name = "skill_goalkeeping")
     private Integer skillGoalkeeping;
+
     /** Tackling skill. */
+    @Column(name = "skill_tackling")
     private Integer skillTackling;
+
     /** Playmaking skill. */
+    @Column(name = "skill_playmaking")
     private Integer skillPlaymaking;
+
     /** Passing skill. */
+    @Column(name = "skill_passing")
     private Integer skillPassing;
+
     /** Scoring skill. */
+    @Column(name = "skill_scoring")
     private Integer skillScoring;
+
     /** Date the statistics were imported into the database. */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "import_date")
     private Date importDate;
 
     public Float getAverageStrength() {
@@ -84,8 +118,8 @@ public final class PlayerHistory {
         return importDate;
     }
 
-    public Long getPlayerId() {
-        return playerId;
+    public Player getPlayer() {
+        return player;
     }
 
     public Integer getSkillGoalkeeping() {
@@ -136,8 +170,8 @@ public final class PlayerHistory {
         this.importDate = importDate;
     }
 
-    public void setPlayerId(final Long playerId) {
-        this.playerId = playerId;
+    public void setPlayer(final Player player) {
+        this.player = player;
     }
 
     public void setSkillGoalkeeping(final Integer skillGoalkeeping) {
@@ -165,7 +199,7 @@ public final class PlayerHistory {
         final StringBuilder builder = new StringBuilder();
         builder.append("PlayerHistory [");
         builder.append("id=").append(id).append(", ");
-        builder.append("playerId=").append(playerId).append(", ");
+        builder.append("playerId=").append(player.getId()).append(", ");
         builder.append("averageStrength=").append(averageStrength).append(", ");
         builder.append("form=").append(form).append(", ");
         builder.append("energy=").append(energy).append(", ");

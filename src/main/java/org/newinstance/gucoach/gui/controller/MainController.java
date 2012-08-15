@@ -32,6 +32,7 @@ import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.builder.CreateLeagueSceneBuilder;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportControllerImpl;
+import org.newinstance.gucoach.utility.PersistenceHelper;
 import org.newinstance.gucoach.utility.ResourceLoader;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public class MainController {
             return;
         }
 
-        final ImportController importController = new ImportControllerImpl();
+        final ImportController importController = new ImportControllerImpl(PersistenceHelper.getInstance().createEntityManager());
         try {
             importController.executeImport(importFile);
             // TODO show error messages in status bar

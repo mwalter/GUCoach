@@ -35,10 +35,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.newinstance.gucoach.model.Team;
-import org.newinstance.gucoach.service.DatabaseService;
-import org.newinstance.gucoach.service.DatabaseServiceImpl;
+import org.newinstance.gucoach.service.TeamService;
 import org.newinstance.gucoach.utility.DateHelper;
 import org.newinstance.gucoach.utility.MessageId;
+import org.newinstance.gucoach.utility.PersistenceHelper;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.newinstance.gucoach.utility.TextInputHelper;
 
@@ -56,8 +56,8 @@ import java.util.ResourceBundle;
  */
 public class CreateLeagueController implements Initializable {
 
-    /** The database service. */
-    private DatabaseService databaseService = new DatabaseServiceImpl();
+    /** The player service. */
+    private TeamService teamService = new TeamService(PersistenceHelper.getInstance().createEntityManager());
 
     @FXML
     private BorderPane root;
@@ -169,7 +169,7 @@ public class CreateLeagueController implements Initializable {
             @Override
             protected Void call() throws Exception {
                 try {
-                    databaseService.insertTeams(teams);
+                    teamService.insertTeams(teams);
                 } catch (final Exception e) {
                     // TODO error handling with bean validation?
                     e.printStackTrace();

@@ -18,20 +18,36 @@
 
 package org.newinstance.gucoach.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 /**
  * A team playing in the league.
  *
  * @author mwalter
  */
+@Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public final class Team {
 
     /** Primary key. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     /** Team name. */
     private String name;
-    /** The starting position of the team in the league. */ 
+
+    /** The starting position of the team in the league. */
+    @Column(name = "start_pos")
     private Integer startPos;
-    /** Team strength - for future use. */
+
+    /** Team strength. */
     private Float strength;
 
     public Long getId() {

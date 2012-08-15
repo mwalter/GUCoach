@@ -38,10 +38,13 @@ public class PlayerHistoryTest {
     }
 
     @Test
-    public void testPlayerId() {
+    public void testPlayer() {
+        final Player player = new Player();
+        player.setLastName("Messi");
+        player.setFirstName("Lionel");
         final PlayerHistory playerHistory = new PlayerHistory();
-        playerHistory.setPlayerId(1L);
-        Assert.assertEquals(1L, playerHistory.getPlayerId().longValue());
+        playerHistory.setPlayer(player);
+        Assert.assertEquals("Messi", playerHistory.getPlayer().getLastName());
     }
 
     @Test

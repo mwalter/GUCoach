@@ -31,10 +31,11 @@ import java.util.Date;
 public class FixtureTest {
 
     @Test
-    public void testHomeTeamId() {
+    public void testHomeTeam() {
+        final Team team = new Team();
         final Fixture fixture = new Fixture();
-        fixture.setHomeTeamId(1L);
-        Assert.assertEquals(1L, fixture.getHomeTeamId().longValue());
+        fixture.setHomeTeam(team);
+        Assert.assertEquals(team, fixture.getHomeTeam());
     }
 
     @Test
@@ -60,18 +61,24 @@ public class FixtureTest {
     }
 
     @Test
-    public void testAwayTeamId() {
+    public void testAwayTeam() {
+        final Team team = new Team();
         final Fixture fixture = new Fixture();
-        fixture.setAwayTeamId(1L);
-        Assert.assertEquals(1L, fixture.getAwayTeamId().longValue());
+        fixture.setAwayTeam(team);
+        Assert.assertEquals(team, fixture.getAwayTeam());
     }
 
     @Test
     public void testToString() {
+        final Team team1 = new Team();
+        team1.setId(3L);
+        final Team team2 = new Team();
+        team2.setId(5L);
+
         final Fixture fixture = new Fixture();
         fixture.setId(1L);
-        fixture.setHomeTeamId(3L);
-        fixture.setAwayTeamId(5L);
+        fixture.setHomeTeam(team1);
+        fixture.setAwayTeam(team2);
         fixture.setMatchResult("2:2");
 
         final String toString = fixture.toString();

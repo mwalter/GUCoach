@@ -23,8 +23,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerStats;
-import org.newinstance.gucoach.service.DatabaseService;
-import org.newinstance.gucoach.service.DatabaseServiceImpl;
+import org.newinstance.gucoach.service.PlayerService;
+import org.newinstance.gucoach.service.PlayerStatsService;
+import org.newinstance.gucoach.utility.PersistenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,10 @@ import java.util.List;
  */
 public final class PlayerContentProvider {
 
-    /** The database service. */
-    private static DatabaseService databaseService = new DatabaseServiceImpl();
+    /** The player service. */
+    private static PlayerService playerService = new PlayerService(PersistenceHelper.getInstance().createEntityManager());
+    /** The player statistics service. */
+    private static PlayerStatsService playerStatsService = new PlayerStatsService(PersistenceHelper.getInstance().createEntityManager());
 
     private PlayerContentProvider() {
         // hide constructor
@@ -50,12 +53,10 @@ public final class PlayerContentProvider {
      */
     public static ObservableList<PlayerDataRow> getPlayerData() {
         // make sure to initialise tables
-        // TODO should not needed to be called here
-        databaseService.createTables();
         final List<PlayerDataRow> playerDataRows = new ArrayList<PlayerDataRow>();
-        final List<Player> players = databaseService.findAllPlayers();
+        final List<Player> players = playerService.findAllPlayers();
         for (final Player player : players) {
-            final PlayerStats playerStats = databaseService.findPlayerStatsByPlayerId(player.getId());
+            final PlayerStats playerStats = playerStatsService.findPlayerStatsByPlayer(player);
             playerDataRows.add(convertToPlayerDataRow(player, playerStats));
         }
 

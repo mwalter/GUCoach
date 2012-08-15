@@ -52,7 +52,7 @@ public class ImportServiceImpl implements ImportService {
     private static final char SEPARATOR = ';';
     private static final String DATE_FORMAT = "dd.MM.yyyy";
     private List<String[]> fileContent = new ArrayList<String[]>();
-    private List<Player> players = new ArrayList<Player>();
+    private Map<Long, Player> players = new HashMap<Long, Player>();
     private Map<Long, PlayerHistory> history = new HashMap<Long, PlayerHistory>();
     private Map<Long, PlayerStats> stats = new HashMap<Long, PlayerStats>();
     private Date importDate;
@@ -69,7 +69,7 @@ public class ImportServiceImpl implements ImportService {
 
     @Override
     public List<Player> getPlayers() {
-        return players;
+        return new ArrayList<Player>(players.values());
     }
 
     @Override
@@ -241,7 +241,7 @@ public class ImportServiceImpl implements ImportService {
         player.setBirthday(record[AttributePosition.BIRTHDAY]);
         player.setStrongFoot(StrongFoot.valueOf(record[AttributePosition.STRONG_FOOT].toUpperCase()));
         player.setImportDate(importDate);
-        players.add(player);
+        players.put(player.getId(), player);
     }
 
     /**
@@ -251,7 +251,7 @@ public class ImportServiceImpl implements ImportService {
      */
     private void convertRecordToPlayerStats(final String[] record) {
         final PlayerStats playerStats = new PlayerStats();
-        playerStats.setPlayerId(new Long(record[AttributePosition.ID]));
+        playerStats.setPlayer(players.get(new Long(record[AttributePosition.ID])));
         playerStats.setNumber(new Integer(record[AttributePosition.NUMBER]));
         // is training filled?
         final String training = record[AttributePosition.TRAINING];
@@ -284,7 +284,7 @@ public class ImportServiceImpl implements ImportService {
         playerStats.setRedCardsSeason(new Integer(record[AttributePosition.RED_CARDS_SEASON]));
         playerStats.setRedCardsTotal(new Integer(record[AttributePosition.RED_CARDS_TOTAL]));
         playerStats.setImportDate(importDate);
-        stats.put(playerStats.getPlayerId(), playerStats);
+        stats.put(playerStats.getPlayer().getId(), playerStats);
     }
 
     /**
@@ -294,7 +294,7 @@ public class ImportServiceImpl implements ImportService {
      */
     private void convertRecordToPlayerHistory(final String[] record) {
         final PlayerHistory playerHistory = new PlayerHistory();
-        playerHistory.setPlayerId(new Long(record[AttributePosition.ID]));
+        playerHistory.setPlayer(players.get(new Long(record[AttributePosition.ID])));
         // erase apostrophe in strength value
         final String strength = StringUtils.remove(record[AttributePosition.STRENGTH], '\'');
         playerHistory.setAverageStrength(new Float(strength));
@@ -308,6 +308,6 @@ public class ImportServiceImpl implements ImportService {
         playerHistory.setSkillPassing(new Integer(record[AttributePosition.SKILL_PASSING]));
         playerHistory.setSkillScoring(new Integer(record[AttributePosition.SKILL_SCORING]));
         playerHistory.setImportDate(importDate);
-        history.put(playerHistory.getPlayerId(), playerHistory);
+        history.put(playerHistory.getPlayer().getId(), playerHistory);
     }
 }

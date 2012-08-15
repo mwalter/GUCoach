@@ -25,6 +25,7 @@ import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,22 +42,26 @@ import java.util.List;
  */
 public class ImportControllerImpl implements ImportController {
 
-    private DatabaseService databaseService;
+    private EntityManager em;
+    private PlayerService playerService;
+    private PlayerStatsService playerStatsService;
+    private PlayerHistoryService playerHistoryService;
     private ImportService importService;
     private File importFile;
 
     /** The default constructor initialises the services. */
-    public ImportControllerImpl() {
-        databaseService = new DatabaseServiceImpl();
+    public ImportControllerImpl(final EntityManager entityManager) {
+        em = entityManager;
+        playerService = new PlayerService(em);
+        playerStatsService = new PlayerStatsService(em);
+        playerHistoryService = new PlayerHistoryService(em);
         importService = new ImportServiceImpl();
     }
 
     @Override
     public void executeImport(final File file) throws ImportException, ValidationException {
         importFile = file;
-        // -- 1 -- create database tables if they do not exist
-        databaseService.createTables();
-        // -- 2 -- import data
+        // -- 1 -- import data
         try {
             importService.importData(new InputStreamReader(new FileInputStream(file), ImportService.FILE_ENCODING));
             // TODO handle errors
@@ -65,9 +70,9 @@ public class ImportControllerImpl implements ImportController {
         } catch (final UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        // -- 3 -- validate import data
+        // -- 2 -- validate import data
         validateImportData();
-        // -- 4 -- persist import data
+        // -- 3 -- persist import data
         persistImportData();
     }
 
@@ -80,39 +85,49 @@ public class ImportControllerImpl implements ImportController {
      * </ol>
      */
     private void persistImportData() {
-        final List<Player> playersInDatabase = databaseService.findAllPlayers();
+        final List<Player> playersInDatabase = playerService.findAllPlayers();
         final List<Player> players = importService.getPlayers();
 
         for (final Player player : playersInDatabase) {
             // DELETE
             // if player exists in database but not in import list delete all player data from database
             if (!players.contains(player)) {
-                databaseService.deletePlayer(player.getId());
+                em.getTransaction().begin();
+                playerService.removePlayer(player);
+                em.getTransaction().commit();
             }
         }
 
-        final Date latestImportDateInDb = databaseService.findLatestImportDate();
+        final Date latestImportDateInDb = playerHistoryService.findLatestImportDate();
 
         for (final Player player : players) {
             // INSERT
             // if player does not exist in the database insert all new player data
             if (!playersInDatabase.contains(player)) {
-                databaseService.insertPlayer(player);
-                databaseService.insertPlayerStats(importService.getStats().get(player.getId()));
-                databaseService.insertPlayerHistory(importService.getHistory().get(player.getId()));
+                em.getTransaction().begin();
+                playerService.insertPlayer(player);
+                playerStatsService.insertPlayerStats(importService.getStats().get(player.getId()));
+                playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
+                em.getTransaction().commit();
             } else {
                 // UPDATE
                 // if the import data is older than the latest import in the database insert player history records only
                 if (importService.getImportDate().before(latestImportDateInDb)) {
-                    databaseService.insertPlayerHistory(importService.getHistory().get(player.getId()));
+                    em.getTransaction().begin();
+                    playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
+                    em.getTransaction().commit();
                 } else {
                     // update player statistics only if there are changes
-                    final PlayerStats playerStatsDb = databaseService.findPlayerStatsByPlayerId(player.getId());
+                    final PlayerStats playerStatsDb = playerStatsService.findPlayerStatsByPlayer(player);
                     if (!importService.getStats().get(player.getId()).equals(playerStatsDb)) {
-                        databaseService.updatePlayerStats(importService.getStats().get(player.getId()));
+                        em.getTransaction().begin();
+                        playerStatsService.updatePlayerStats(importService.getStats().get(player.getId()));
+                        em.getTransaction().commit();
                     }
                     // insert player history records regardless of player stats change
-                    databaseService.insertPlayerHistory(importService.getHistory().get(player.getId()));
+                    em.getTransaction().begin();
+                    playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
+                    em.getTransaction().commit();
                 }
             }
         }
@@ -130,7 +145,7 @@ public class ImportControllerImpl implements ImportController {
         }
 
         // was the data already imported?
-        final List<Date> allImportDatesInDb = databaseService.findAllImportDates();
+        final List<Date> allImportDatesInDb = playerHistoryService.findAllImportDates();
         final Date importDateOfFile = importService.getImportDate();
         if (allImportDatesInDb.contains(importDateOfFile)) {
             final String message = ResourceLoader.getMessage(MessageId.V001.getMessageKey(), importFile.getName());

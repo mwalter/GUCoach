@@ -1,0 +1,45 @@
+<!--
+  ~ GUCoach - your personal coach for Goalunited (tm).
+  ~ Copyright (C) 2012 newInstance.org
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="gucoach-pu">
+        <description>Persistence unit for the GUCoach application.</description>
+
+        <mapping-file>META-INF/queries.xml</mapping-file>
+
+        <class>org.newinstance.gucoach.model.Fixture</class>
+        <class>org.newinstance.gucoach.model.Player</class>
+        <class>org.newinstance.gucoach.model.PlayerHistory</class>
+        <class>org.newinstance.gucoach.model.PlayerStats</class>
+        <class>org.newinstance.gucoach.model.StandingsHistory</class>
+        <class>org.newinstance.gucoach.model.Team</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:gucoach" />
+            <property name="javax.persistence.jdbc.user" value="sa" />
+            <property name="javax.persistence.jdbc.password" value="" />
+
+            <property name="hibernate.connection.pool_size" value="1" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+    </persistence-unit>
+</persistence>

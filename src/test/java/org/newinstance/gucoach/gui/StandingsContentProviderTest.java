@@ -19,14 +19,14 @@
 package org.newinstance.gucoach.gui;
 
 import javafx.collections.ObservableList;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.newinstance.gucoach.base.PersistenceTest;
 import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Team;
-import org.newinstance.gucoach.service.DatabaseService;
-import org.newinstance.gucoach.service.DatabaseServiceImpl;
+import org.newinstance.gucoach.service.FixtureService;
+import org.newinstance.gucoach.service.TeamService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,21 +37,15 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class StandingsContentProviderTest {
+public class StandingsContentProviderTest extends PersistenceTest {
 
-    private DatabaseService databaseService;
+    private TeamService teamService;
+    private FixtureService fixtureService;
 
     @Before
     public void setUp() {
-        databaseService = new DatabaseServiceImpl();
-        // if there are any tables left delete them first
-        databaseService.deleteTables();
-        databaseService.createTables();
-    }
-
-    @After
-    public void tearDown() {
-        databaseService.deleteTables();
+        teamService = new TeamService(em);
+        fixtureService = new FixtureService(em);
     }
 
     @Test
@@ -79,30 +73,32 @@ public class StandingsContentProviderTest {
         newTeams.add(team3);
 
         // insert teams first and get them back from database in order to get team ids
-        databaseService.insertTeams(newTeams);
-        final List<Team> teams = databaseService.findAllTeams();
+        teamService.insertTeams(newTeams);
+        final List<Team> teams = teamService.findAllTeams();
 
+        final List<Fixture> fixtures = new ArrayList<Fixture>();
         // Acapulco - Miami Beach 2:1
         final Fixture fixture1 = new Fixture();
-        fixture1.setHomeTeamId(teams.get(0).getId());
-        fixture1.setAwayTeamId(teams.get(1).getId());
+        fixture1.setHomeTeam(teams.get(0));
+        fixture1.setAwayTeam(teams.get(1));
         fixture1.setMatchDay(new Date());
         fixture1.setMatchResult("2:1");
         // Miami Beach - Varese 0:3
         final Fixture fixture2 = new Fixture();
-        fixture2.setHomeTeamId(teams.get(1).getId());
-        fixture2.setAwayTeamId(teams.get(2).getId());
+        fixture2.setHomeTeam(teams.get(1));
+        fixture2.setAwayTeam(teams.get(2));
         fixture2.setMatchDay(new Date());
         fixture2.setMatchResult("0:3");
         // Varese - Acapulco 1:1
         final Fixture fixture3 = new Fixture();
-        fixture3.setHomeTeamId(teams.get(2).getId());
-        fixture3.setAwayTeamId(teams.get(0).getId());
+        fixture3.setHomeTeam(teams.get(2));
+        fixture3.setAwayTeam(teams.get(0));
         fixture3.setMatchDay(new Date());
         fixture3.setMatchResult("1:1");
 
-        databaseService.insertFixture(fixture1);
-        databaseService.insertFixture(fixture2);
-        databaseService.insertFixture(fixture3);
+        fixtures.add(fixture1);
+        fixtures.add(fixture2);
+        fixtures.add(fixture3);
+        fixtureService.insertFixtures(fixtures);
     }
 }

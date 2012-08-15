@@ -20,8 +20,8 @@ package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.newinstance.gucoach.base.PersistenceTest;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
@@ -35,76 +35,85 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class ImportControllerTest {
+public class ImportControllerTest extends PersistenceTest {
 
     private static final String SAMPLE_IMPORT_FILE = "src/test/resources/gu_2011-11-20_team.csv";
     private static final String SAMPLE_IMPORT_FILE_UPDATE = "src/test/resources/gu_2011-11-21_team_update.csv";
-    private static DatabaseService databaseService;
-
-    @BeforeClass
-    public static void init() {
-        databaseService = new DatabaseServiceImpl();
-        databaseService.createTables();
-    }
+    private static PlayerService playerService;
+    private static PlayerStatsService playerStatsService;
+    private static PlayerHistoryService playerHistoryService;
 
     @Before
-    public void setUp() {
-        // make sure database tables are empty
-        final List<Player> players = databaseService.findAllPlayers();
-        for (final Player player : players) {
-            databaseService.deletePlayer(player.getId());
-        }
+    public void init() {
+        playerService = new PlayerService(em);
+        playerStatsService = new PlayerStatsService(em);
+        playerHistoryService = new PlayerHistoryService(em);
     }
 
     @Test
     public void executeDeleteTest() {
-        List<Player> players = databaseService.findAllPlayers();
+        final Player player1 = createPlayer(556677L);
+        final Player player2 = createPlayer(889933L);
+
+        em.getTransaction().begin();
+        playerService.insertPlayer(player1);
+        playerService.insertPlayer(player2);
+        em.getTransaction().commit();
+
+        List<Player> players = playerService.findAllPlayers();
+        Assert.assertNotNull(players);
+        Assert.assertFalse(players.isEmpty());
+
+        em.getTransaction().begin();
         for (final Player player : players) {
-            databaseService.deletePlayer(player.getId());
+            playerService.removePlayer(player);
         }
-        players = databaseService.findAllPlayers();
+        em.getTransaction().commit();
+
+        players = playerService.findAllPlayers();
         Assert.assertNotNull(players);
         Assert.assertTrue(players.isEmpty());
-    }
-    
-    @Test
-    public void executeImportTest() throws Exception {
-        ImportController importController = new ImportControllerImpl();
-        importController.executeImport(new File(SAMPLE_IMPORT_FILE));
-        final List<Player> players = databaseService.findAllPlayers();
-        Assert.assertFalse(players.isEmpty());
-        for (final Player player : players) {
-            final PlayerStats playerStats = databaseService.findPlayerStatsByPlayerId(player.getId());
-            Assert.assertNotNull(playerStats);
-            Assert.assertEquals(player.getId(), playerStats.getPlayerId());
-            final List<PlayerHistory> playerHistoryList = databaseService.findPlayerHistoryByPlayerId(player.getId());
-            Assert.assertNotNull(playerHistoryList);
-            Assert.assertFalse(playerHistoryList.isEmpty());
-        }
     }
 
     @Test(expected = ValidationException.class)
     public void executeImportFileAlreadyImportedTest() throws Exception {
-        ImportController importController = new ImportControllerImpl();
+        ImportController importController = new ImportControllerImpl(em);
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import same file a second time
         try {
-            importController = new ImportControllerImpl();
+            importController = new ImportControllerImpl(em);
             importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         } catch (final ValidationException e) {
             e.printStackTrace();
             throw e;
         }
     }
+    
+    @Test
+    public void executeImportTest() throws Exception {
+        ImportController importController = new ImportControllerImpl(em);
+        importController.executeImport(new File(SAMPLE_IMPORT_FILE));
+        final List<Player> players = playerService.findAllPlayers();
+        Assert.assertFalse(players.isEmpty());
+        for (final Player player : players) {
+            final PlayerStats playerStats = playerStatsService.findPlayerStatsByPlayer(player);
+            Assert.assertNotNull(playerStats);
+            Assert.assertEquals(player.getId(), playerStats.getPlayer().getId());
+            final List<PlayerHistory> playerHistoryList = playerHistoryService.findPlayerHistoryByPlayer(player);
+            Assert.assertNotNull(playerHistoryList);
+            Assert.assertFalse(playerHistoryList.isEmpty());
+        }
+    }
 
     @Test
     public void executeImportUpdateTest() throws Exception {
-        ImportController importController = new ImportControllerImpl();
+        ImportController importController = new ImportControllerImpl(em);
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import new file to update player data
-        importController = new ImportControllerImpl();
+        importController = new ImportControllerImpl(em);
         importController.executeImport(new File(SAMPLE_IMPORT_FILE_UPDATE));
-        final Player deletedPlayer = databaseService.findPlayerByPlayerId(4848870L);
+        final Player deletedPlayer = em.find(Player.class, 4848870L);
         Assert.assertNull(deletedPlayer);
     }
+
 }
