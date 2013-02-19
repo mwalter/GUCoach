@@ -20,9 +20,8 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Team;
 
 import javax.persistence.PersistenceException;
@@ -34,17 +33,10 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class TeamServiceTest extends PersistenceTest {
-
-    private TeamService teamService;
-
-    @Before
-    public void init() {
-        teamService = new TeamService(em);
-    }
+public class TeamServiceTest extends BaseTest {
 
     @Test
-    public void insertTeamsTest() {
+    public void insertTeams() {
         final Team team1 = createTeam("FC Barcelona", 1);
         final Team team2 = createTeam("Manchester United", 2);
         final Team team3 = createTeam("Real Madrid", 3);
@@ -54,9 +46,7 @@ public class TeamServiceTest extends PersistenceTest {
         teams.add(team2);
         teams.add(team3);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
-        em.getTransaction().commit();
 
         final List<Team> result = teamService.findAllTeams();
         Assert.assertNotNull(result);
@@ -64,21 +54,17 @@ public class TeamServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void updateTeamTest() {
+    public void updateTeam() {
         final Team team1 = createTeam("FC Sion", 1);
 
         final List<Team> teams = new ArrayList<Team>();
         teams.add(team1);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
-        em.getTransaction().commit();
 
         // update team name
         team1.setName("Manchester United");
-        em.getTransaction().begin();
         teamService.updateTeam(team1);
-        em.getTransaction().commit();
 
         final List<Team> result = teamService.findAllTeams();
         Assert.assertNotNull(result);
@@ -87,23 +73,19 @@ public class TeamServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void removeTeamTest() {
+    public void removeTeam() {
         final Team team1 = createTeam("FC Barcelona", 1);
         final List<Team> teams = new ArrayList<Team>();
         teams.add(team1);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
-        em.getTransaction().commit();
 
         List<Team> result = teamService.findAllTeams();
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.size());
 
         // remove teams
-        em.getTransaction().begin();
         teamService.removeAllTeams();
-        em.getTransaction().commit();
 
         result = teamService.findAllTeams();
         Assert.assertNotNull(result);
@@ -111,8 +93,7 @@ public class TeamServiceTest extends PersistenceTest {
     }
 
     @Test(expected = PersistenceException.class)
-    // TODO test only works if executed last
-    public void insertTeamsWithSameNameTest() throws Exception {
+    public void insertTeamTwice() throws Exception {
         final Team team1 = createTeam("FC Liverpool", 1);
         final Team team2 = createTeam("FC Liverpool", 2);
 
@@ -120,9 +101,7 @@ public class TeamServiceTest extends PersistenceTest {
         teams.add(team1);
         teams.add(team2);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
-        em.getTransaction().commit();
     }
 
 }
