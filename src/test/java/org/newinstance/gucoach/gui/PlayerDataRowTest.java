@@ -19,7 +19,7 @@
 
 package org.newinstance.gucoach.gui;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.model.Country;
 import org.newinstance.gucoach.model.Position;
@@ -252,7 +252,7 @@ public class PlayerDataRowTest {
     public void testStrength() throws Exception {
         final PlayerDataRow row = new PlayerDataRow();
         row.setStrength(4.2f);
-        Assert.assertEquals(4.2f, row.getStrength());
+        Assert.assertEquals(4.2f, row.getStrength(), 0);
     }
 
     @Test
@@ -266,7 +266,7 @@ public class PlayerDataRowTest {
     public void testTalent() throws Exception {
         final PlayerDataRow row = new PlayerDataRow();
         row.setStrength(4.2f);
-        Assert.assertEquals(4.2f, row.getStrength());
+        Assert.assertEquals(4.2f, row.getStrength(), 0);
     }
 
     @Test
