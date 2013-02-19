@@ -21,11 +21,14 @@ package org.newinstance.gucoach.model;
 
 import org.newinstance.gucoach.utility.DateHelper;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -36,9 +39,10 @@ import java.util.Date;
  * @author mwalter
  */
 @Entity
+@NamedQuery(name = "FIND_ALL_PLAYER", query = "SELECT p FROM Player p")
 public final class Player {
 
-    /** The primary key is not generated. */
+    /** The primary key is provided by the game. */
     @Id
     private Long id;
 
@@ -73,6 +77,10 @@ public final class Player {
     @Column(name = "import_date")
     private Date importDate;
 
+    /** Player statistics. */
+    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
+    private PlayerStats playerStats;
+
     public String getBirthday() {
         return birthday;
     }
@@ -103,6 +111,10 @@ public final class Player {
 
     public String getPersonality() {
         return personality;
+    }
+
+    public PlayerStats getPlayerStats() {
+        return playerStats;
     }
 
     public StrongFoot getStrongFoot() {
@@ -139,6 +151,10 @@ public final class Player {
 
     public void setPersonality(final String personality) {
         this.personality = personality;
+    }
+
+    public void setPlayerStats(final PlayerStats playerStats) {
+        this.playerStats = playerStats;
     }
 
     public void setStrongFoot(final StrongFoot strongFoot) {
@@ -179,6 +195,9 @@ public final class Player {
         builder.append("birthday=").append(birthday).append(", ");
         builder.append("strongFoot=").append(strongFoot.getDescription()).append(", ");
         builder.append("importDate=").append(DateHelper.formatDate(importDate));
+        if (playerStats != null) {
+            builder.append(", ").append("playerStatsId=").append(playerStats.getId());
+        }
         builder.append("]");
         return builder.toString();
     }
