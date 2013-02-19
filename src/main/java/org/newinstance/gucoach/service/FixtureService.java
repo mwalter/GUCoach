@@ -20,9 +20,7 @@
 package org.newinstance.gucoach.service;
 
 import org.newinstance.gucoach.model.Fixture;
-import org.newinstance.gucoach.utility.NamedQuery;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -30,49 +28,30 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class FixtureService extends PersistenceService {
-
-    /**
-     * The service needs an {@link EntityManager}.
-     *
-     * @param entityManager the entity manager
-     */
-    public FixtureService(final EntityManager entityManager) {
-        super(entityManager);
-    }
+public interface FixtureService {
 
     /**
      * Persists fixtures to the database.
      *
      * @param fixtures the list of fixtures to persist
      */
-    public void insertFixtures(final List<Fixture> fixtures) {
-        for (final Fixture fixture : fixtures) {
-            em.persist(fixture);
-        }
-    }
+    public void insertFixtures(final List<Fixture> fixtures);
 
     /**
      * Returns all fixtures in the database.
      *
      * @return the list of fixtures
      */
-    public List<Fixture> findAllFixtures() {
-        return em.createNamedQuery(NamedQuery.FIND_ALL_FIXTURE.name(), Fixture.class).getResultList();
-    }
+    public List<Fixture> findAllFixtures();
 
     /** Removes all fixtures from the database. */
-    public void removeAllFixtures() {
-        em.createNamedQuery(NamedQuery.REMOVE_ALL_FIXTURE.name()).executeUpdate();
-    }
+    public void removeAllFixtures();
 
     /**
      * Updates a fixture.
      *
      * @param fixture the fixture to update
      */
-    public void updateFixture(final Fixture fixture) {
-        em.merge(fixture);
-    }
+    public void updateFixture(final Fixture fixture);
 
 }

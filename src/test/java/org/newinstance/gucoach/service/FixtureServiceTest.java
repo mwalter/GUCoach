@@ -20,9 +20,8 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Team;
 
@@ -35,19 +34,10 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class FixtureServiceTest extends PersistenceTest {
-
-    private FixtureService fixtureService;
-    private TeamService teamService;
-
-    @Before
-    public void init() {
-        fixtureService = new FixtureService(em);
-        teamService = new TeamService(em);
-    }
+public class FixtureServiceTest extends BaseTest {
 
     @Test
-    public void insertFixturesTest() {
+    public void insertFixtures() {
         final Team team1 = createTeam("FC Barcelona", 1);
         final Team team2 = createTeam("Manchester United", 2);
 
@@ -61,10 +51,8 @@ public class FixtureServiceTest extends PersistenceTest {
         fixtures.add(fixture1);
         fixtures.add(fixture2);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
         fixtureService.insertFixtures(fixtures);
-        em.getTransaction().commit();
 
         final List<Fixture> result = fixtureService.findAllFixtures();
         Assert.assertNotNull(result);
@@ -72,7 +60,7 @@ public class FixtureServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void updateFixtureTest() {
+    public void updateFixture() {
         final Team team1 = createTeam("Young Boys", 1);
         final Team team2 = createTeam("Old Girls", 2);
 
@@ -84,17 +72,13 @@ public class FixtureServiceTest extends PersistenceTest {
         final List<Fixture> fixtures = new ArrayList<Fixture>();
         fixtures.add(fixture1);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
         fixtureService.insertFixtures(fixtures);
-        em.getTransaction().commit();
 
         // update fixture
         fixture1.setMatchResult("2:0");
 
-        em.getTransaction().begin();
         fixtureService.updateFixture(fixture1);
-        em.getTransaction().commit();
 
         final List<Fixture> result = fixtureService.findAllFixtures();
         Assert.assertNotNull(result);
@@ -103,7 +87,7 @@ public class FixtureServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void removeFixtureTest() {
+    public void removeFixture() {
         final Team team1 = createTeam("FC Barcelona", 1);
         final Team team2 = createTeam("Manchester United", 2);
 
@@ -117,19 +101,15 @@ public class FixtureServiceTest extends PersistenceTest {
         fixtures.add(fixture1);
         fixtures.add(fixture2);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
         fixtureService.insertFixtures(fixtures);
-        em.getTransaction().commit();
 
         List<Fixture> result = fixtureService.findAllFixtures();
         Assert.assertNotNull(result);
         Assert.assertEquals(2, result.size());
 
         // remove fixtures
-        em.getTransaction().begin();
         fixtureService.removeAllFixtures();
-        em.getTransaction().commit();
 
         result = fixtureService.findAllFixtures();
         Assert.assertNotNull(result);
@@ -137,8 +117,7 @@ public class FixtureServiceTest extends PersistenceTest {
     }
 
     @Test(expected = PersistenceException.class)
-    // TODO test only works if executed last
-    public void insertFixtureTwiceTest() {
+    public void insertFixtureTwice() {
         final Team team1 = createTeam("FC Barcelona", 1);
         final Team team2 = createTeam("Manchester United", 2);
 
@@ -152,10 +131,8 @@ public class FixtureServiceTest extends PersistenceTest {
         fixtures.add(fixture1);
         fixtures.add(fixture2);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
         fixtureService.insertFixtures(fixtures);
-        em.getTransaction().commit();
     }
 
 }
