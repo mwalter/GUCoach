@@ -21,10 +21,7 @@ package org.newinstance.gucoach.service;
 
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
-import org.newinstance.gucoach.utility.NamedQuery;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
 
@@ -33,34 +30,21 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class PlayerHistoryService extends PersistenceService {
+public interface PlayerHistoryService {
 
-    /**
-     * The service needs an {@link EntityManager}.
-     *
-     * @param entityManager the entity manager
-     */
-    public PlayerHistoryService(final EntityManager entityManager) {
-        super(entityManager);
-    }
-
-    /**
+  /**
      * Returns all import dates in the database.
      *
      * @return the list of import dates
      */
-    public List<Date> findAllImportDates() {
-        return em.createNamedQuery(NamedQuery.FIND_ALL_IMPORT_DATE.name(), Date.class).getResultList();
-    }
+    public List<Date> findAllImportDates();
 
     /**
      * Returns the latest import date in the database.
      *
      * @return the latest import dates
      */
-    public Date findLatestImportDate() {
-        return em.createNamedQuery(NamedQuery.FIND_LATEST_IMPORT_DATE.name(), Date.class).getSingleResult();
-    }
+    public Date findLatestImportDate();
 
     /**
      * Returns the player history with the given id.
@@ -68,9 +52,7 @@ public class PlayerHistoryService extends PersistenceService {
      * @param id the primary key of the player history
      * @return the player history
      */
-    public PlayerHistory findPlayerHistoryById(final Long id) {
-        return em.find(PlayerHistory.class, id);
-    }
+    public PlayerHistory findPlayerHistoryById(final Long id);
 
     /**
      * Returns the player history for the given player.
@@ -78,18 +60,12 @@ public class PlayerHistoryService extends PersistenceService {
      * @param player the player
      * @return the player history
      */
-    public List<PlayerHistory> findPlayerHistoryByPlayer(final Player player) {
-        final TypedQuery<PlayerHistory> query = em.createNamedQuery(NamedQuery.FIND_PLAYER_HISTORY_BY_PLAYER.name(), PlayerHistory.class);
-        query.setParameter("player", player);
-        return query.getResultList();
-    }
+    public List<PlayerHistory> findPlayerHistoryByPlayer(final Player player);
 
     /**
      * Persists a player history to the database.
      *
      * @param playerHistory the player history to persist
      */
-    public void insertPlayerHistory(final PlayerHistory playerHistory) {
-        em.persist(playerHistory);
-    }
+    public void insertPlayerHistory(final PlayerHistory playerHistory);
 }

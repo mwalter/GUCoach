@@ -20,9 +20,8 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 
@@ -35,26 +34,15 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class PlayerHistoryServiceTest extends PersistenceTest {
-
-    private PlayerService playerService;
-    private PlayerHistoryService playerHistoryService;
-
-    @Before
-    public void init() {
-        playerService = new PlayerService(em);
-        playerHistoryService = new PlayerHistoryService(em);
-    }
+public class PlayerHistoryServiceTest extends BaseTest {
 
     @Test
-    public void insertPlayerHistoryTest() {
+    public void insertPlayerHistory() {
         final Player player = createPlayer();
         final PlayerHistory playerHistory = createPlayerHistory(player);
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
         playerHistoryService.insertPlayerHistory(playerHistory);
-        em.getTransaction().commit();
 
         final PlayerHistory result = playerHistoryService.findPlayerHistoryById(playerHistory.getId());
         Assert.assertNotNull(result);
@@ -63,7 +51,7 @@ public class PlayerHistoryServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void findAllImportDatesTest() {
+    public void findAllImportDates() {
         final Player player = createPlayer();
 
         final Calendar cal = Calendar.getInstance();
@@ -76,11 +64,9 @@ public class PlayerHistoryServiceTest extends PersistenceTest {
         playerHistory2.setPlayer(player);
         playerHistory2.setImportDate(cal.getTime());
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
         playerHistoryService.insertPlayerHistory(playerHistory1);
         playerHistoryService.insertPlayerHistory(playerHistory2);
-        em.getTransaction().commit();
 
         final List<Date> dates = playerHistoryService.findAllImportDates();
         Assert.assertNotNull(dates);
@@ -89,7 +75,7 @@ public class PlayerHistoryServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void findLatestImportDateTest() {
+    public void findLatestImportDate() {
         final Player player = createPlayer();
 
         final Calendar cal = Calendar.getInstance();
@@ -110,11 +96,9 @@ public class PlayerHistoryServiceTest extends PersistenceTest {
         playerHistory2.setPlayer(player);
         playerHistory2.setImportDate(date2);
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
         playerHistoryService.insertPlayerHistory(playerHistory1);
         playerHistoryService.insertPlayerHistory(playerHistory2);
-        em.getTransaction().commit();
 
         final Date date = playerHistoryService.findLatestImportDate();
         Assert.assertNotNull(date);
@@ -122,16 +106,14 @@ public class PlayerHistoryServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void insertAndDeletePlayerHistoryTest() {
+    public void insertAndDeletePlayerHistory() {
         final Player player = createPlayer();
 
         final PlayerHistory playerHistory1 = createPlayerHistory(player);
         playerHistory1.setPlayer(player);
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
         playerHistoryService.insertPlayerHistory(playerHistory1);
-        em.getTransaction().commit();
 
         List<Player> playerList = playerService.findAllPlayers();
         Assert.assertNotNull(playerList);
@@ -147,9 +129,7 @@ public class PlayerHistoryServiceTest extends PersistenceTest {
         final PlayerHistory playerHistory2 = createPlayerHistory(player);
         playerHistory2.setPlayer(player);
 
-        em.getTransaction().begin();
         playerHistoryService.insertPlayerHistory(playerHistory2);
-        em.getTransaction().commit();
 
         playerHistoryList = playerHistoryService.findPlayerHistoryByPlayer(player);
         Assert.assertNotNull(playerHistoryList);
@@ -157,9 +137,7 @@ public class PlayerHistoryServiceTest extends PersistenceTest {
         Assert.assertTrue(playerHistoryList.size() == 2);
 
         // delete player (and related player history records)
-        em.getTransaction().begin();
         playerService.removePlayer(player);
-        em.getTransaction().commit();
 
         playerList = playerService.findAllPlayers();
         Assert.assertNotNull(playerList);
