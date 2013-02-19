@@ -28,6 +28,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -38,6 +40,10 @@ import java.util.Date;
  * @author mwalter
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "FIND_PLAYER_HISTORY_BY_PLAYER", query = "SELECT ph FROM PlayerHistory ph WHERE ph.player = :player ORDER BY ph.importDate " + "DESC"),
+        @NamedQuery(name = "FIND_LATEST_IMPORT_DATE", query = "SELECT MAX(ph.importDate) FROM PlayerHistory ph"),
+        @NamedQuery(name = "FIND_ALL_IMPORT_DATE", query = "SELECT DISTINCT ph.importDate FROM PlayerHistory ph")})
 public final class PlayerHistory {
 
     /** Primary key. */
