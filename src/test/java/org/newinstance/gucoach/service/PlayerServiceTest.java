@@ -20,9 +20,8 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Player;
 
 import java.util.ArrayList;
@@ -33,22 +32,13 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class PlayerServiceTest extends PersistenceTest {
-
-    private PlayerService playerService;
-
-    @Before
-    public void init() {
-        playerService = new PlayerService(em);
-    }
+public class PlayerServiceTest extends BaseTest {
 
     @Test
-    public void insertPlayerTest() {
-        final Player player = createPlayer();
+    public void insertPlayer() {
+        final Player player = createPlayer(1L);
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
-        em.getTransaction().commit();
 
         final Player result = playerService.findPlayerById(player.getId());
         Assert.assertNotNull(result);
@@ -57,24 +47,34 @@ public class PlayerServiceTest extends PersistenceTest {
     }
 
     @Test
-    public void removePlayerTest() {
-        final Player player = createPlayer();
+    public void updatePlayer() {
+        final Player player = createPlayer(1L);
+
+        playerService.insertPlayer(player);
+
+        player.setLastName(JUNIT);
+        playerService.updatePlayer(player);
+
+        final Player result = playerService.findPlayerById(player.getId());
+        Assert.assertNotNull(result);
+        Assert.assertEquals(JUNIT, player.getLastName());
+    }
+
+    @Test
+    public void removePlayer() {
+        final Player player = createPlayer(1L);
 
         final List<Player> players = new ArrayList<Player>();
         players.add(player);
 
-        em.getTransaction().begin();
         playerService.insertPlayers(players);
-        em.getTransaction().commit();
 
         List<Player> result = playerService.findAllPlayers();
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.size());
 
         // remove player
-        em.getTransaction().begin();
         playerService.removePlayer(player);
-        em.getTransaction().commit();
 
         result = playerService.findAllPlayers();
         Assert.assertNotNull(result);

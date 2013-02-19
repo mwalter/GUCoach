@@ -20,12 +20,7 @@
 package org.newinstance.gucoach.service;
 
 import org.newinstance.gucoach.model.Player;
-import org.newinstance.gucoach.model.PlayerHistory;
-import org.newinstance.gucoach.model.PlayerStats;
-import org.newinstance.gucoach.utility.NamedQuery;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -33,25 +28,14 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class PlayerService extends PersistenceService {
-
-    /**
-     * The service needs an {@link EntityManager}.
-     *
-     * @param entityManager the entity manager
-     */
-    public PlayerService(final EntityManager entityManager) {
-        super(entityManager);
-    }
+public interface PlayerService {
 
     /**
      * Returns all players in the database.
      *
      * @return the list of players
      */
-    public List<Player> findAllPlayers() {
-        return em.createNamedQuery(NamedQuery.FIND_ALL_PLAYER.name(), Player.class).getResultList();
-    }
+    public List<Player> findAllPlayers();
 
     /**
      * Returns the player with the given id.
@@ -59,54 +43,34 @@ public class PlayerService extends PersistenceService {
      * @param id the primary key of the player
      * @return the player
      */
-    public Player findPlayerById(final Long id) {
-        return em.find(Player.class, id);
-    }
+    public Player findPlayerById(final Long id);
 
     /**
      * Persists a player to the database.
      *
      * @param player the player to persist
      */
-    public void insertPlayer(final Player player) {
-        em.persist(player);
-    }
+    public void insertPlayer(final Player player);
 
     /**
      * Persists players to the database.
      *
      * @param players the list of players to persist
      */
-    public void insertPlayers(final List<Player> players) {
-        for (final Player player : players) {
-            em.persist(player);
-        }
-    }
+    public void insertPlayers(final List<Player> players);
+
+    /**
+     * Updates the player.
+     *
+     * @param player the player to update
+     */
+    public void updatePlayer(final Player player);
 
     /**
      * Removes a player from the database.
      *
      * @param player the player to remove
      */
-    public void removePlayer(final Player player) {
-        // do we have player history records? if so remove them as well
-        // this is done here and not in the player entity because the player does not need to know about history records
-        final TypedQuery<PlayerHistory> phQquery = em.createNamedQuery(NamedQuery.FIND_PLAYER_HISTORY_BY_PLAYER.name(), PlayerHistory.class);
-        phQquery.setParameter("player", player);
-        final List<PlayerHistory> phResult = phQquery.getResultList();
-        for (final PlayerHistory playerHistory : phResult) {
-            em.remove(playerHistory);
-        }
+    public void removePlayer(final Player player);
 
-        // do we have player statistics records? if so remove them as well
-        // this is done here and not in the player entity because the player does not need to know about statistics records
-        final TypedQuery<PlayerStats> psQuery = em.createNamedQuery(NamedQuery.FIND_PLAYER_STATS_BY_PLAYER.name(), PlayerStats.class);
-        psQuery.setParameter("player", player);
-        final List<PlayerStats> psResult = psQuery.getResultList();
-        for (final PlayerStats playerStats : psResult) {
-            em.remove(playerStats);
-        }
-
-        em.remove(player);
-    }
 }
