@@ -19,14 +19,14 @@
 
 package org.newinstance.gucoach.utility;
 
-import org.newinstance.gucoach.gui.StandingsContentProvider;
+import org.newinstance.gucoach.gui.StandingsDataRow;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * Compares the data of every {@link StandingsContentProvider.StandingsDataRow} in order to define the team rankings. There are three comparators used in the
+ * Compares the data of every {@link StandingsDataRow} in order to define the team rankings. There are three comparators used in the
  * following order:
  * <ol>
  * <li>Comparator of points the team achieved</li>
@@ -39,32 +39,32 @@ import java.util.List;
 public final class StandingsComparator<T> implements Comparator<T> {
 
     /** List holding all comparators. */
-    private List<Comparator<StandingsContentProvider.StandingsDataRow>> comparators = new ArrayList<Comparator<StandingsContentProvider.StandingsDataRow>>();
+    private List<Comparator<StandingsDataRow>> comparators = new ArrayList<Comparator<StandingsDataRow>>();
 
     /** The default constructor adds all required comparators to the comparators list. */
     public StandingsComparator() {
         /* The comparator comparing the difference between goals for and goals against. */
-        final Comparator<StandingsContentProvider.StandingsDataRow> GOALS_DIFF_COMPARATOR = new Comparator<StandingsContentProvider.StandingsDataRow>() {
+        final Comparator<StandingsDataRow> GOALS_DIFF_COMPARATOR = new Comparator<StandingsDataRow>() {
             @Override
-            public int compare(StandingsContentProvider.StandingsDataRow row1, StandingsContentProvider.StandingsDataRow row2) {
+            public int compare(StandingsDataRow row1, StandingsDataRow row2) {
                 return Integer.compare(row1.getGoalsDiff(), row2.getGoalsDiff());
             }
         };
         comparators.add(GOALS_DIFF_COMPARATOR);
 
         /* The comparator comparing goals shot. */
-        final Comparator<StandingsContentProvider.StandingsDataRow> GOALS_FOR_COMPARATOR = new Comparator<StandingsContentProvider.StandingsDataRow>() {
+        final Comparator<StandingsDataRow> GOALS_FOR_COMPARATOR = new Comparator<StandingsDataRow>() {
             @Override
-            public int compare(StandingsContentProvider.StandingsDataRow row1, StandingsContentProvider.StandingsDataRow row2) {
+            public int compare(StandingsDataRow row1, StandingsDataRow row2) {
                 return Integer.compare(row1.getGoalsFor(), row2.getGoalsFor());
             }
         };
         comparators.add(GOALS_FOR_COMPARATOR);
 
         /* The comparator comparing points. */
-        final Comparator<StandingsContentProvider.StandingsDataRow> POINTS_COMPARATOR = new Comparator<StandingsContentProvider.StandingsDataRow>() {
+        final Comparator<StandingsDataRow> POINTS_COMPARATOR = new Comparator<StandingsDataRow>() {
             @Override
-            public int compare(StandingsContentProvider.StandingsDataRow row1, StandingsContentProvider.StandingsDataRow row2) {
+            public int compare(StandingsDataRow row1, StandingsDataRow row2) {
                 return Integer.compare(row1.getPoints(), row2.getPoints());
             }
         };
@@ -74,9 +74,9 @@ public final class StandingsComparator<T> implements Comparator<T> {
     @Override
     public int compare(final Object o1, final Object o2) {
         // iterate through all comparators to specify the correct rankings
-        for (final Comparator<StandingsContentProvider.StandingsDataRow> comparator : comparators) {
+        for (final Comparator<StandingsDataRow> comparator : comparators) {
             // object 2 first because we need descending order
-            final int order = comparator.compare((StandingsContentProvider.StandingsDataRow) o2, (StandingsContentProvider.StandingsDataRow) o1);
+            final int order = comparator.compare((StandingsDataRow) o2, (StandingsDataRow) o1);
             if (order != 0) {
                 return order;
             }

@@ -21,7 +21,7 @@ package org.newinstance.gucoach.utility;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.newinstance.gucoach.gui.StandingsContentProvider;
+import org.newinstance.gucoach.gui.StandingsDataRow;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,12 +36,12 @@ public class StandingsComparatorTest {
 
     @Test
     public void testStandingsComparison() {
-        final List<StandingsContentProvider.StandingsDataRow> standings = new ArrayList<StandingsContentProvider.StandingsDataRow>();
-        final StandingsContentProvider.StandingsDataRow row1 = new StandingsContentProvider.StandingsDataRow("Aleppo", 5, 3, 2, 0, 12, 3, 11);
-        final StandingsContentProvider.StandingsDataRow row2 = new StandingsContentProvider.StandingsDataRow("Jersey", 5, 2, 2, 1, 8, 5, 8);
-        final StandingsContentProvider.StandingsDataRow row3 = new StandingsContentProvider.StandingsDataRow("Houston", 5, 2, 1, 2, 6, 5, 7);
-        final StandingsContentProvider.StandingsDataRow row4 = new StandingsContentProvider.StandingsDataRow("Wien", 5, 0, 2, 3, 2, 9, 2);
-        final StandingsContentProvider.StandingsDataRow row5 = new StandingsContentProvider.StandingsDataRow("Kiev", 5, 0, 0, 5, 2, 16, 0);
+        final List<StandingsDataRow> standings = new ArrayList<StandingsDataRow>();
+        final StandingsDataRow row1 = new StandingsDataRow("Aleppo", 5, 3, 2, 0, 12, 3, 11);
+        final StandingsDataRow row2 = new StandingsDataRow("Jersey", 5, 2, 2, 1, 8, 5, 8);
+        final StandingsDataRow row3 = new StandingsDataRow("Houston", 5, 2, 1, 2, 6, 5, 7);
+        final StandingsDataRow row4 = new StandingsDataRow("Wien", 5, 0, 2, 3, 2, 9, 2);
+        final StandingsDataRow row5 = new StandingsDataRow("Kiev", 5, 0, 0, 5, 2, 16, 0);
 
         standings.add(row1);
         standings.add(row2);
@@ -49,7 +49,7 @@ public class StandingsComparatorTest {
         standings.add(row4);
         standings.add(row5);
 
-        Collections.sort(standings, new StandingsComparator<StandingsContentProvider.StandingsDataRow>());
+        Collections.sort(standings, new StandingsComparator<StandingsDataRow>());
         Assert.assertEquals(5, standings.size());
 
         Assert.assertEquals("Aleppo", standings.get(0).getTeamName());
