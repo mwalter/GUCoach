@@ -39,9 +39,9 @@ import org.newinstance.gucoach.model.Team;
 import org.newinstance.gucoach.service.TeamService;
 import org.newinstance.gucoach.utility.DateHelper;
 import org.newinstance.gucoach.utility.MessageId;
-import org.newinstance.gucoach.utility.PersistenceHelper;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.newinstance.gucoach.utility.TextInputHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URL;
 import java.text.ParseException;
@@ -57,8 +57,9 @@ import java.util.ResourceBundle;
  */
 public class CreateLeagueController implements Initializable {
 
-    /** The player service. */
-    private TeamService teamService = new TeamService(PersistenceHelper.getInstance().createEntityManager());
+    /** The team service. */
+    @Autowired
+    private TeamService teamService;
 
     @FXML
     private BorderPane root;

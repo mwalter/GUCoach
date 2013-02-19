@@ -25,8 +25,8 @@ import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,26 +43,27 @@ import java.util.List;
  */
 public class ImportControllerImpl implements ImportController {
 
-    private EntityManager em;
-    private PlayerService playerService;
-    private PlayerStatsService playerStatsService;
-    private PlayerHistoryService playerHistoryService;
+    @Autowired
     private ImportService importService;
-    private File importFile;
 
-    /** The default constructor initialises the services. */
-    public ImportControllerImpl(final EntityManager entityManager) {
-        em = entityManager;
-        playerService = new PlayerService(em);
-        playerStatsService = new PlayerStatsService(em);
-        playerHistoryService = new PlayerHistoryService(em);
-        importService = new ImportServiceImpl();
-    }
+    @Autowired
+    private PlayerService playerService;
+
+    @Autowired
+    private PlayerStatsService playerStatsService;
+
+    @Autowired
+    private PlayerHistoryService playerHistoryService;
+
+    private File importFile;
 
     @Override
     public void executeImport(final File file) throws ImportException, ValidationException {
         importFile = file;
-        // -- 1 -- import data
+
+        // -- 1 -- reset imported data
+        importService.reset();
+        // -- 2 -- import data
         try {
             importService.importData(new InputStreamReader(new FileInputStream(file), ImportService.FILE_ENCODING));
             // TODO handle errors
@@ -71,9 +72,9 @@ public class ImportControllerImpl implements ImportController {
         } catch (final UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        // -- 2 -- validate import data
+        // -- 3 -- validate import data
         validateImportData();
-        // -- 3 -- persist import data
+        // -- 4 -- persist import data
         persistImportData();
     }
 
@@ -93,9 +94,7 @@ public class ImportControllerImpl implements ImportController {
             // DELETE
             // if player exists in database but not in import list delete all player data from database
             if (!players.contains(player)) {
-                em.getTransaction().begin();
                 playerService.removePlayer(player);
-                em.getTransaction().commit();
             }
         }
 
@@ -105,30 +104,22 @@ public class ImportControllerImpl implements ImportController {
             // INSERT
             // if player does not exist in the database insert all new player data
             if (!playersInDatabase.contains(player)) {
-                em.getTransaction().begin();
                 playerService.insertPlayer(player);
                 playerStatsService.insertPlayerStats(importService.getStats().get(player.getId()));
                 playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
-                em.getTransaction().commit();
             } else {
                 // UPDATE
                 // if the import data is older than the latest import in the database insert player history records only
                 if (importService.getImportDate().before(latestImportDateInDb)) {
-                    em.getTransaction().begin();
                     playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
-                    em.getTransaction().commit();
                 } else {
                     // update player statistics only if there are changes
                     final PlayerStats playerStatsDb = playerStatsService.findPlayerStatsByPlayer(player);
                     if (!importService.getStats().get(player.getId()).equals(playerStatsDb)) {
-                        em.getTransaction().begin();
                         playerStatsService.updatePlayerStats(importService.getStats().get(player.getId()));
-                        em.getTransaction().commit();
                     }
                     // insert player history records regardless of player stats change
-                    em.getTransaction().begin();
                     playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
-                    em.getTransaction().commit();
                 }
             }
         }

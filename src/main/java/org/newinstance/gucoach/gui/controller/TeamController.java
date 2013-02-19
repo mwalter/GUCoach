@@ -24,7 +24,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -32,16 +31,17 @@ import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.PlayerDataRow;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Controls user interaction in the team tab pane.
  *
  * @author mwalter
  */
-public class TeamController implements Initializable {
+public class TeamController {
+
+    @Autowired
+    private PlayerContentProvider playerContentProvider;
 
     @FXML
     private TableView tableViewPlayer;
@@ -98,37 +98,22 @@ public class TeamController implements Initializable {
     @FXML
     private TextField playerScoring;
 
-    private ObservableList<PlayerDataRow> playerData;
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public void initialize(final URL location, final ResourceBundle resources) {
-        // set controller into provider
-        ControllerProvider.getInstance().setTeamController(this);
-
-        // load player data and fill team table
-        playerData = PlayerContentProvider.getPlayerData();
-        tableViewPlayer.setItems(playerData);
+    //@Override
+    //@SuppressWarnings("unchecked")
+    //public void initialize(final URL location, final ResourceBundle resources) {
+    @FXML
+    public void initialize() {
+        tableViewPlayer.setItems(playerContentProvider.fetchPlayerData());
 
         // if there are no players yet display import player data message
-        if (playerData.isEmpty()) {
+        if (tableViewPlayer.getItems().isEmpty()) {
             final Label message = new Label();
             message.setText(ResourceLoader.getMessage(MessageId.I001.getMessageKey()));
             tableViewPlayer.setPlaceholder(message);
         }
 
-        //        double tableWidth = 0;
-        //        final ObservableList<TableColumn> columns = tableViewPlayer.getColumns();
-        //        for (final TableColumn column : columns) {
-        //            tableWidth += column.getWidth();
-        //        }
-        //        tableViewPlayer.setMinWidth(tableWidth + 10);
-        //        tableViewPlayer.setMaxWidth(tableWidth + 10);
-        //        tableViewPlayer.setMinHeight(((playerData.size() + 1) * 20) + 10);
-        //        tableViewPlayer.setMaxHeight(((playerData.size() + 1) * 20) + 10);
-
         // add listener for player list changes
-        playerData.addListener(new ListChangeListener<PlayerDataRow>() {
+        tableViewPlayer.getItems().addListener(new ListChangeListener<PlayerDataRow>() {
 
             @Override
             public void onChanged(final Change<? extends PlayerDataRow> change) {
@@ -185,11 +170,12 @@ public class TeamController implements Initializable {
     }
 
     /**
-     * Sets the list of players.
+     * Clears and sets the list of players.
      *
      * @param list the list of players to set
      */
+    @SuppressWarnings("unchecked")
     public void setPlayerData(final ObservableList<PlayerDataRow> list) {
-        playerData.setAll(list);
+        tableViewPlayer.getItems().setAll(list);
     }
 }

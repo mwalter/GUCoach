@@ -26,7 +26,7 @@ import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.service.PlayerService;
 import org.newinstance.gucoach.service.PlayerStatsService;
-import org.newinstance.gucoach.utility.PersistenceHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,29 +36,27 @@ import java.util.List;
  *
  * @author mwalter
  */
-public final class PlayerContentProvider {
+public class PlayerContentProvider {
 
     /** The player service. */
-    private static PlayerService playerService = new PlayerService(PersistenceHelper.getInstance().createEntityManager());
-    /** The player statistics service. */
-    private static PlayerStatsService playerStatsService = new PlayerStatsService(PersistenceHelper.getInstance().createEntityManager());
+    @Autowired
+    private PlayerService playerService;
 
-    private PlayerContentProvider() {
-        // hide constructor
-    }
+    /** The player statistics service. */
+    @Autowired
+    private PlayerStatsService playerStatsService;
 
     /**
      * Returns all player data from the database.
      *
      * @return the player data
      */
-    public static ObservableList<PlayerDataRow> getPlayerData() {
+    public ObservableList<PlayerDataRow> fetchPlayerData() {
         // make sure to initialise tables
         final List<PlayerDataRow> playerDataRows = new ArrayList<PlayerDataRow>();
         final List<Player> players = playerService.findAllPlayers();
         for (final Player player : players) {
-            final PlayerStats playerStats = playerStatsService.findPlayerStatsByPlayer(player);
-            playerDataRows.add(convertToPlayerDataRow(player, playerStats));
+            playerDataRows.add(convertToPlayerDataRow(player, player.getPlayerStats()));
         }
 
         return FXCollections.observableList(playerDataRows);
@@ -71,7 +69,7 @@ public final class PlayerContentProvider {
      * @param playerStats the player statistics entity
      * @return the merged data
      */
-    private static PlayerDataRow convertToPlayerDataRow(final Player player, final PlayerStats playerStats) {
+    private PlayerDataRow convertToPlayerDataRow(final Player player, final PlayerStats playerStats) {
         final PlayerDataRow playerDataRow = new PlayerDataRow();
         playerDataRow.setAge(playerStats.getAge());
         playerDataRow.setAssignments(playerStats.getAssignments());

@@ -21,13 +21,10 @@ package org.newinstance.gucoach.gui;
 
 import javafx.collections.ObservableList;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Fixture;
 import org.newinstance.gucoach.model.Team;
-import org.newinstance.gucoach.service.FixtureService;
-import org.newinstance.gucoach.service.TeamService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,24 +35,15 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class StandingsContentProviderTest extends PersistenceTest {
-
-    private TeamService teamService;
-    private FixtureService fixtureService;
-
-    @Before
-    public void setUp() {
-        teamService = new TeamService(em);
-        fixtureService = new FixtureService(em);
-    }
+public class StandingsContentProviderTest extends BaseTest {
 
     @Test
-    public void testGetStandingsData() {
+    public void getStandingsData() {
         createSomeTeamsAndFixtures();
-        final ObservableList<StandingsContentProvider.StandingsDataRow> standingsList = StandingsContentProvider.getStandingsData();
+        final ObservableList<StandingsDataRow> standingsList = standingsContentProvider.getStandingsData();
         Assert.assertNotNull(standingsList);
         Assert.assertFalse(standingsList.isEmpty());
-        for (StandingsContentProvider.StandingsDataRow standingsDataRow : standingsList) {
+        for (StandingsDataRow standingsDataRow : standingsList) {
             System.out.println(standingsDataRow.toString());
         }
     }

@@ -19,6 +19,7 @@
 
 package org.newinstance.gucoach.gui.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -32,9 +33,8 @@ import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.builder.CreateLeagueSceneBuilder;
 import org.newinstance.gucoach.service.ImportController;
-import org.newinstance.gucoach.service.ImportControllerImpl;
-import org.newinstance.gucoach.utility.PersistenceHelper;
 import org.newinstance.gucoach.utility.ResourceLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 
@@ -45,8 +45,21 @@ import java.io.File;
  */
 public class MainController {
 
+    @Autowired
+    private ImportController importController;
+
+    @Autowired
+    private PlayerContentProvider playerContentProvider;
+
+    @FXML
+    private TeamController teamController;
+
     @FXML
     private BorderPane root;
+
+    @FXML
+    public void initialize() {
+    }
 
     @FXML
     protected void handleMenuItemImportCsvAction(final ActionEvent event) {
@@ -56,7 +69,6 @@ public class MainController {
             return;
         }
 
-        final ImportController importController = new ImportControllerImpl(PersistenceHelper.getInstance().createEntityManager());
         try {
             importController.executeImport(importFile);
             // TODO show error messages in status bar
@@ -67,13 +79,12 @@ public class MainController {
         }
 
         // update team table after import to show new player data
-        ControllerProvider.getInstance().getTeamController().setPlayerData(PlayerContentProvider.getPlayerData());
+        teamController.setPlayerData(playerContentProvider.fetchPlayerData());
     }
 
     @FXML
     protected void handleMenuItemExitAction(final ActionEvent event) {
-        final Stage stage = (Stage) root.getScene().getWindow();
-        stage.close();
+        Platform.exit();
     }
 
     /**
@@ -86,7 +97,7 @@ public class MainController {
         // build dialogue with builder
         final Parent root = new CreateLeagueSceneBuilder().buildScene();
         final Scene scene = new Scene(root);
-        scene.getStylesheets().add("stylesheet.css");
+        scene.getStylesheets().add("gucoach.css");
         final Stage stage = new Stage();
         stage.setScene(scene);
         stage.setResizable(false);

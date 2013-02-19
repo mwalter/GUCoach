@@ -20,9 +20,8 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
@@ -36,40 +35,26 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class ImportControllerTest extends PersistenceTest {
+public class ImportControllerTest extends BaseTest {
 
     private static final String SAMPLE_IMPORT_FILE = "src/test/resources/gu_2011-11-20_team.csv";
     private static final String SAMPLE_IMPORT_FILE_UPDATE = "src/test/resources/gu_2011-11-21_team_update.csv";
-    private static PlayerService playerService;
-    private static PlayerStatsService playerStatsService;
-    private static PlayerHistoryService playerHistoryService;
-
-    @Before
-    public void init() {
-        playerService = new PlayerService(em);
-        playerStatsService = new PlayerStatsService(em);
-        playerHistoryService = new PlayerHistoryService(em);
-    }
 
     @Test
-    public void executeDeleteTest() {
+    public void executeDelete() {
         final Player player1 = createPlayer(556677L);
         final Player player2 = createPlayer(889933L);
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player1);
         playerService.insertPlayer(player2);
-        em.getTransaction().commit();
 
         List<Player> players = playerService.findAllPlayers();
         Assert.assertNotNull(players);
         Assert.assertFalse(players.isEmpty());
 
-        em.getTransaction().begin();
         for (final Player player : players) {
             playerService.removePlayer(player);
         }
-        em.getTransaction().commit();
 
         players = playerService.findAllPlayers();
         Assert.assertNotNull(players);
@@ -77,12 +62,10 @@ public class ImportControllerTest extends PersistenceTest {
     }
 
     @Test(expected = ValidationException.class)
-    public void executeImportFileAlreadyImportedTest() throws Exception {
-        ImportController importController = new ImportControllerImpl(em);
+    public void executeImportFileAlreadyImported() throws Exception {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import same file a second time
         try {
-            importController = new ImportControllerImpl(em);
             importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         } catch (final ValidationException e) {
             e.printStackTrace();
@@ -91,8 +74,7 @@ public class ImportControllerTest extends PersistenceTest {
     }
     
     @Test
-    public void executeImportTest() throws Exception {
-        ImportController importController = new ImportControllerImpl(em);
+    public void executeImport() throws Exception {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         final List<Player> players = playerService.findAllPlayers();
         Assert.assertFalse(players.isEmpty());
@@ -107,13 +89,11 @@ public class ImportControllerTest extends PersistenceTest {
     }
 
     @Test
-    public void executeImportUpdateTest() throws Exception {
-        ImportController importController = new ImportControllerImpl(em);
+    public void executeImportUpdate() throws Exception {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import new file to update player data
-        importController = new ImportControllerImpl(em);
         importController.executeImport(new File(SAMPLE_IMPORT_FILE_UPDATE));
-        final Player deletedPlayer = em.find(Player.class, 4848870L);
+        final Player deletedPlayer = playerService.findPlayerById(4848870L);
         Assert.assertNull(deletedPlayer);
     }
 

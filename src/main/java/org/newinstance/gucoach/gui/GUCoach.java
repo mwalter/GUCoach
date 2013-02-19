@@ -20,17 +20,13 @@
 package org.newinstance.gucoach.gui;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.newinstance.gucoach.gui.controller.ControllerProvider;
-import org.newinstance.gucoach.gui.controller.MainController;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import org.newinstance.gucoach.gui.controller.SpringFxmlLoader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Starts the GUCoach application.
@@ -44,9 +40,9 @@ public class GUCoach extends Application {
     /** The application name. */
     private static final String APPLICATION_TITLE = "GUCoach - your personal coach for Goalunited";
     /** The layout of the main application window. */
-    private static final String FXML_MAIN = "fxml/main.fxml";
+    private static final String FXML_MAIN = "/fxml/main.fxml";
     /** The main stylesheets. */
-    private static final String FILE_STYLESHEETS = "stylesheet.css";
+    private static final String GUCOACH_STYLES = "gucoach.css";
 
     /**
      * Executes the application.
@@ -59,22 +55,13 @@ public class GUCoach extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        // load main window layout and resources
-        // final Parent root = FXMLLoader.load(getClass().getResource(FXML_MAIN), ResourceBundle.getBundle("ApplicationResources"));
-
-        final URL location = getClass().getResource(FXML_MAIN);
-        final FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(location);
-        loader.setBuilderFactory(new JavaFXBuilderFactory());
-        loader.setResources(ResourceBundle.getBundle("ApplicationResources"));
-        final Parent root = (Parent) loader.load(location.openStream());
-
-        // set controller into provider
-        ControllerProvider.getInstance().setMainController((MainController) loader.getController());
+        final ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/applicationContext.xml");
+        final SpringFxmlLoader loader = new SpringFxmlLoader(context);
+        final Parent root = (Parent) loader.load(FXML_MAIN);
 
         // create scene and display window
         final Scene scene = new Scene(root, 1300, 900);
-        scene.getStylesheets().add(FILE_STYLESHEETS);
+        scene.getStylesheets().add(GUCOACH_STYLES);
         stage.setTitle(APPLICATION_TITLE);
         stage.getIcons().add(new Image(getClass().getResource(APPLICATION_ICON).toString()));
         stage.setScene(scene);
