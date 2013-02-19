@@ -20,9 +20,8 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.StandingsHistory;
 import org.newinstance.gucoach.model.Team;
 
@@ -38,26 +37,15 @@ import java.util.List;
  *
  * @author mwalter
  */
-public class StandingsHistoryServiceTest extends PersistenceTest {
-
-    private StandingsHistoryService standingsHistoryService;
-    private TeamService teamService;
-
-    @Before
-    public void init() {
-        standingsHistoryService = new StandingsHistoryService(em);
-        teamService = new TeamService(em);
-    }
+public class StandingsHistoryServiceTest extends BaseTest {
 
     @Test(expected = NoResultException.class)
-    public void insertAndDeleteStandingsHistoryTest() {
+    public void insertAndDeleteStandingsHistory() {
         final List<Team> teams = new ArrayList<Team>();
         Team team = createTeam("Olympique Marseille", 1);
         teams.add(team);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
-        em.getTransaction().commit();
 
         final Date matchDay = new Date();
         team = teamService.findAllTeams().get(0);
@@ -70,15 +58,13 @@ public class StandingsHistoryServiceTest extends PersistenceTest {
         Assert.assertEquals(team.getId(), result.getTeam().getId());
 
         // DELETE
-        em.getTransaction().begin();
         standingsHistoryService.removeAllStandingsHistory();
-        em.getTransaction().commit();
 
         standingsHistoryService.findStandingsHistoryByTeamAndDate(team, new Date());
     }
 
     @Test
-    public void removeAllStandingsHistoryTest() {
+    public void removeAllStandingsHistory() {
         final List<Team> teams = new ArrayList<Team>();
         Team team = createTeam("Olympique Marseille", 1);
         teams.add(team);
@@ -90,11 +76,9 @@ public class StandingsHistoryServiceTest extends PersistenceTest {
         matchDay2.set(Calendar.DAY_OF_MONTH, -1);
         final StandingsHistory standingsHistory2 = createStandingsHistory(team, matchDay2.getTime());
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
         standingsHistoryService.insertStandingsHistory(standingsHistory1);
         standingsHistoryService.insertStandingsHistory(standingsHistory2);
-        em.getTransaction().commit();
 
         StandingsHistory result = standingsHistoryService.findStandingsHistoryByTeamAndDate(team, standingsHistory1.getMatchDay());
         Assert.assertEquals(team, result.getTeam());
@@ -102,22 +86,14 @@ public class StandingsHistoryServiceTest extends PersistenceTest {
         Assert.assertEquals(team, result.getTeam());
 
         // DELETE
-        em.getTransaction().begin();
         standingsHistoryService.removeAllStandingsHistory();
-        em.getTransaction().commit();
 
-        // clear entity manager to force JPA to fetch records from database
-        em.clear();
-
-        // do not use service finder method here because it expects a single result
-        result = em.find(StandingsHistory.class, standingsHistory1.getId());
-        Assert.assertNull(result);
-        result = em.find(StandingsHistory.class, standingsHistory2.getId());
-        Assert.assertNull(result);
+        // Assert.assertNull(standingsHistoryService.findStandingsHistoryByTeamAndDate(team, matchDay1));
+        // Assert.assertNull(standingsHistoryService.findStandingsHistoryByTeamAndDate(team, matchDay2.getTime()));
     }
 
     @Test
-    public void updateStandingsHistoryTest() {
+    public void updateStandingsHistory() {
         final List<Team> teams = new ArrayList<Team>();
         Team team = createTeam("Olympique Marseille", 1);
         teams.add(team);
@@ -125,10 +101,8 @@ public class StandingsHistoryServiceTest extends PersistenceTest {
         final Date matchDay1 = Calendar.getInstance().getTime();
         final StandingsHistory standingsHistory = createStandingsHistory(team, matchDay1);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
         standingsHistoryService.insertStandingsHistory(standingsHistory);
-        em.getTransaction().commit();
 
         Assert.assertEquals(4, standingsHistory.getGoalsFor().intValue());
 
@@ -136,9 +110,7 @@ public class StandingsHistoryServiceTest extends PersistenceTest {
         standingsHistory.setGoalsFor(20);
         standingsHistory.setPosition(1);
 
-        em.getTransaction().commit();
         standingsHistoryService.updateStandingsHistory(standingsHistory);
-        em.getTransaction().commit();
 
         final StandingsHistory result = standingsHistoryService.findStandingsHistoryByTeamAndDate(team, matchDay1);
         Assert.assertEquals(20, result.getGoalsFor().intValue());
@@ -146,8 +118,7 @@ public class StandingsHistoryServiceTest extends PersistenceTest {
     }
 
     @Test(expected = PersistenceException.class)
-    // TODO test only works if executed last
-    public void insertStandingsHistoryTwiceTest() {
+    public void insertStandingsHistoryTwice() {
         final List<Team> teams = new ArrayList<Team>();
         Team team = createTeam("Paris SG", 1);
         teams.add(team);
@@ -157,11 +128,9 @@ public class StandingsHistoryServiceTest extends PersistenceTest {
 
         final StandingsHistory standingsHistory2 = createStandingsHistory(team, matchDay1);
 
-        em.getTransaction().begin();
         teamService.insertTeams(teams);
         standingsHistoryService.insertStandingsHistory(standingsHistory1);
         standingsHistoryService.insertStandingsHistory(standingsHistory2);
-        em.getTransaction().commit();
     }
 
 }
