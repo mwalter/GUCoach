@@ -73,4 +73,9 @@ public interface ImportService {
      * @throws ImportException if an error occurs
      */
     public void importData(final InputStreamReader inputStreamReader) throws ImportException;
+
+    /**
+     * Resets (deletes) all previously imported data.
+     */
+    public void reset();
 }

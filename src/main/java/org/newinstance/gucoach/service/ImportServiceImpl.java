@@ -52,6 +52,7 @@ public class ImportServiceImpl implements ImportService {
 
     private static final char SEPARATOR = ';';
     private static final String DATE_FORMAT = "dd.MM.yyyy";
+
     private List<String[]> fileContent = new ArrayList<String[]>();
     private Map<Long, Player> players = new HashMap<Long, Player>();
     private Map<Long, PlayerHistory> history = new HashMap<Long, PlayerHistory>();
@@ -84,6 +85,14 @@ public class ImportServiceImpl implements ImportService {
         extractImportDate();
         importPlayerData();
         importPlayerHistory();
+    }
+
+    @Override
+    public void reset() {
+        fileContent = new ArrayList<String[]>();
+        players = new HashMap<Long, Player>();
+        history = new HashMap<Long, PlayerHistory>();
+        stats = new HashMap<Long, PlayerStats>();
     }
 
     /**

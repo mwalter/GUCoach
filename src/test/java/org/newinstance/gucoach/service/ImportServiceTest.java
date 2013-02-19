@@ -20,8 +20,8 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.model.PlayerStats;
@@ -36,18 +36,12 @@ import java.util.Map;
  *
  * @author mwalter
  */
-public class ImportServiceTest {
+public class ImportServiceTest extends BaseTest {
 
     private static final String SAMPLE_IMPORT_FILE = "src/test/resources/gu_2011-11-20_team.csv";
-    private static ImportService importService;
-
-    @BeforeClass
-    public static void init() {
-        importService = new ImportServiceImpl();
-    }
 
     @Test
-    public void importDataTest() throws Exception {
+    public void importData() throws Exception {
         final InputStreamReader fileReader = new InputStreamReader(new FileInputStream(SAMPLE_IMPORT_FILE), ImportService.FILE_ENCODING);
         importService.importData(fileReader);
 
@@ -63,6 +57,23 @@ public class ImportServiceTest {
         Assert.assertNotNull(historyList);
         Assert.assertFalse(historyList.isEmpty());
         Assert.assertEquals("Number of history records does not match player records.", playerList.size(), historyList.size());
+    }
+
+    @Test
+    public void resetData() throws Exception {
+        final InputStreamReader fileReader = new InputStreamReader(new FileInputStream(SAMPLE_IMPORT_FILE), ImportService.FILE_ENCODING);
+        importService.importData(fileReader);
+
+        Assert.assertFalse(importService.getPlayers().isEmpty());
+        Assert.assertFalse(importService.getHistory().isEmpty());
+        Assert.assertFalse(importService.getStats().isEmpty());
+
+        // reset all data
+        importService.reset();
+
+        Assert.assertTrue(importService.getPlayers().isEmpty());
+        Assert.assertTrue(importService.getHistory().isEmpty());
+        Assert.assertTrue(importService.getStats().isEmpty());
     }
 
 }
