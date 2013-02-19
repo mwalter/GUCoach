@@ -21,26 +21,13 @@ package org.newinstance.gucoach.service;
 
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerStats;
-import org.newinstance.gucoach.utility.NamedQuery;
-
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 /**
  * Provides all service methods related to entity {@link PlayerStats}.
  *
  * @author mwalter
  */
-public class PlayerStatsService extends PersistenceService {
-
-    /**
-     * The service needs an {@link EntityManager}.
-     *
-     * @param entityManager the entity manager
-     */
-    public PlayerStatsService(final EntityManager entityManager) {
-        super(entityManager);
-    }
+public interface PlayerStatsService {
 
     /**
      * Returns the player statistics for the given player.
@@ -48,27 +35,19 @@ public class PlayerStatsService extends PersistenceService {
      * @param player the player
      * @return the player statistics
      */
-    public PlayerStats findPlayerStatsByPlayer(final Player player) {
-        final TypedQuery<PlayerStats> query = em.createNamedQuery(NamedQuery.FIND_PLAYER_STATS_BY_PLAYER.name(), PlayerStats.class);
-        query.setParameter("player", player);
-        return query.getSingleResult();
-    }
+    public PlayerStats findPlayerStatsByPlayer(final Player player);
 
     /**
      * Persists player statistics to the database.
      *
      * @param playerStats the player statistics to persist
      */
-    public void insertPlayerStats(final PlayerStats playerStats) {
-        em.persist(playerStats);
-    }
+    public void insertPlayerStats(final PlayerStats playerStats);
 
     /**
      * Updates the player statistics.
      *
      * @param playerStats the player statistics to update
      */
-    public void updatePlayerStats(final PlayerStats playerStats) {
-        em.merge(playerStats);
-    }
+    public void updatePlayerStats(final PlayerStats playerStats);
 }

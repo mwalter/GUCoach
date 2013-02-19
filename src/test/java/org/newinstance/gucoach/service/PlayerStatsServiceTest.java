@@ -20,145 +20,105 @@
 package org.newinstance.gucoach.service;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.newinstance.gucoach.base.PersistenceTest;
+import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.model.Position;
-
-import javax.persistence.NoResultException;
-import java.util.List;
 
 /**
  * Tests the methods of the {@link PlayerStatsService}.
  *
  * @author mwalter
  */
-public class PlayerStatsServiceTest extends PersistenceTest {
+public class PlayerStatsServiceTest extends BaseTest {
 
-    private PlayerService playerService;
-    private PlayerStatsService playerStatsService;
-
-    @Before
-    public void init() {
-        playerService = new PlayerService(em);
-        playerStatsService = new PlayerStatsService(em);
-    }
-
-    @Test(expected = NoResultException.class)
-    public void insertAndDeletePlayerStatsTest() {
+    @Test
+    public void insertAndDeletePlayerStats() {
         final Player player = createPlayer();
-        final PlayerStats playerStats1 = createPlayerStats(player);
+        player.setPlayerStats(createPlayerStats(player));
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
-        playerStatsService.insertPlayerStats(playerStats1);
-        em.getTransaction().commit();
 
-        List<Player> playerList = playerService.findAllPlayers();
-        Assert.assertNotNull(playerList);
-        Assert.assertFalse(playerList.isEmpty());
+        Player result = playerService.findPlayerById(player.getId());
+        Assert.assertNotNull(result);
 
-        PlayerStats playerStats = playerStatsService.findPlayerStatsByPlayer(player);
+        PlayerStats playerStats = result.getPlayerStats();
         Assert.assertNotNull(playerStats);
         Assert.assertEquals("Player statistics does not match to player.", player, playerStats.getPlayer());
 
         // delete player (and related player statistics records)
-        em.getTransaction().begin();
         playerService.removePlayer(player);
-        em.getTransaction().commit();
 
-        playerList = playerService.findAllPlayers();
-        Assert.assertNotNull(playerList);
-        Assert.assertTrue(playerList.isEmpty());
-
-        playerStatsService.findPlayerStatsByPlayer(player);
+        result = playerService.findPlayerById(player.getId());
+        Assert.assertNull(result);
     }
 
     @Test
-    public void insertPlayerStatsTest() {
+    public void insertPlayerStats() {
         final Player player = createPlayer();
-        final PlayerStats playerStats = createPlayerStats(player);
+        player.setPlayerStats(createPlayerStats(player));
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
-        playerStatsService.insertPlayerStats(playerStats);
-        em.getTransaction().commit();
 
-        final PlayerStats result = em.find(PlayerStats.class, playerStats.getId());
+        final Player result = playerService.findPlayerById(player.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals(90, result.getForm().intValue());
-        Assert.assertEquals(Position.DEF, result.getPosition());
+        Assert.assertEquals(90, result.getPlayerStats().getForm().intValue());
+        Assert.assertEquals(Position.DEF, result.getPlayerStats().getPosition());
     }
 
-    @Test(expected = NoResultException.class)
-    public void insertUpdateAndDeletePlayerStatsTest() {
+    @Test
+    public void insertUpdateAndDeletePlayerStats() {
         final Player player = createPlayer();
-        final PlayerStats playerStats1 = createPlayerStats(player);
+        player.setPlayerStats(createPlayerStats(player));
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
-        playerStatsService.insertPlayerStats(playerStats1);
-        em.getTransaction().commit();
 
-        List<Player> playerList = playerService.findAllPlayers();
-        Assert.assertNotNull(playerList);
-        Assert.assertFalse(playerList.isEmpty());
+        Player result = playerService.findPlayerById(player.getId());
+        Assert.assertNotNull(result);
 
-        PlayerStats playerStats = playerStatsService.findPlayerStatsByPlayer(player);
-        Assert.assertNotNull(playerStats);
-        Assert.assertEquals("Player statistics do not match to player.", player, playerStats.getPlayer());
+        PlayerStats oldPlayerStats = result.getPlayerStats();
+        Assert.assertNotNull(oldPlayerStats);
+        Assert.assertEquals("Player statistics do not match to player.", player, oldPlayerStats.getPlayer());
 
         // UPDATE
-        playerStats1.setPlayer(player);
+        final PlayerStats playerStats1 = result.getPlayerStats();
         playerStats1.setEndurance(65);
         playerStats1.setEnergy(71);
         playerStats1.setForm(85);
+        result.setPlayerStats(playerStats1);
 
-        em.getTransaction().begin();
-        playerStatsService.updatePlayerStats(playerStats1);
-        em.getTransaction().commit();
+        playerService.updatePlayer(playerStats1.getPlayer());
 
-        playerStats = playerStatsService.findPlayerStatsByPlayer(player);
-        Assert.assertNotNull(playerStats);
+        result = playerService.findPlayerById(player.getId());
+        Assert.assertNotNull(player);
 
         // compare updated values
-        Assert.assertEquals(playerStats1.getEndurance(), playerStats.getEndurance());
-        Assert.assertEquals(playerStats1.getEnergy(), playerStats.getEnergy());
-        Assert.assertEquals(playerStats1.getForm(), playerStats.getForm());
+        Assert.assertEquals(playerStats1.getEndurance(), result.getPlayerStats().getEndurance());
+        Assert.assertEquals(playerStats1.getEnergy(), result.getPlayerStats().getEnergy());
+        Assert.assertEquals(playerStats1.getForm(), result.getPlayerStats().getForm());
 
         // DELETE
-        em.getTransaction().begin();
         playerService.removePlayer(player);
-        em.getTransaction().commit();
 
-        playerList = playerService.findAllPlayers();
-        Assert.assertNotNull(playerList);
-        Assert.assertTrue(playerList.isEmpty());
-
-        playerStatsService.findPlayerStatsByPlayer(player);
+        result = playerService.findPlayerById(player.getId());
+        Assert.assertNull(result);
     }
 
     @Test
-    public void updatePlayerStatsTest() {
+    public void updatePlayerStats() {
         final Player player = createPlayer();
-        final PlayerStats playerStats = createPlayerStats(player);
+        player.setPlayerStats(createPlayerStats(player));
 
-        em.getTransaction().begin();
         playerService.insertPlayer(player);
-        playerStatsService.insertPlayerStats(playerStats);
-        em.getTransaction().commit();
 
         // update player statistics
-        playerStats.setAge(30);
+        player.getPlayerStats().setAge(30);
 
-        em.getTransaction().begin();
-        playerStatsService.updatePlayerStats(playerStats);
-        em.getTransaction().commit();
+        playerService.updatePlayer(player);
 
-        final PlayerStats result = playerStatsService.findPlayerStatsByPlayer(player);
+        final Player result = playerService.findPlayerById(player.getId());
         Assert.assertNotNull(result);
-        Assert.assertEquals(30, result.getAge().intValue());
+        Assert.assertEquals(30, result.getPlayerStats().getAge().intValue());
     }
 }
