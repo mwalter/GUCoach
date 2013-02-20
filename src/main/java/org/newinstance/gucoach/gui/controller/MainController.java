@@ -35,6 +35,7 @@ import org.newinstance.gucoach.gui.builder.CreateLeagueSceneBuilder;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 
@@ -43,6 +44,7 @@ import java.io.File;
  *
  * @author mwalter
  */
+@Component
 public class MainController {
 
     @Autowired

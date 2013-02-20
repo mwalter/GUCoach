@@ -27,6 +27,7 @@ import org.newinstance.gucoach.service.FixtureService;
 import org.newinstance.gucoach.service.TeamService;
 import org.newinstance.gucoach.utility.StandingsComparator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +39,7 @@ import java.util.List;
  *
  * @author mwalter
  */
+@Component
 public final class StandingsContentProvider {
 
     /** The team service. */

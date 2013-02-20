@@ -31,6 +31,7 @@ import org.newinstance.gucoach.model.Position;
 import org.newinstance.gucoach.model.StrongFoot;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,6 +49,7 @@ import java.util.Map;
  *
  * @author mwalter
  */
+@Component
 public class ImportServiceImpl implements ImportService {
 
     private static final char SEPARATOR = ';';

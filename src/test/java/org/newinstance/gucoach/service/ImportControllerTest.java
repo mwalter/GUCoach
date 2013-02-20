@@ -79,7 +79,7 @@ public class ImportControllerTest extends BaseTest {
         final List<Player> players = playerService.findAllPlayers();
         Assert.assertFalse(players.isEmpty());
         for (final Player player : players) {
-            final PlayerStats playerStats = playerStatsService.findPlayerStatsByPlayer(player);
+            final PlayerStats playerStats = player.getPlayerStats();
             Assert.assertNotNull(playerStats);
             Assert.assertEquals(player.getId(), playerStats.getPlayer().getId());
             final List<PlayerHistory> playerHistoryList = playerHistoryService.findPlayerHistoryByPlayer(player);
@@ -93,6 +93,7 @@ public class ImportControllerTest extends BaseTest {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import new file to update player data
         importController.executeImport(new File(SAMPLE_IMPORT_FILE_UPDATE));
+        // use an player id from the import file
         final Player deletedPlayer = playerService.findPlayerById(4848870L);
         Assert.assertNull(deletedPlayer);
     }

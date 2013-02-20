@@ -55,7 +55,6 @@ import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportService;
 import org.newinstance.gucoach.service.PlayerHistoryService;
 import org.newinstance.gucoach.service.PlayerService;
-import org.newinstance.gucoach.service.PlayerStatsService;
 import org.newinstance.gucoach.service.StandingsHistoryService;
 import org.newinstance.gucoach.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +90,6 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
     protected PlayerService playerService;
-
-    @Autowired
-    protected PlayerStatsService playerStatsService;
 
     @Autowired
     protected StandingsContentProvider standingsContentProvider;

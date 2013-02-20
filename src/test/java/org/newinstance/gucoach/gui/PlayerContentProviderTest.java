@@ -70,28 +70,27 @@ public class PlayerContentProviderTest extends BaseTest {
         player3.setHeight(186);
         newPlayers.add(player3);
 
-        // insert players
-        playerService.insertPlayers(newPlayers);
-
         // create some player statistics
         final PlayerStats stats1 = new PlayerStats();
         stats1.setAge(23);
         stats1.setEnergy(88);
         stats1.setGoalsSeason(2);
         stats1.setPlayer(player1);
+        player1.setPlayerStats(stats1);
         final PlayerStats stats2 = new PlayerStats();
         stats2.setAge(19);
         stats2.setEnergy(80);
         stats2.setGoalsSeason(5);
         stats2.setPlayer(player2);
+        player2.setPlayerStats(stats2);
         final PlayerStats stats3 = new PlayerStats();
         stats3.setAge(27);
         stats3.setEnergy(98);
         stats3.setGoalsSeason(0);
         stats3.setPlayer(player3);
+        player3.setPlayerStats(stats3);
 
-        playerStatsService.insertPlayerStats(stats1);
-        playerStatsService.insertPlayerStats(stats2);
-        playerStatsService.insertPlayerStats(stats3);
+        // insert players
+        playerService.insertPlayers(newPlayers);
     }
 }

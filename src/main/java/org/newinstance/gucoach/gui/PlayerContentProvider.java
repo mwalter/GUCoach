@@ -25,8 +25,8 @@ import javafx.scene.control.TableView;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.service.PlayerService;
-import org.newinstance.gucoach.service.PlayerStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +36,12 @@ import java.util.List;
  *
  * @author mwalter
  */
+@Component
 public class PlayerContentProvider {
 
     /** The player service. */
     @Autowired
     private PlayerService playerService;
-
-    /** The player statistics service. */
-    @Autowired
-    private PlayerStatsService playerStatsService;
 
     /**
      * Returns all player data from the database.

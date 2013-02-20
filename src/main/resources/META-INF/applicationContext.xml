@@ -59,20 +59,4 @@
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
 
-    <!-- Business Beans -->
-    <bean id="fixtureService" class="org.newinstance.gucoach.service.FixtureServiceImpl"/>
-    <bean id="importController" class="org.newinstance.gucoach.service.ImportControllerImpl"/>
-    <bean id="importService" class="org.newinstance.gucoach.service.ImportServiceImpl"/>
-    <bean id="leagueController" class="org.newinstance.gucoach.gui.controller.LeagueController"/>
-    <bean id="mainController" class="org.newinstance.gucoach.gui.controller.MainController"/>
-    <bean id="playerContentProvider" class="org.newinstance.gucoach.gui.PlayerContentProvider"/>
-    <bean id="playerHistoryService" class="org.newinstance.gucoach.service.PlayerHistoryServiceImpl"/>
-    <bean id="playerService" class="org.newinstance.gucoach.service.PlayerServiceImpl"/>
-    <bean id="playerStatsService" class="org.newinstance.gucoach.service.PlayerStatsServiceImpl"/>
-    <bean id="persistenceService" class="org.newinstance.gucoach.persistence.PersistenceServiceImpl"/>
-    <bean id="standingsContentProvider" class="org.newinstance.gucoach.gui.StandingsContentProvider"/>
-    <bean id="standingsHistoryService" class="org.newinstance.gucoach.service.StandingsHistoryServiceImpl"/>
-    <bean id="teamController" class="org.newinstance.gucoach.gui.controller.TeamController"/>
-    <bean id="teamService" class="org.newinstance.gucoach.service.TeamServiceImpl"/>
-
 </beans>

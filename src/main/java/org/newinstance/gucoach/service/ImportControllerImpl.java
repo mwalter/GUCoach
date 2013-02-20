@@ -22,10 +22,10 @@ package org.newinstance.gucoach.service;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.model.Player;
-import org.newinstance.gucoach.model.PlayerStats;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,6 +41,7 @@ import java.util.List;
  *
  * @author mwalter
  */
+@Component
 public class ImportControllerImpl implements ImportController {
 
     @Autowired
@@ -48,9 +49,6 @@ public class ImportControllerImpl implements ImportController {
 
     @Autowired
     private PlayerService playerService;
-
-    @Autowired
-    private PlayerStatsService playerStatsService;
 
     @Autowired
     private PlayerHistoryService playerHistoryService;
@@ -105,7 +103,6 @@ public class ImportControllerImpl implements ImportController {
             // if player does not exist in the database insert all new player data
             if (!playersInDatabase.contains(player)) {
                 playerService.insertPlayer(player);
-                playerStatsService.insertPlayerStats(importService.getStats().get(player.getId()));
                 playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
             } else {
                 // UPDATE
@@ -113,11 +110,8 @@ public class ImportControllerImpl implements ImportController {
                 if (importService.getImportDate().before(latestImportDateInDb)) {
                     playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
                 } else {
-                    // update player statistics only if there are changes
-                    final PlayerStats playerStatsDb = playerStatsService.findPlayerStatsByPlayer(player);
-                    if (!importService.getStats().get(player.getId()).equals(playerStatsDb)) {
-                        playerStatsService.updatePlayerStats(importService.getStats().get(player.getId()));
-                    }
+                    // update player statistics
+                    playerService.updatePlayer(player);
                     // insert player history records regardless of player stats change
                     playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
                 }

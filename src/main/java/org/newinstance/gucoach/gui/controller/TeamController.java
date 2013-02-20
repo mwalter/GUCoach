@@ -32,12 +32,14 @@ import org.newinstance.gucoach.gui.PlayerDataRow;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Controls user interaction in the team tab pane.
  *
  * @author mwalter
  */
+@Component
 public class TeamController {
 
     @Autowired

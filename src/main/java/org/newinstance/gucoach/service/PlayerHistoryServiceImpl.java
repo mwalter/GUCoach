@@ -24,6 +24,7 @@ import org.newinstance.gucoach.model.PlayerHistory;
 import org.newinstance.gucoach.persistence.PersistenceService;
 import org.newinstance.gucoach.utility.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -36,6 +37,7 @@ import java.util.Map;
  *
  * @author mwalter
  */
+@Component
 @Transactional
 public class PlayerHistoryServiceImpl implements PlayerHistoryService {
 

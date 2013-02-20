@@ -23,6 +23,7 @@ import org.newinstance.gucoach.model.Team;
 import org.newinstance.gucoach.persistence.PersistenceService;
 import org.newinstance.gucoach.utility.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.List;
  *
  * @author mwalter
  */
+@Component
 @Transactional
 public class TeamServiceImpl implements TeamService {
 
