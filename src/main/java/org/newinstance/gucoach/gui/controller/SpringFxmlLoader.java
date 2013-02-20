@@ -35,11 +35,13 @@ import java.util.ResourceBundle;
  */
 public class SpringFxmlLoader {
 
+    /** The application resources. */
+    private static final String APPLICATION_RESOURCES = "ApplicationResources";
     /** Spring application context. */
     private static ApplicationContext context;
 
     /**
-     * The constructor need the Spring application context.
+     * The constructor needs the Spring application context.
      *
      * @param context the Spring application context
      */
@@ -59,7 +61,7 @@ public class SpringFxmlLoader {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(location);
             loader.setBuilderFactory(new JavaFXBuilderFactory());
-            loader.setResources(ResourceBundle.getBundle("ApplicationResources"));
+            loader.setResources(ResourceBundle.getBundle(APPLICATION_RESOURCES));
             loader.setControllerFactory(new Callback<Class<?>, Object>() {
                 @Override
                 public Object call(Class<?> clazz) {
