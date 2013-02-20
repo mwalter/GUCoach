@@ -7,7 +7,7 @@ GUCoach is a manager software for the MMOG Goalunited [1].
 It manages and visualises your team players and team development.
 
 == Technologies ==
-GUCoach is implemented in Java and JavaFX.
+Java, JavaFX 2, Spring, JPA 2 (Hibernate), H2 embedded database.
 
 == Planned functionality ==
 - show all player information in a table view
