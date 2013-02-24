@@ -1,7 +1,7 @@
 <!--
   ~ GUCoach - your personal coach for Goalunited (tm).
   ~ Licenced under General Public Licence v3 (GPLv3)
-  ~ newInstance.org, 2012
+  ~ newInstance.org, 2012-2013
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -17,14 +17,16 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="root" fx:controller="org.newinstance.gucoach.gui.controller.MainController" xmlns:fx="http://javafx.com/fxml">
     <top>
@@ -53,12 +55,22 @@
         </MenuBar>
     </top>
     <center>
-        <TabPane tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <fx:include fx:id="team" source="tabTeam.fxml"/>
-                <fx:include fx:id="league" source="tabLeague.fxml"/>
-            </tabs>
-        </TabPane>
+        <StackPane>
+            <children>
+                <VBox fx:id="vBoxWelcomeMessage" spacing="5" style="-fx-padding: 10 10 10 10">
+                    <children>
+                        <Label text="%label.title.welcome" style="-fx-font: NORMAL 16 Tahoma;"/>
+                        <Label text="%label.text.start"/>
+                    </children>
+                </VBox>
+                <TabPane fx:id="tabPaneTabs" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <fx:include fx:id="team" source="tabTeam.fxml"/>
+                        <fx:include fx:id="league" source="tabLeague.fxml"/>
+                    </tabs>
+                </TabPane>
+            </children>
+        </StackPane>
     </center>
     <bottom>
         <HBox spacing="5" style="-fx-padding: 10 0 0 10">

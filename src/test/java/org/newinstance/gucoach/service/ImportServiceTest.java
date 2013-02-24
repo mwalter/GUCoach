@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@ import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
-import org.newinstance.gucoach.model.PlayerStats;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -49,9 +48,9 @@ public class ImportServiceTest extends BaseTest {
         Assert.assertNotNull(playerList);
         Assert.assertFalse(playerList.isEmpty());
 
-        final Map<Long, PlayerStats> statsList = importService.getStats();
-        Assert.assertNotNull(statsList);
-        Assert.assertFalse(statsList.isEmpty());
+        for (final Player player : playerList) {
+            Assert.assertNotNull(player.getPlayerStats());
+        }
 
         final Map<Long, PlayerHistory> historyList = importService.getHistory();
         Assert.assertNotNull(historyList);
@@ -66,14 +65,12 @@ public class ImportServiceTest extends BaseTest {
 
         Assert.assertFalse(importService.getPlayers().isEmpty());
         Assert.assertFalse(importService.getHistory().isEmpty());
-        Assert.assertFalse(importService.getStats().isEmpty());
 
         // reset all data
         importService.reset();
 
         Assert.assertTrue(importService.getPlayers().isEmpty());
         Assert.assertTrue(importService.getHistory().isEmpty());
-        Assert.assertTrue(importService.getStats().isEmpty());
     }
 
 }

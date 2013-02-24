@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ package org.newinstance.gucoach.service;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.model.PlayerHistory;
-import org.newinstance.gucoach.model.PlayerStats;
 
 import java.io.InputStreamReader;
 import java.util.Date;
@@ -58,13 +57,6 @@ public interface ImportService {
      * @return the list of players
      */
     public List<Player> getPlayers();
-
-    /**
-     * Returns all imported players statistics.
-     *
-     * @return the map with player statistics
-     */
-    public Map<Long, PlayerStats> getStats();
 
     /**
      * Triggers an import of all player related data from an CSV file.

@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,7 +58,6 @@ public class ImportServiceImpl implements ImportService {
     private List<String[]> fileContent = new ArrayList<String[]>();
     private Map<Long, Player> players = new HashMap<Long, Player>();
     private Map<Long, PlayerHistory> history = new HashMap<Long, PlayerHistory>();
-    private Map<Long, PlayerStats> stats = new HashMap<Long, PlayerStats>();
     private Date importDate;
 
     @Override
@@ -77,11 +76,6 @@ public class ImportServiceImpl implements ImportService {
     }
 
     @Override
-    public Map<Long, PlayerStats> getStats() {
-        return stats;
-    }
-
-    @Override
     public void importData(final InputStreamReader inputStreamReader) throws ImportException {
         readCSVFile(inputStreamReader);
         extractImportDate();
@@ -94,7 +88,6 @@ public class ImportServiceImpl implements ImportService {
         fileContent = new ArrayList<String[]>();
         players = new HashMap<Long, Player>();
         history = new HashMap<Long, PlayerHistory>();
-        stats = new HashMap<Long, PlayerStats>();
     }
 
     /**
@@ -296,7 +289,9 @@ public class ImportServiceImpl implements ImportService {
         playerStats.setRedCardsSeason(new Integer(record[AttributePosition.RED_CARDS_SEASON]));
         playerStats.setRedCardsTotal(new Integer(record[AttributePosition.RED_CARDS_TOTAL]));
         playerStats.setImportDate(importDate);
-        stats.put(playerStats.getPlayer().getId(), playerStats);
+        // add statistics to player entity
+        playerStats.getPlayer().setPlayerStats(playerStats);
+        // stats.put(playerStats.getPlayer().getId(), playerStats);
     }
 
     /**

@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -60,7 +62,20 @@ public class MainController {
     private BorderPane root;
 
     @FXML
+    private TabPane tabPaneTabs;
+
+    @FXML
+    private VBox vBoxWelcomeMessage;
+
+    @FXML
     public void initialize() {
+        if (playerContentProvider.fetchPlayerData().isEmpty()) {
+            vBoxWelcomeMessage.setVisible(true);
+            tabPaneTabs.setVisible(false);
+        } else {
+            vBoxWelcomeMessage.setVisible(false);
+            tabPaneTabs.setVisible(true);
+        }
     }
 
     @FXML
@@ -82,6 +97,12 @@ public class MainController {
 
         // update team table after import to show new player data
         teamController.setPlayerData(playerContentProvider.fetchPlayerData());
+
+        // if welcome message is visible hide message and show content instead
+        if (vBoxWelcomeMessage.isVisible()) {
+            vBoxWelcomeMessage.setVisible(false);
+            tabPaneTabs.setVisible(true);
+        }
     }
 
     @FXML
