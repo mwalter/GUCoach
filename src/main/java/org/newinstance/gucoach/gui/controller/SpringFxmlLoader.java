@@ -62,6 +62,7 @@ public class SpringFxmlLoader {
             loader.setLocation(location);
             loader.setBuilderFactory(new JavaFXBuilderFactory());
             loader.setResources(ResourceBundle.getBundle(APPLICATION_RESOURCES));
+            // the controller is a Spring managed bean and hence loaded from the Spring context
             loader.setControllerFactory(new Callback<Class<?>, Object>() {
                 @Override
                 public Object call(Class<?> clazz) {
