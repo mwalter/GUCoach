@@ -22,7 +22,7 @@ package org.newinstance.gucoach.service;
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
-import org.newinstance.gucoach.model.Team;
+import org.newinstance.gucoach.entity.Team;
 
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;

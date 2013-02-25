@@ -23,8 +23,8 @@ import javafx.collections.ObservableList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
-import org.newinstance.gucoach.model.Fixture;
-import org.newinstance.gucoach.model.Team;
+import org.newinstance.gucoach.entity.Fixture;
+import org.newinstance.gucoach.entity.Team;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -39,17 +39,17 @@
 package org.newinstance.gucoach.base;
 
 import org.junit.runner.RunWith;
+import org.newinstance.gucoach.entity.Country;
+import org.newinstance.gucoach.entity.Fixture;
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerHistory;
+import org.newinstance.gucoach.entity.PlayerStats;
+import org.newinstance.gucoach.entity.Position;
+import org.newinstance.gucoach.entity.StandingsHistory;
+import org.newinstance.gucoach.entity.StrongFoot;
+import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.StandingsContentProvider;
-import org.newinstance.gucoach.model.Country;
-import org.newinstance.gucoach.model.Fixture;
-import org.newinstance.gucoach.model.Player;
-import org.newinstance.gucoach.model.PlayerHistory;
-import org.newinstance.gucoach.model.PlayerStats;
-import org.newinstance.gucoach.model.Position;
-import org.newinstance.gucoach.model.StandingsHistory;
-import org.newinstance.gucoach.model.StrongFoot;
-import org.newinstance.gucoach.model.Team;
 import org.newinstance.gucoach.service.FixtureService;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportService;
@@ -103,7 +103,7 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     protected static final String JUNIT = "JUnit";
 
     /**
-     * Creates and returns a new {@link org.newinstance.gucoach.model.Fixture} entity.
+     * Creates and returns a new {@link org.newinstance.gucoach.entity.Fixture} entity.
      *
      * @return a new entity
      */
@@ -136,7 +136,7 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     }
 
     /**
-     * Creates and returns a new {@link org.newinstance.gucoach.model.Player} entity.
+     * Creates and returns a new {@link org.newinstance.gucoach.entity.Player} entity.
      *
      * @param playerId the player's id
      * @return a new entity
@@ -156,7 +156,7 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     }
 
     /**
-     * Creates and returns a new {@link org.newinstance.gucoach.model.PlayerHistory} entity.
+     * Creates and returns a new {@link org.newinstance.gucoach.entity.PlayerHistory} entity.
      *
      * @param player the player the history record belongs to
      * @return a new entity
@@ -179,7 +179,7 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     }
 
     /**
-     * Creates and returns a new {@link org.newinstance.gucoach.model.PlayerStats} entity.
+     * Creates and returns a new {@link org.newinstance.gucoach.entity.PlayerStats} entity.
      *
      * @param player the player the statistics record belongs to
      * @return a new entity
@@ -217,7 +217,7 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     }
 
     /**
-     * Creates and returns a new {@link org.newinstance.gucoach.model.StandingsHistory} entity.
+     * Creates and returns a new {@link org.newinstance.gucoach.entity.StandingsHistory} entity.
      *
      * @param team the team
      * @param matchDay the date of the matchday
@@ -237,7 +237,7 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     }
 
     /**
-     * Creates and returns a new {@link org.newinstance.gucoach.model.Team} entity.
+     * Creates and returns a new {@link org.newinstance.gucoach.entity.Team} entity.
      *
      * @param name the team name
      * @param position the team's starting position

@@ -19,7 +19,7 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.model.Player;
+import org.newinstance.gucoach.entity.Player;
 
 import java.util.List;
 

@@ -21,8 +21,8 @@ package org.newinstance.gucoach.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.newinstance.gucoach.model.Fixture;
-import org.newinstance.gucoach.model.Team;
+import org.newinstance.gucoach.entity.Fixture;
+import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.service.FixtureService;
 import org.newinstance.gucoach.service.TeamService;
 import org.newinstance.gucoach.utility.StandingsComparator;

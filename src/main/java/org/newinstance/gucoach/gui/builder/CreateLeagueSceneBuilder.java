@@ -41,7 +41,7 @@ import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Stage;
-import org.newinstance.gucoach.model.Team;
+import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.newinstance.gucoach.utility.TextInputHelper;
 

@@ -19,7 +19,7 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.model.Fixture;
+import org.newinstance.gucoach.entity.Fixture;
 import org.newinstance.gucoach.persistence.PersistenceService;
 import org.newinstance.gucoach.utility.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;

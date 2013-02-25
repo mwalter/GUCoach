@@ -19,9 +19,9 @@
 
 package org.newinstance.gucoach.gui;
 
-import org.newinstance.gucoach.model.Country;
-import org.newinstance.gucoach.model.Position;
-import org.newinstance.gucoach.model.StrongFoot;
+import org.newinstance.gucoach.entity.Country;
+import org.newinstance.gucoach.entity.Position;
+import org.newinstance.gucoach.entity.StrongFoot;
 import org.newinstance.gucoach.utility.DateHelper;
 
 import java.util.Date;

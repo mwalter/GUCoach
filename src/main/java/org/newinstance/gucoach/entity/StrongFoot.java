@@ -17,17 +17,31 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.model;
+package org.newinstance.gucoach.entity;
 
 /**
- * All possible positions in a line-up. A player is assigned to one position only.
+ * The strong (dominant) player's foot.
  *
  * @author mwalter
  */
-public enum Position {
-    OFF,
-    WNG,
-    MID,
-    DEF,
-    KEP
+public enum StrongFoot {
+    B("Both"),
+    L("Left"),
+    R("Right");
+
+    private String description;
+
+    StrongFoot(final String description) {
+        this.description = description;
+    }
+
+    /**
+     * Returns a more human readable description.
+     *
+     * @return a description
+     */
+    public String getDescription() {
+        return description;
+    }
+
 }

@@ -35,7 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
-import org.newinstance.gucoach.model.Team;
+import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.service.TeamService;
 import org.newinstance.gucoach.utility.DateHelper;
 import org.newinstance.gucoach.utility.MessageId;

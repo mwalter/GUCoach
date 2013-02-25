@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.model;
+package org.newinstance.gucoach.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

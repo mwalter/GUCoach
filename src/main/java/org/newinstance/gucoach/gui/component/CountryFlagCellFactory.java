@@ -26,9 +26,9 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
+import org.newinstance.gucoach.entity.Country;
 import org.newinstance.gucoach.gui.PlayerDataRow;
 import org.newinstance.gucoach.gui.controller.MainController;
-import org.newinstance.gucoach.model.Country;
 
 /**
  * Creates table cells containing country flag symbols.

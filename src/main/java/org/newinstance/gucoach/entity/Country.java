@@ -17,31 +17,43 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.model;
+package org.newinstance.gucoach.entity;
 
 /**
- * The strong (dominant) player's foot.
+ * All countries used in the game.
  *
  * @author mwalter
  */
-public enum StrongFoot {
-    B("Both"),
-    L("Left"),
-    R("Right");
-
-    private String description;
-
-    StrongFoot(final String description) {
-        this.description = description;
-    }
-
-    /**
-     * Returns a more human readable description.
-     *
-     * @return a description
-     */
-    public String getDescription() {
-        return description;
-    }
-
+public enum Country {
+    // TODO list all countries in the game
+    AR,
+    AT,
+    BE,
+    BR,
+    CH,
+    CZ,
+    DE,
+    DK,
+    EG,
+    ES,
+    FI,
+    FR,
+    GR,
+    HR,
+    IN,
+    IT,
+    LI,
+    LU,
+    MA,
+    NL,
+    NO,
+    PL,
+    PT,
+    RU,
+    SE,
+    SK,
+    TN,
+    TR,
+    UA,
+    US
 }

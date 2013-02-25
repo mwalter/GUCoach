@@ -19,8 +19,8 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.model.Player;
-import org.newinstance.gucoach.model.PlayerHistory;
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerHistory;
 import org.newinstance.gucoach.persistence.PersistenceService;
 import org.newinstance.gucoach.utility.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;

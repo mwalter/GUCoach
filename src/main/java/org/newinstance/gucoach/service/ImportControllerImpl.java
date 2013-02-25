@@ -19,9 +19,9 @@
 
 package org.newinstance.gucoach.service;
 
+import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
-import org.newinstance.gucoach.model.Player;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;

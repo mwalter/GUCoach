@@ -17,43 +17,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.model;
+package org.newinstance.gucoach.entity;
 
 /**
- * All countries used in the game.
+ * All possible positions in a line-up. A player is assigned to one position only.
  *
  * @author mwalter
  */
-public enum Country {
-    // TODO list all countries in the game
-    AR,
-    AT,
-    BE,
-    BR,
-    CH,
-    CZ,
-    DE,
-    DK,
-    EG,
-    ES,
-    FI,
-    FR,
-    GR,
-    HR,
-    IN,
-    IT,
-    LI,
-    LU,
-    MA,
-    NL,
-    NO,
-    PL,
-    PT,
-    RU,
-    SE,
-    SK,
-    TN,
-    TR,
-    UA,
-    US
+public enum Position {
+    OFF,
+    WNG,
+    MID,
+    DEF,
+    KEP
 }

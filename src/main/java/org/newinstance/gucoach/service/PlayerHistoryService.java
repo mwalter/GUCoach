@@ -19,8 +19,8 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.model.Player;
-import org.newinstance.gucoach.model.PlayerHistory;
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerHistory;
 
 import java.util.Date;
 import java.util.List;

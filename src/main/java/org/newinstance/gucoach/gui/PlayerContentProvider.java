@@ -22,8 +22,8 @@ package org.newinstance.gucoach.gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
-import org.newinstance.gucoach.model.Player;
-import org.newinstance.gucoach.model.PlayerStats;
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -60,7 +60,7 @@ public class PlayerContentProvider {
     }
 
     /**
-     * Merges the data of the model into a data row in order to use {@link ObservableList}.
+     * Merges the data of the entity into a data row in order to use {@link ObservableList}.
      *
      * @param player the player entity
      * @param playerStats the player statistics entity

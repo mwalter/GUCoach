@@ -19,9 +19,9 @@
 
 package org.newinstance.gucoach.service;
 
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerHistory;
 import org.newinstance.gucoach.exception.ImportException;
-import org.newinstance.gucoach.model.Player;
-import org.newinstance.gucoach.model.PlayerHistory;
 
 import java.io.InputStreamReader;
 import java.util.Date;

@@ -41,7 +41,7 @@
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="gucoach-test-pu"/>
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="org.newinstance.gucoach.model"/>
+        <property name="packagesToScan" value="org.newinstance.gucoach.entity"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="showSql" value="true"/>
