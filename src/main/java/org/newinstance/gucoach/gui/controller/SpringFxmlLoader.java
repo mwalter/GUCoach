@@ -38,7 +38,7 @@ public class SpringFxmlLoader {
     /** The application resources. */
     private static final String APPLICATION_RESOURCES = "ApplicationResources";
     /** Spring application context. */
-    private static ApplicationContext context;
+    private ApplicationContext context;
 
     /**
      * The constructor needs the Spring application context.
@@ -71,7 +71,7 @@ public class SpringFxmlLoader {
             });
             return loader.load(location.openStream());
         } catch (final IOException e) {
-            // TODO handle exception
+            // should never happen
             throw new RuntimeException(e);
         }
     }
