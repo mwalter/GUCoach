@@ -1,26 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
- * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public Licence v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,8 +29,8 @@ import org.newinstance.gucoach.entity.Position;
 import org.newinstance.gucoach.entity.StandingsHistory;
 import org.newinstance.gucoach.entity.StrongFoot;
 import org.newinstance.gucoach.entity.Team;
-import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.StandingsContentProvider;
+import org.newinstance.gucoach.gui.model.PlayerModel;
 import org.newinstance.gucoach.service.FixtureService;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportService;
@@ -83,7 +64,7 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     protected ImportService importService;
 
     @Autowired
-    protected PlayerContentProvider playerContentProvider;
+    protected PlayerModel playerModel;
 
     @Autowired
     protected PlayerHistoryService playerHistoryService;

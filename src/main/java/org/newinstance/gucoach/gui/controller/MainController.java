@@ -1,6 +1,6 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
+ * Licensed under General Public Licence v3 (GPLv3)
  * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
@@ -32,9 +32,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
-import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.builder.CreateLeagueSceneBuilder;
+import org.newinstance.gucoach.gui.model.PlayerModel;
 import org.newinstance.gucoach.service.ImportController;
+import org.newinstance.gucoach.service.PlayerService;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -53,7 +54,10 @@ public class MainController {
     private ImportController importController;
 
     @Autowired
-    private PlayerContentProvider playerContentProvider;
+    private PlayerService playerService;
+
+    @Autowired
+    private PlayerModel playerModel;
 
     @FXML
     private TeamController teamController;
@@ -69,7 +73,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        if (playerContentProvider.fetchPlayerData().isEmpty()) {
+        if (playerModel.getPlayers().isEmpty()) {
             vBoxWelcomeMessage.setVisible(true);
             tabPaneTabs.setVisible(false);
         } else {
@@ -96,7 +100,9 @@ public class MainController {
         }
 
         // update team table after import to show new player data
-        teamController.setPlayerData(playerContentProvider.fetchPlayerData());
+        // teamController.setPlayerData(playerContentProvider.fetchPlayerData());
+        playerModel.setPlayers(playerService.findAllPlayers());
+        teamController.setPlayerData(playerModel.getPlayers());
 
         // if welcome message is visible hide message and show content instead
         if (vBoxWelcomeMessage.isVisible()) {

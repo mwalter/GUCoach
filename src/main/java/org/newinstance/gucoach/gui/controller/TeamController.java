@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public Licence v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,8 +27,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import org.newinstance.gucoach.gui.PlayerContentProvider;
 import org.newinstance.gucoach.gui.PlayerDataRow;
+import org.newinstance.gucoach.gui.model.PlayerModel;
+import org.newinstance.gucoach.service.PlayerService;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,10 @@ import org.springframework.stereotype.Component;
 public class TeamController {
 
     @Autowired
-    private PlayerContentProvider playerContentProvider;
+    private PlayerService playerService;
+
+    @Autowired
+    private PlayerModel playerModel;
 
     @FXML
     private TableView tableViewPlayer;
@@ -100,12 +104,10 @@ public class TeamController {
     @FXML
     private TextField playerScoring;
 
-    //@Override
-    //@SuppressWarnings("unchecked")
-    //public void initialize(final URL location, final ResourceBundle resources) {
     @FXML
     public void initialize() {
-        tableViewPlayer.setItems(playerContentProvider.fetchPlayerData());
+        playerModel.setPlayers(playerService.findAllPlayers());
+        tableViewPlayer.setItems(playerModel.getPlayers());
 
         // if there are no players yet display import player data message
         if (tableViewPlayer.getItems().isEmpty()) {

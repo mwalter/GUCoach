@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public Licence v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.gui;
+package org.newinstance.gucoach.gui.model;
 
 import javafx.collections.ObservableList;
 import org.junit.Assert;
@@ -25,21 +25,22 @@ import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerStats;
+import org.newinstance.gucoach.gui.PlayerDataRow;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Tests methods of class {@link PlayerContentProvider}.
+ * Tests methods of class {@link PlayerModel}.
  *
  * @author mwalter
  */
-public class PlayerContentProviderTest extends BaseTest {
+public class PlayerModelTest extends BaseTest {
 
     @Test
     public void getPlayerData() {
         createSomePlayers();
-        final ObservableList<PlayerDataRow> playerList = playerContentProvider.fetchPlayerData();
+        final ObservableList<PlayerDataRow> playerList = playerModel.getPlayers();
         Assert.assertNotNull(playerList);
         Assert.assertFalse(playerList.isEmpty());
         for (final PlayerDataRow playerDataRow : playerList) {
@@ -90,7 +91,8 @@ public class PlayerContentProviderTest extends BaseTest {
         stats3.setPlayer(player3);
         player3.setPlayerStats(stats3);
 
-        // insert players
+        // insert players and set into model
         playerService.insertPlayers(newPlayers);
+        playerModel.setPlayers(playerService.findAllPlayers());
     }
 }
