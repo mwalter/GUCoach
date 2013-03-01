@@ -20,13 +20,14 @@
 package org.newinstance.gucoach.gui;
 
 import javafx.scene.control.TableCell;
+import org.newinstance.gucoach.entity.Player;
 
 /**
  * Colours table cells depending on the numeric value. Low values are coloured in red, high values in green shades.
  *
  * @author mwalter
  */
-public class SkillValueColorCell extends TableCell<PlayerDataRow, Integer> {
+public class SkillValueColorCell extends TableCell<Player, Integer> {
 
     @Override
     public void updateItem(final Integer item, final boolean empty) {

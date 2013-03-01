@@ -22,7 +22,6 @@ package org.newinstance.gucoach.gui.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.newinstance.gucoach.entity.Player;
-import org.newinstance.gucoach.gui.PlayerDataRow;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -37,14 +36,14 @@ import java.util.List;
 public class PlayerModel {
 
     /** Holds all players. */
-    private ObservableList<PlayerDataRow> players = FXCollections.observableList(new ArrayList<PlayerDataRow>());
+    private ObservableList<Player> players = FXCollections.observableList(new ArrayList<Player>());
 
     /**
      * Returns all players.
      *
      * @return the observable list of players
      */
-    public ObservableList<PlayerDataRow> getPlayers() {
+    public ObservableList<Player> getPlayers() {
         return players;
     }
 
@@ -54,55 +53,7 @@ public class PlayerModel {
      * @param players the players to set
      */
     public void setPlayers(final List<Player> players) {
-        this.players = convertToPlayerDataRows(players);
+        this.players = FXCollections.observableList(players);
     }
 
-    /**
-     * Merges the data of the entities into data rows in order to use {@link javafx.collections.ObservableList}.
-     *
-     * @param players the player entities
-     * @return the observable list of data rows
-     */
-    private ObservableList<PlayerDataRow> convertToPlayerDataRows(final List<Player> players) {
-        final List<PlayerDataRow> playerDataRows = new ArrayList<PlayerDataRow>();
-        for (final Player player : players) {
-            final PlayerDataRow playerDataRow = new PlayerDataRow();
-            playerDataRow.setAge(player.getPlayerStats().getAge());
-            playerDataRow.setAssignments(player.getPlayerStats().getAssignments());
-            playerDataRow.setBirthday(player.getBirthday());
-            playerDataRow.setCountry(player.getCountry());
-            playerDataRow.setEndurance(player.getPlayerStats().getEndurance());
-            playerDataRow.setEnergy(player.getPlayerStats().getEnergy());
-            playerDataRow.setExperience(player.getPlayerStats().getExperience());
-            playerDataRow.setFirstName(player.getFirstName());
-            playerDataRow.setForm(player.getPlayerStats().getForm());
-            playerDataRow.setGoalsSeason(player.getPlayerStats().getGoalsSeason());
-            playerDataRow.setGoalsTotal(player.getPlayerStats().getGoalsTotal());
-            playerDataRow.setHeight(player.getHeight());
-            playerDataRow.setId(player.getId());
-            playerDataRow.setImportDate(player.getImportDate());
-            playerDataRow.setLastName(player.getLastName());
-            playerDataRow.setMarketValue(player.getPlayerStats().getMarketValue());
-            playerDataRow.setNumber(player.getPlayerStats().getNumber());
-            playerDataRow.setPersonality(player.getPersonality());
-            playerDataRow.setPosition(player.getPlayerStats().getPosition());
-            playerDataRow.setStrength(player.getPlayerStats().getAverageStrength());
-            playerDataRow.setStrongFoot(player.getStrongFoot());
-            playerDataRow.setRedCardsSeason(player.getPlayerStats().getRedCardsSeason());
-            playerDataRow.setRedCardsTotal(player.getPlayerStats().getRedCardsTotal());
-            playerDataRow.setSalary(player.getPlayerStats().getSalary());
-            playerDataRow.setSkillGoalkeeping(player.getPlayerStats().getSkillGoalkeeping());
-            playerDataRow.setSkillPassing(player.getPlayerStats().getSkillPassing());
-            playerDataRow.setSkillPlaymaking(player.getPlayerStats().getSkillPlaymaking());
-            playerDataRow.setSkillScoring(player.getPlayerStats().getSkillScoring());
-            playerDataRow.setSkillTackling(player.getPlayerStats().getSkillTackling());
-            playerDataRow.setTalent(player.getPlayerStats().getTalent());
-            playerDataRow.setTalentLevel(player.getPlayerStats().getTalentLevel());
-            playerDataRow.setTraining(player.getPlayerStats().getTraining());
-            playerDataRow.setYellowCardsSeason(player.getPlayerStats().getYellowCardsSeason());
-            playerDataRow.setYellowCardsTotal(player.getPlayerStats().getYellowCardsTotal());
-            playerDataRows.add(playerDataRow);
-        }
-        return FXCollections.observableList(playerDataRows);
-    }
 }

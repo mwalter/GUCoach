@@ -67,7 +67,7 @@
                         </TableColumn>
                         <TableColumn resizable="false" text="%label.table.player.strength" minWidth="30" maxWidth="30">
                             <cellValueFactory>
-                                <PropertyValueFactory property="strength"/>
+                                <PropertyValueFactory property="averageStrength"/>
                             </cellValueFactory>
                             <cellFactory>
                                 <AlignedTableCellFactory alignment="center"/>

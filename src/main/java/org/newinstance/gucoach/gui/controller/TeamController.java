@@ -27,7 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import org.newinstance.gucoach.gui.PlayerDataRow;
+import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.gui.model.PlayerModel;
 import org.newinstance.gucoach.service.PlayerService;
 import org.newinstance.gucoach.utility.MessageId;
@@ -117,19 +117,19 @@ public class TeamController {
         }
 
         // add listener for player list changes
-        tableViewPlayer.getItems().addListener(new ListChangeListener<PlayerDataRow>() {
+        tableViewPlayer.getItems().addListener(new ListChangeListener<Player>() {
 
             @Override
-            public void onChanged(final Change<? extends PlayerDataRow> change) {
+            public void onChanged(final Change<? extends Player> change) {
                 tableViewPlayer.setItems(change.getList());
             }
         });
 
         // add listener for row selection
-        tableViewPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PlayerDataRow>() {
+        tableViewPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
 
             @Override
-            public void changed(final ObservableValue<? extends PlayerDataRow> observable, final PlayerDataRow oldValue, final PlayerDataRow newValue) {
+            public void changed(final ObservableValue<? extends Player> observable, final Player oldValue, final Player newValue) {
                 // only update fields if user selected a new row - prevents NPE if user clicks to sort a column
                 if (newValue != null) {
                     fillPlayerDataIntoTextFields(newValue);
@@ -143,34 +143,34 @@ public class TeamController {
      *
      * @param playerData contains the data about the selected player
      */
-    private void fillPlayerDataIntoTextFields(final PlayerDataRow playerData) {
+    private void fillPlayerDataIntoTextFields(final Player playerData) {
         playerName.setText(playerData.getFirstName() + " " + playerData.getLastName());
-        playerAge.setText(playerData.getAge().toString());
+        playerAge.setText(playerData.getPlayerStats().getAge().toString());
         playerHeight.setText(playerData.getHeight().toString());
         playerCountry.setText(playerData.getCountry().name());
         playerPersonality.setText(playerData.getPersonality());
         playerBirthday.setText(playerData.getBirthday());
         playerFoot.setText(playerData.getStrongFoot().getDescription());
-        playerYellowCards.setText(playerData.getYellowCardsSeasonAndTotal());
-        playerExperience.setText(playerData.getExperience().toString());
-        playerForm.setText(playerData.getForm().toString());
-        playerEnergy.setText(playerData.getEnergy().toString());
-        playerEndurance.setText(playerData.getEndurance().toString());
-        playerAssignments.setText(playerData.getAssignments().toString());
-        playerPosition.setText(playerData.getPosition().name());
-        playerTalent.setText(playerData.getTalent());
-        playerNumber.setText(playerData.getNumber().toString());
-        playerGoals.setText(playerData.getGoalsSeasonAndTotal());
-        playerSalary.setText(playerData.getSalary().toString());
+        playerYellowCards.setText(playerData.getPlayerStats().getYellowCardsSeasonAndTotal());
+        playerExperience.setText(playerData.getPlayerStats().getExperience().toString());
+        playerForm.setText(playerData.getPlayerStats().getForm().toString());
+        playerEnergy.setText(playerData.getPlayerStats().getEnergy().toString());
+        playerEndurance.setText(playerData.getPlayerStats().getEndurance().toString());
+        playerAssignments.setText(playerData.getPlayerStats().getAssignments().toString());
+        playerPosition.setText(playerData.getPlayerStats().getPosition().name());
+        playerTalent.setText(playerData.getPlayerStats().getTalent());
+        playerNumber.setText(playerData.getPlayerStats().getNumber().toString());
+        playerGoals.setText(playerData.getPlayerStats().getGoalsSeasonAndTotal());
+        playerSalary.setText(playerData.getPlayerStats().getSalary().toString());
         // market value is not filled yet
         playerMarketValue.setText("");
-        playerStrength.setText(playerData.getStrength().toString());
-        playerRedCards.setText(playerData.getRedCardsSeasonAndTotal());
-        playerGoalkeeping.setText(playerData.getSkillGoalkeeping().toString());
-        playerTackling.setText(playerData.getSkillTackling().toString());
-        playerPlaymaking.setText(playerData.getSkillPlaymaking().toString());
-        playerPassing.setText(playerData.getSkillPassing().toString());
-        playerScoring.setText(playerData.getSkillScoring().toString());
+        playerStrength.setText(playerData.getPlayerStats().getAverageStrength().toString());
+        playerRedCards.setText(playerData.getPlayerStats().getRedCardsSeasonAndTotal());
+        playerGoalkeeping.setText(playerData.getPlayerStats().getSkillGoalkeeping().toString());
+        playerTackling.setText(playerData.getPlayerStats().getSkillTackling().toString());
+        playerPlaymaking.setText(playerData.getPlayerStats().getSkillPlaymaking().toString());
+        playerPassing.setText(playerData.getPlayerStats().getSkillPassing().toString());
+        playerScoring.setText(playerData.getPlayerStats().getSkillScoring().toString());
     }
 
     /**
@@ -179,7 +179,7 @@ public class TeamController {
      * @param list the list of players to set
      */
     @SuppressWarnings("unchecked")
-    public void setPlayerData(final ObservableList<PlayerDataRow> list) {
+    public void setPlayerData(final ObservableList<Player> list) {
         tableViewPlayer.getItems().setAll(list);
     }
 }

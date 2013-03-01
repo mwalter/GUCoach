@@ -27,7 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 import org.newinstance.gucoach.entity.Country;
-import org.newinstance.gucoach.gui.PlayerDataRow;
+import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.gui.controller.MainController;
 
 /**
@@ -35,14 +35,14 @@ import org.newinstance.gucoach.gui.controller.MainController;
  *
  * @author mwalter
  */
-public class CountryFlagCellFactory<S, T> implements Callback<TableColumn<PlayerDataRow, Country>, TableCell<PlayerDataRow, Country>> {
+public class CountryFlagCellFactory<S, T> implements Callback<TableColumn<Player, Country>, TableCell<Player, Country>> {
 
     private static final String FLAG_ICON_LOCATION = "images/flags/";
     private static final String FLAG_ICON_EXTENSION = ".png";
 
     @Override
-    public TableCell<PlayerDataRow, Country> call(TableColumn<PlayerDataRow, Country> p) {
-        final TableCell<PlayerDataRow, Country> cell = new TableCell<PlayerDataRow, Country>() {
+    public TableCell<Player, Country> call(TableColumn<Player, Country> p) {
+        final TableCell<Player, Country> cell = new TableCell<Player, Country>() {
 
             @Override
             public void updateItem(final Country item, final boolean empty) {

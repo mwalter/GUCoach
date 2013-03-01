@@ -93,6 +93,10 @@ public final class Player {
         return firstName;
     }
 
+    public String getFullName() {
+        return lastName + ", " + firstName;
+    }
+
     public Integer getHeight() {
         return height;
     }
@@ -196,9 +200,64 @@ public final class Player {
         builder.append("strongFoot=").append(strongFoot.getDescription()).append(", ");
         builder.append("importDate=").append(DateHelper.formatDate(importDate));
         if (playerStats != null) {
-            builder.append(", ").append("playerStatsId=").append(playerStats.getId());
+            builder.append(", ").append("playerStats=").append(playerStats.toString());
         }
         builder.append("]");
         return builder.toString();
     }
+
+    // -- convenience methods for statistic attributes (because ${playerStats.number} doesn't work
+
+    public Integer getNumber() {
+        return getPlayerStats().getNumber();
+    }
+
+    public Integer getAge() {
+        return getPlayerStats().getAge();
+    }
+
+    public Float getAverageStrength() {
+        return getPlayerStats().getAverageStrength();
+    }
+
+    public String getPosition() {
+        return getPlayerStats().getPosition().name();
+    }
+
+    public Integer getExperience() {
+        return getPlayerStats().getExperience();
+    }
+
+    public Integer getSkillGoalkeeping() {
+        return getPlayerStats().getSkillGoalkeeping();
+    }
+
+    public Integer getSkillTackling() {
+        return getPlayerStats().getSkillTackling();
+    }
+
+    public Integer getSkillPlaymaking() {
+        return getPlayerStats().getSkillPlaymaking();
+    }
+
+    public Integer getSkillPassing() {
+        return getPlayerStats().getSkillPassing();
+    }
+
+    public Integer getSkillScoring() {
+        return getPlayerStats().getSkillScoring();
+    }
+
+    public Integer getForm() {
+        return getPlayerStats().getForm();
+    }
+
+    public Integer getEnergy() {
+        return getPlayerStats().getEnergy();
+    }
+
+    public Integer getEndurance() {
+        return getPlayerStats().getEndurance();
+    }
+
 }

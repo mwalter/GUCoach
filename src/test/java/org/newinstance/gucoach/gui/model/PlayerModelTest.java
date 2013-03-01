@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerStats;
-import org.newinstance.gucoach.gui.PlayerDataRow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +39,10 @@ public class PlayerModelTest extends BaseTest {
     @Test
     public void getPlayerData() {
         createSomePlayers();
-        final ObservableList<PlayerDataRow> playerList = playerModel.getPlayers();
+        final ObservableList<Player> playerList = playerModel.getPlayers();
         Assert.assertNotNull(playerList);
         Assert.assertFalse(playerList.isEmpty());
-        for (final PlayerDataRow playerDataRow : playerList) {
-            Assert.assertNotNull(playerDataRow.getHeight());
-            Assert.assertNotNull(playerDataRow.getFullName());
-        }
+        Assert.assertEquals(3, playerList.size());
     }
 
     /** Creates some test players. */

@@ -181,6 +181,18 @@ public final class PlayerStats {
         return goalsTotal;
     }
 
+    public String getGoalsSeasonAndTotal() {
+        return getGoalsSeason().toString() + " (" + getGoalsTotal().toString() + ")";
+    }
+
+    public String getRedCardsSeasonAndTotal() {
+        return getRedCardsSeason().toString() + " (" + getRedCardsTotal().toString() + ")";
+    }
+
+    public String getYellowCardsSeasonAndTotal() {
+        return getYellowCardsSeason().toString() + " (" + getYellowCardsTotal().toString() + ")";
+    }
+
     public Long getId() {
         return id;
     }
