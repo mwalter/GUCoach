@@ -39,8 +39,8 @@
             <children>
                 <GridPane fx:id="gpTeamNames" alignment="top_left" hgap="5" vgap="5">
                     <columnConstraints>
-                        <ColumnConstraints prefWidth="20"/>
-                        <ColumnConstraints prefWidth="180"/>
+                        <ColumnConstraints prefWidth="50"/>
+                        <ColumnConstraints prefWidth="150"/>
                     </columnConstraints>
                     <children>
                         <Label text="%label.team.rank1" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$tfTeam1"/>
