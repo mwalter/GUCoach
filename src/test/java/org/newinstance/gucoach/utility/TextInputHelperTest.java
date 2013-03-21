@@ -20,7 +20,7 @@
 package org.newinstance.gucoach.utility;
 
 import javafx.scene.control.TextField;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
