@@ -21,6 +21,7 @@ package org.newinstance.gucoach.gui.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,6 +35,8 @@ import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 /**
  * Controls user interaction in the team tab pane.
@@ -50,7 +53,7 @@ public class TeamController {
     private PlayerModel playerModel;
 
     @FXML
-    private TableView tableViewPlayer;
+    private TableView<Player> tableViewPlayer;
     @FXML
     private TextField playerName;
     @FXML
@@ -121,7 +124,12 @@ public class TeamController {
 
             @Override
             public void onChanged(final Change<? extends Player> change) {
-                tableViewPlayer.setItems(change.getList());
+                // some nasty list copying because of inheritance in generics
+                final ObservableList<Player> players = FXCollections.observableList(new ArrayList<Player>());
+                for (final Player player : change.getList()) {
+                    players.add(player);
+                }
+                tableViewPlayer.setItems(players);
             }
         });
 
