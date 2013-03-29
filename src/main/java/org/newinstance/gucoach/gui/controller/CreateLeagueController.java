@@ -28,7 +28,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Dialogs;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -38,8 +37,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.service.TeamService;
 import org.newinstance.gucoach.utility.DateHelper;
-import org.newinstance.gucoach.utility.MessageId;
-import org.newinstance.gucoach.utility.ResourceLoader;
 import org.newinstance.gucoach.utility.TextInputHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -130,7 +127,8 @@ public class CreateLeagueController implements Initializable {
             matchday = DateHelper.parseDate(tfMatchday.getText());
         } catch (final ParseException e) {
             // invalid date format
-            Dialogs.showErrorDialog((Stage) root.getScene().getWindow(), ResourceLoader.getMessage(MessageId.V004.getMessageKey()), "Es ist ein Fehler aufgetreten", null);
+            // TODO error message
+            // Dialogs.showErrorDialog((Stage) root.getScene().getWindow(), ResourceLoader.getMessage(MessageId.V004.getMessageKey()), "Es ist ein Fehler aufgetreten", null);
             return;
         }
 
@@ -142,12 +140,14 @@ public class CreateLeagueController implements Initializable {
                 final String teamName = ((TextField) child).getText().trim();
                 // team names must not be empty
                 if (StringUtils.isBlank(teamName)) {
-                    Dialogs.showErrorDialog((Stage) root.getScene().getWindow(), ResourceLoader.getMessage(MessageId.V005.getMessageKey()), "Es ist ein Fehler aufgetreten", null);
+                    // TODO error message
+                    // Dialogs.showErrorDialog((Stage) root.getScene().getWindow(), ResourceLoader.getMessage(MessageId.V005.getMessageKey()), "Es ist ein Fehler aufgetreten", null);
                     return;
                 }
                 // team names must be unique
                 if (teamNames.contains(teamName)) {
-                    Dialogs.showErrorDialog((Stage) root.getScene().getWindow(), ResourceLoader.getMessage(MessageId.V006.getMessageKey()), "Es ist ein Fehler aufgetreten", null);
+                    // TODO error message
+                    // Dialogs.showErrorDialog((Stage) root.getScene().getWindow(), ResourceLoader.getMessage(MessageId.V006.getMessageKey()), "Es ist ein Fehler aufgetreten", null);
                     return;
                 }
                 teamNames.add(teamName);
