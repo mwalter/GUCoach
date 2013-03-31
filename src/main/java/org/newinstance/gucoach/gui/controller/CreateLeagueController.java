@@ -164,7 +164,7 @@ public class CreateLeagueController implements Initializable {
         }
 
         // use task to insert teams into database
-        Task<Void> saveTask = new Task<Void>() {
+        final Task<Void> saveTeamsTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 try {
@@ -177,7 +177,7 @@ public class CreateLeagueController implements Initializable {
             }
         };
 
-        saveTask.stateProperty().addListener(new ChangeListener<Worker.State>() {
+        saveTeamsTask.stateProperty().addListener(new ChangeListener<Worker.State>() {
             @Override
             public void changed(final ObservableValue<? extends Worker.State> source, final Worker.State oldState, final Worker.State newState) {
                 if (newState.equals(Worker.State.SUCCEEDED)) {
@@ -191,7 +191,7 @@ public class CreateLeagueController implements Initializable {
             }
         });
 
-        new Thread(saveTask).start();
+        new Thread(saveTeamsTask).start();
     }
 
     /**
