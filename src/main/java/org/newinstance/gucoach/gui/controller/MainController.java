@@ -37,8 +37,6 @@ import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.PlayerService;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -50,6 +48,9 @@ import java.io.File;
  */
 @Component
 public class MainController {
+
+    @Autowired
+    private SpringFxmlLoader loader;
 
     @Autowired
     private ImportController importController;
@@ -123,11 +124,6 @@ public class MainController {
      */
     @FXML
     protected void showCreateLeagueWindow(final ActionEvent event) {
-        // build dialogue with builder
-        // final Parent root = new CreateLeagueSceneBuilder().buildScene();
-
-        final ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/applicationContext.xml");
-        final SpringFxmlLoader loader = new SpringFxmlLoader(context);
         final Parent window = (Parent) loader.load("/fxml/windowCreateLeague.fxml");
         final Scene scene = new Scene(window);
         scene.getStylesheets().add("gucoach.css");

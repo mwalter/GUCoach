@@ -22,7 +22,9 @@ package org.newinstance.gucoach.gui.controller;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.util.Callback;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,21 +35,14 @@ import java.util.ResourceBundle;
  *
  * @author mwalter
  */
+@Component
 public class SpringFxmlLoader {
 
     /** The application resources. */
     private static final String APPLICATION_RESOURCES = "ApplicationResources";
     /** Spring application context. */
+    @Autowired
     private ApplicationContext context;
-
-    /**
-     * The constructor needs the Spring application context.
-     *
-     * @param context the Spring application context
-     */
-    public SpringFxmlLoader(final ApplicationContext context) {
-        this.context = context;
-    }
 
     /**
      * Loads a JavaFX FXML resource file.

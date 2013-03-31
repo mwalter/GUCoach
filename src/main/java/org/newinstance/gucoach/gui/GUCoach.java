@@ -55,8 +55,11 @@ public class GUCoach extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
+        // initialize Spring context
         final ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/applicationContext.xml");
-        final SpringFxmlLoader loader = new SpringFxmlLoader(context);
+        // get loader via Spring context - @Autowired doesn't work here yet
+        final SpringFxmlLoader loader = (SpringFxmlLoader) context.getBean("springFxmlLoader");
+
         final Parent root = (Parent) loader.load(FXML_MAIN);
 
         // create scene and display window
