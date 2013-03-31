@@ -1,5 +1,5 @@
 # GUCoach - your personal coach for Goalunited. #
-Licensed under General Public Licence v3 (GPLv3)
+Licensed under General Public License v3 (GPLv3)
 newInstance.org, 2012-2013
 
 ## About GUCoach ##
