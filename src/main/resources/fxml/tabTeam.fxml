@@ -34,9 +34,12 @@
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
                 <Label text="%label.title.players" style="-fx-font: NORMAL 16 Tahoma;"/>
-                <TableView fx:id="tableViewPlayer" VBox.vgrow="NEVER" HBox.hgrow="NEVER">
+                <TableView fx:id="tableViewPlayer">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
                     <columns>
-                        <TableColumn resizable="false" text="%label.player.number" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.player.number" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="number"/>
                             </cellValueFactory>
@@ -44,12 +47,12 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.player.name" minWidth="130">
+                        <TableColumn resizable="false" text="%label.player.name" minWidth="130.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="fullName"/>
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.player.country" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="country"/>
                             </cellValueFactory>
@@ -57,7 +60,7 @@
                                 <CountryFlagCellFactory/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.age" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.age" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="age"/>
                             </cellValueFactory>
@@ -65,7 +68,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.strength" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.strength" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="averageStrength"/>
                             </cellValueFactory>
@@ -73,7 +76,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.position" minWidth="35" maxWidth="35">
+                        <TableColumn text="%label.table.player.position" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="position"/>
                             </cellValueFactory>
@@ -81,7 +84,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.player.experience" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.player.experience" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="experience"/>
                             </cellValueFactory>
@@ -89,7 +92,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.skill.goalkeeping" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.skill.goalkeeping" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="skillGoalkeeping"/>
                             </cellValueFactory>
@@ -97,7 +100,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.skill.tackling" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.skill.tackling" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="skillTackling"/>
                             </cellValueFactory>
@@ -105,7 +108,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.skill.playmaking" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.skill.playmaking" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="skillPlaymaking"/>
                             </cellValueFactory>
@@ -113,7 +116,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.skill.passing" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.skill.passing" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="skillPassing"/>
                             </cellValueFactory>
@@ -121,7 +124,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.skill.scoring" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.skill.scoring" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="skillScoring"/>
                             </cellValueFactory>
@@ -129,7 +132,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.form" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.form" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="form"/>
                             </cellValueFactory>
@@ -137,7 +140,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.energy" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.energy" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="energy"/>
                             </cellValueFactory>
@@ -145,7 +148,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.player.endurance" minWidth="30" maxWidth="30">
+                        <TableColumn text="%label.table.player.endurance" prefWidth="30.0">
                             <cellValueFactory>
                                 <PropertyValueFactory property="endurance"/>
                             </cellValueFactory>
