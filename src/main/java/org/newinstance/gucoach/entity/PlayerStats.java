@@ -39,7 +39,7 @@ import java.util.Date;
  * @author mwalter
  */
 @Entity
-@NamedQuery(name = "FIND_PLAYER_STATS_BY_PLAYER", query = "SELECT ps FROM PlayerStats ps WHERE ps.player = :player ORDER BY ps.importDate DESC")
+@NamedQuery(name = "FIND_PLAYER_STATS_BY_PLAYER", query = "SELECT ps FROM PlayerStats ps WHERE ps.player = :player")
 public final class PlayerStats {
 
     /** Primary key. */
