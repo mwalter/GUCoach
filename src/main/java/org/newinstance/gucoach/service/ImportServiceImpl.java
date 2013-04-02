@@ -289,9 +289,8 @@ public class ImportServiceImpl implements ImportService {
         playerStats.setRedCardsSeason(new Integer(record[AttributePosition.RED_CARDS_SEASON]));
         playerStats.setRedCardsTotal(new Integer(record[AttributePosition.RED_CARDS_TOTAL]));
         playerStats.setImportDate(importDate);
-        // add statistics to player entity
+        // set statistics in player entity
         playerStats.getPlayer().setPlayerStats(playerStats);
-        // stats.put(playerStats.getPlayer().getId(), playerStats);
     }
 
     /**
