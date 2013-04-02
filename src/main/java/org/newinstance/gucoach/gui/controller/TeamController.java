@@ -21,22 +21,18 @@ package org.newinstance.gucoach.gui.controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.gui.model.PlayerModel;
-import org.newinstance.gucoach.service.PlayerService;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 /**
  * Controls user interaction in the team tab pane.
@@ -46,8 +42,7 @@ import java.util.ArrayList;
 @Component
 public class TeamController {
 
-    @Autowired
-    private PlayerService playerService;
+    private static final Logger logger = LogManager.getLogger(TeamController.class.getName());
 
     @Autowired
     private PlayerModel playerModel;
@@ -109,7 +104,7 @@ public class TeamController {
 
     @FXML
     public void initialize() {
-        playerModel.setPlayers(playerService.findAllPlayers());
+        logger.info("TeamController is accessing player model.");
         tableViewPlayer.setItems(playerModel.getPlayers());
 
         // if there are no players yet display import player data message
@@ -118,20 +113,6 @@ public class TeamController {
             message.setText(ResourceLoader.getMessage(MessageId.I001.getMessageKey()));
             tableViewPlayer.setPlaceholder(message);
         }
-
-        // add listener for player list changes
-        tableViewPlayer.getItems().addListener(new ListChangeListener<Player>() {
-
-            @Override
-            public void onChanged(final Change<? extends Player> change) {
-                // some nasty list copying because of inheritance in generics
-                final ObservableList<Player> players = FXCollections.observableList(new ArrayList<Player>());
-                for (final Player player : change.getList()) {
-                    players.add(player);
-                }
-                tableViewPlayer.setItems(players);
-            }
-        });
 
         // add listener for row selection
         tableViewPlayer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
@@ -170,8 +151,7 @@ public class TeamController {
         playerNumber.setText(playerData.getPlayerStats().getNumber().toString());
         playerGoals.setText(playerData.getPlayerStats().getGoalsSeasonAndTotal());
         playerSalary.setText(playerData.getPlayerStats().getSalary().toString());
-        // market value is not filled yet
-        playerMarketValue.setText("");
+        playerMarketValue.setText(playerData.getPlayerStats().getMarketValue() == null ? "" : playerData.getPlayerStats().getMarketValue().toString());
         playerStrength.setText(playerData.getPlayerStats().getAverageStrength().toString());
         playerRedCards.setText(playerData.getPlayerStats().getRedCardsSeasonAndTotal());
         playerGoalkeeping.setText(playerData.getPlayerStats().getSkillGoalkeeping().toString());
@@ -181,13 +161,4 @@ public class TeamController {
         playerScoring.setText(playerData.getPlayerStats().getSkillScoring().toString());
     }
 
-    /**
-     * Clears and sets the list of players.
-     *
-     * @param list the list of players to set
-     */
-    @SuppressWarnings("unchecked")
-    public void setPlayerData(final ObservableList<Player> list) {
-        tableViewPlayer.getItems().setAll(list);
-    }
 }
