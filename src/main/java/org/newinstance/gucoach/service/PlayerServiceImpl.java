@@ -21,6 +21,7 @@ package org.newinstance.gucoach.service;
 
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
+import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.persistence.PersistenceService;
 import org.newinstance.gucoach.utility.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,12 @@ public class PlayerServiceImpl implements PlayerService {
 
     public Player findPlayerById(final Long id) {
         return persistenceService.find(Player.class, id);
+    }
+
+    public PlayerStats findPlayerStatsByPlayer(final Player player) {
+        final Map<String, Object> params = new HashMap <String, Object>();
+        params.put("player", player);
+        return persistenceService.findUniqueByNamedQuery(NamedQuery.FIND_PLAYER_STATS_BY_PLAYER.name(), PlayerStats.class, params);
     }
 
     public void insertPlayer(final Player player) {

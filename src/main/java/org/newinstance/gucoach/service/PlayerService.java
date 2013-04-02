@@ -20,6 +20,7 @@
 package org.newinstance.gucoach.service;
 
 import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerStats;
 
 import java.util.List;
 
@@ -44,6 +45,14 @@ public interface PlayerService {
      * @return the player
      */
     public Player findPlayerById(final Long id);
+
+    /**
+     * Returns the player statistics for the player.
+     *
+     * @param player the player to find the statistics for
+     * @return the player statistics
+     */
+    public PlayerStats findPlayerStatsByPlayer(final Player player);
 
     /**
      * Persists a player to the database.
