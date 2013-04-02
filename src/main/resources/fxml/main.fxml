@@ -64,10 +64,7 @@
                     </children>
                 </VBox>
                 <TabPane fx:id="tabPaneTabs" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                        <fx:include fx:id="team" source="tabTeam.fxml"/>
-                        <fx:include fx:id="league" source="tabLeague.fxml"/>
-                    </tabs>
+                    <!-- tabs are added programmatically -->
                 </TabPane>
             </children>
         </StackPane>
