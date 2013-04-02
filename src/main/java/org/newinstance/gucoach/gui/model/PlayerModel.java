@@ -21,6 +21,8 @@ package org.newinstance.gucoach.gui.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.entity.Player;
 import org.springframework.stereotype.Component;
 
@@ -35,8 +37,10 @@ import java.util.List;
 @Component
 public class PlayerModel {
 
+    private static final Logger logger = LogManager.getLogger(PlayerModel.class.getName());
+
     /** Holds all players. */
-    private ObservableList<Player> players = FXCollections.observableList(new ArrayList<Player>());
+    private ObservableList<Player> players = FXCollections.observableArrayList(new ArrayList<Player>());
 
     /**
      * Returns all players.
@@ -53,7 +57,12 @@ public class PlayerModel {
      * @param players the players to set
      */
     public void setPlayers(final List<Player> players) {
-        this.players = FXCollections.observableList(players);
+        // first remove all players then add new player data
+        this.players.removeAll(this.players);
+        for (final Player player : players) {
+            this.players.add(player);
+        }
+        logger.info("Player model has been set with {} players.", players.size());
     }
 
 }
