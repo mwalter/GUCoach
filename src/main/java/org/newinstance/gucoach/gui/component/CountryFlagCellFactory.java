@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
-import org.newinstance.gucoach.entity.Country;
+import org.apache.commons.lang3.StringUtils;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.gui.controller.MainController;
 
@@ -35,32 +35,32 @@ import org.newinstance.gucoach.gui.controller.MainController;
  *
  * @author mwalter
  */
-public class CountryFlagCellFactory<S, T> implements Callback<TableColumn<Player, Country>, TableCell<Player, Country>> {
+public class CountryFlagCellFactory<S, T> implements Callback<TableColumn<Player, String>, TableCell<Player, String>> {
 
     private static final String FLAG_ICON_LOCATION = "images/flags/";
     private static final String FLAG_ICON_EXTENSION = ".png";
 
     @Override
-    public TableCell<Player, Country> call(TableColumn<Player, Country> p) {
-        final TableCell<Player, Country> cell = new TableCell<Player, Country>() {
+    public TableCell<Player, String> call(TableColumn<Player, String> p) {
+        final TableCell<Player, String> cell = new TableCell<Player, String>() {
 
             @Override
-            public void updateItem(final Country item, final boolean empty) {
-                if (item == getItem()) {
+            public void updateItem(final String item, final boolean empty) {
+                if (item.equals(getItem())) {
                     return;
                 }
                 super.updateItem(item, empty);
-                if (item == null) {
+                if (StringUtils.isBlank(item)) {
                     super.setText(null);
                     super.setGraphic(null);
                 } else {
-                    final String filename = FLAG_ICON_LOCATION + item.name().toLowerCase() + FLAG_ICON_EXTENSION;
+                    final String filename = FLAG_ICON_LOCATION + item.toLowerCase() + FLAG_ICON_EXTENSION;
                     final Image countryImage = new Image(MainController.class.getClassLoader().getResourceAsStream(filename));
                     final ImageView imageView = new ImageView();
                     imageView.setImage(countryImage);
                     // create tooltip with country code
                     final Tooltip tooltip = new Tooltip();
-                    tooltip.setText(item.name());
+                    tooltip.setText(item);
                     super.setGraphic(imageView);
                     super.setTooltip(tooltip);
                 }
