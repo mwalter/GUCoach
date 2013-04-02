@@ -19,7 +19,10 @@
 
 package org.newinstance.gucoach.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.utility.MessageId;
@@ -44,19 +47,19 @@ import java.util.List;
 @Component
 public class ImportControllerImpl implements ImportController {
 
+    private static final Logger logger = LogManager.getLogger(ImportControllerImpl.class.getName());
+
     @Autowired
     private ImportService importService;
-
     @Autowired
     private PlayerService playerService;
-
     @Autowired
     private PlayerHistoryService playerHistoryService;
-
     private File importFile;
 
     @Override
     public void executeImport(final File file) throws ImportException, ValidationException {
+        logger.info("Executing player data import.");
         importFile = file;
 
         // -- 1 -- reset imported data
@@ -92,6 +95,7 @@ public class ImportControllerImpl implements ImportController {
             // DELETE
             // if player exists in database but not in import list delete all player data from database
             if (!players.contains(player)) {
+                logger.info("Deleting Player [{}] with Id [{}].", player.getFullName(), player.getId());
                 playerService.removePlayer(player);
             }
         }
@@ -102,15 +106,22 @@ public class ImportControllerImpl implements ImportController {
             // INSERT
             // if player does not exist in the database insert all new player data
             if (!playersInDatabase.contains(player)) {
+                logger.info("Inserting Player [{}] with Id [{}].", player.getFullName(), player.getId());
                 playerService.insertPlayer(player);
                 playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
             } else {
                 // UPDATE
                 // if the import data is older than the latest import in the database insert player history records only
                 if (importService.getImportDate().before(latestImportDateInDb)) {
+                    logger.info("Inserting PlayerHistory for Player with Id [{}].", player.getId());
                     playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
                 } else {
-                    // update player statistics
+                    // update player and player statistics
+                    logger.info("Updating Player [{}] with Id [{}].", player.getFullName(), player.getId());
+                    logger.info("Updating PlayerStats for Player with Id [{}].", player.getId());
+                    // recover old PlayerStats primary key in order to do an update and no insert on player stats record
+                    final PlayerStats oldPlayerStats = playerService.findPlayerStatsByPlayer(player);
+                    player.getPlayerStats().setId(oldPlayerStats.getId());
                     playerService.updatePlayer(player);
                     // insert player history records regardless of player stats change
                     playerHistoryService.insertPlayerHistory(importService.getHistory().get(player.getId()));
