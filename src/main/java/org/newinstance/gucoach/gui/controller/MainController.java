@@ -24,12 +24,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.gui.model.PlayerModel;
@@ -49,6 +52,8 @@ import java.io.File;
 @Component
 public class MainController {
 
+    private static final Logger logger = LogManager.getLogger(MainController.class.getName());
+
     @Autowired
     private SpringFxmlLoader loader;
 
@@ -62,9 +67,6 @@ public class MainController {
     private PlayerModel playerModel;
 
     @FXML
-    private TeamController teamController;
-
-    @FXML
     private BorderPane root;
 
     @FXML
@@ -75,12 +77,17 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        if (playerModel.getPlayers().isEmpty()) {
-            vBoxWelcomeMessage.setVisible(true);
+        vBoxWelcomeMessage.setVisible(false);
+        playerModel.setPlayers(playerService.findAllPlayers());
+        // if there is player data available add team tab
+        if (!playerModel.getPlayers().isEmpty()) {
+            final Tab tabTeam = (Tab) loader.load("/fxml/tabTeam.fxml");
+            tabPaneTabs.getTabs().add(tabTeam);
+        }
+        // if there is no data at all show welcome message instead of tab pane
+        if (tabPaneTabs.getTabs().isEmpty()) {
             tabPaneTabs.setVisible(false);
-        } else {
-            vBoxWelcomeMessage.setVisible(false);
-            tabPaneTabs.setVisible(true);
+            vBoxWelcomeMessage.setVisible(true);
         }
     }
 
@@ -102,8 +109,15 @@ public class MainController {
         }
 
         // update team table after import to show new player data
+        logger.info("Updating player model.");
         playerModel.setPlayers(playerService.findAllPlayers());
-        teamController.setPlayerData(playerModel.getPlayers());
+
+        // if tab pane was empty load tab team
+        if (tabPaneTabs.getTabs().isEmpty()) {
+            logger.info("Loading tabTeam.fxml.");
+            final Tab tabTeam = (Tab) loader.load("/fxml/tabTeam.fxml");
+            tabPaneTabs.getTabs().add(tabTeam);
+        }
 
         // if welcome message is visible hide message and show content instead
         if (vBoxWelcomeMessage.isVisible()) {
