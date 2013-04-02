@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.entity.Position;
 
 /**
- * Tests the methods of the {@link PlayerStatsService}.
+ * Tests the methods of the {@link PlayerService}.
  *
  * @author mwalter
  */
