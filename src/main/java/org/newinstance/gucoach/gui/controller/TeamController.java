@@ -42,7 +42,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TeamController {
 
-    private static final Logger logger = LogManager.getLogger(TeamController.class.getName());
+    /** The log4j logger. */
+    private static final Logger LOGGER = LogManager.getLogger(TeamController.class.getName());
 
     @Autowired
     private PlayerModel playerModel;
@@ -104,7 +105,7 @@ public class TeamController {
 
     @FXML
     public void initialize() {
-        logger.info("TeamController is accessing player model.");
+        LOGGER.info("TeamController is accessing player model.");
         tableViewPlayer.setItems(playerModel.getPlayers());
 
         // if there are no players yet display import player data message
