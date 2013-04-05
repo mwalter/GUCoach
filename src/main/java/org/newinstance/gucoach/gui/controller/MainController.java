@@ -20,6 +20,10 @@
 package org.newinstance.gucoach.gui.controller;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -52,7 +56,8 @@ import java.io.File;
 @Component
 public class MainController {
 
-    private static final Logger logger = LogManager.getLogger(MainController.class.getName());
+    /** The log4j logger. */
+    private static final Logger LOGGER = LogManager.getLogger(MainController.class.getName());
 
     @Autowired
     private SpringFxmlLoader loader;
@@ -99,31 +104,52 @@ public class MainController {
             return;
         }
 
-        try {
-            importController.executeImport(importFile);
-            // TODO show error messages in status bar
-        } catch (final ImportException e) {
-            e.printStackTrace();
-        } catch (final ValidationException e) {
-            e.printStackTrace();
-        }
+        // use task to import player data
+        final Task<Void> importPlayerTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    importController.executeImport(importFile);
+                } catch (final ImportException ie) {
+                    LOGGER.error("Error importing file {}.", importFile.getName(), ie);
+                    // TODO display error message
+                } catch (final ValidationException ve) {
+                    LOGGER.error("Error validating file {}.", importFile.getName(), ve);
+                    // TODO display error message
+                }
+                return null;
+            }
+        };
 
-        // update team table after import to show new player data
-        logger.info("Updating player model.");
-        playerModel.setPlayers(playerService.findAllPlayers());
+        importPlayerTask.stateProperty().addListener(new ChangeListener<Worker.State>() {
+            @Override
+            public void changed(final ObservableValue<? extends Worker.State> source, final Worker.State oldState, final Worker.State newState) {
+                if (newState.equals(Worker.State.SUCCEEDED)) {
+                    LOGGER.info("Players imported successfully.");
+                    // update team table after import to show new player data
+                    LOGGER.info("Updating player model.");
+                    playerModel.setPlayers(playerService.findAllPlayers());
 
-        // if tab pane was empty load tab team
-        if (tabPaneTabs.getTabs().isEmpty()) {
-            logger.info("Loading tabTeam.fxml.");
-            final Tab tabTeam = (Tab) loader.load("/fxml/tabTeam.fxml");
-            tabPaneTabs.getTabs().add(tabTeam);
-        }
+                    // if tab pane was empty load tab team
+                    if (tabPaneTabs.getTabs().isEmpty()) {
+                        LOGGER.info("Loading tabTeam.fxml.");
+                        final Tab tabTeam = (Tab) loader.load("/fxml/tabTeam.fxml");
+                        tabPaneTabs.getTabs().add(tabTeam);
+                    }
 
-        // if welcome message is visible hide message and show content instead
-        if (vBoxWelcomeMessage.isVisible()) {
-            vBoxWelcomeMessage.setVisible(false);
-            tabPaneTabs.setVisible(true);
-        }
+                    // if welcome message is visible hide message and show content instead
+                    if (vBoxWelcomeMessage.isVisible()) {
+                        vBoxWelcomeMessage.setVisible(false);
+                        tabPaneTabs.setVisible(true);
+                    }
+                }
+                if (newState.equals(Worker.State.FAILED)) {
+                    LOGGER.info("Importing players failed.");
+                }
+            }
+        });
+
+        new Thread(importPlayerTask).start();
     }
 
     @FXML
