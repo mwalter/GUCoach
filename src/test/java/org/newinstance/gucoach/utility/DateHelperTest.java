@@ -19,10 +19,12 @@
 
 package org.newinstance.gucoach.utility;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -57,5 +59,17 @@ public class DateHelperTest {
         // keep test independent from execution environment
         Locale.setDefault(Locale.US);
         DateHelper.parseDate("02.05.2012");
+    }
+
+    @Test
+    public void convertToCalendar() throws Exception {
+        final Date date = DateHelper.parseDate("24.05.2013");
+        final Calendar result = DateHelper.convertToCalendar(date);
+        Assert.assertNotNull(result);
+
+        final String stringRepresentation = result.toString();
+        Assert.assertTrue(StringUtils.contains(stringRepresentation, "DAY_OF_MONTH=24"));
+        Assert.assertTrue(StringUtils.contains(stringRepresentation, "MONTH=4"));
+        Assert.assertTrue(StringUtils.contains(stringRepresentation, "YEAR=2013"));
     }
 }
