@@ -19,6 +19,10 @@
 
 package org.newinstance.gucoach.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
+
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,7 +33,11 @@ import java.util.Map;
  *
  * @author mwalter
  */
-public final class FixtureGenerator {
+@Component
+public class FixtureGenerator {
+
+    /** The log4j logger. */
+    private static final Logger LOGGER = LogManager.getLogger(FixtureGenerator.class.getName());
 
     /** Every league consists of 12 teams. */
     private static final int NUMBER_OF_TEAMS_IN_LEAGUE = 12;
@@ -53,9 +61,11 @@ public final class FixtureGenerator {
      *
      * @param teamIds the ids of the teams playing in the league
      * @param firstMatchday the first matchday of the season, needed to calculate all following matchdays
-     * @return a map containing all fixtures ordered by matchday
+     * @return a map containing all fixtures ordered by matchday (e.g. Date, Map&lt;Number of match, array of team ids [home team id, away team id]&gt;
      */
-    public static Map<Calendar, Map<Integer, Long[]>> generateFixtures(final List<Long> teamIds, final Calendar firstMatchday) {
+    public Map<Calendar, Map<Integer, Long[]>> generateFixtures(final List<Long> teamIds, final Calendar firstMatchday) {
+        LOGGER.info("Generating fixtures. First matchday will be {}.", DateHelper.formatDate(firstMatchday.getTime()));
+
         // TODO can be removed if GUI checks for 12 teams being entered by user
         if (teamIds.size() != NUMBER_OF_TEAMS_IN_LEAGUE) {
             throw new IllegalArgumentException("Illegal number of teams.");
@@ -78,7 +88,7 @@ public final class FixtureGenerator {
                 fixturesOfMatchday.put(fixture, new Long[] {homeTeamId, awayTeamId});
             }
             // put all fixtures of one matchday into calendar map
-            fixtures.put(matchday, fixturesOfMatchday);
+            fixtures.put((Calendar) matchday.clone(), fixturesOfMatchday);
             // and increase date
             if (day % 2 == 0) {
                 // even - next matchday will be in 4 days
@@ -91,7 +101,4 @@ public final class FixtureGenerator {
         return fixtures;
     }
 
-    private FixtureGenerator() {
-        // hide constructor
-    }
 }
