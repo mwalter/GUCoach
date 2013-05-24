@@ -21,6 +21,8 @@ package org.newinstance.gucoach.utility;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.newinstance.gucoach.base.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,18 +34,21 @@ import java.util.Map;
  *
  * @author mwalter
  */
-public class FixtureGeneratorTest {
+public class FixtureGeneratorTest extends BaseTest {
+
+    @Autowired
+    private FixtureGenerator fixtureGenerator;
 
     @Test(expected = IllegalArgumentException.class)
     public void checkGenerateFixturesWithInsufficientTeams() {
         final List<Long> teamIds = new ArrayList<Long>();
         teamIds.add(1L);
-        FixtureGenerator.generateFixtures(teamIds, Calendar.getInstance());
+        fixtureGenerator.generateFixtures(teamIds, Calendar.getInstance());
     }
 
     @Test
     public void checkGenerateFixtures() {
-        final Map<Calendar, Map<Integer, Long[]>> fixtures = FixtureGenerator.generateFixtures(getTeamIds(), Calendar.getInstance());
+        final Map<Calendar, Map<Integer, Long[]>> fixtures = fixtureGenerator.generateFixtures(getTeamIds(), Calendar.getInstance());
         for (Map<Integer, Long[]> fixturesOfMatchday : fixtures.values()) {
             // there always have to be 6 fixtures per matchday
             Assert.assertEquals(6, fixturesOfMatchday.size());
