@@ -24,12 +24,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import org.newinstance.gucoach.gui.component.AlignedTableCellFactory?>
 <?import org.newinstance.gucoach.gui.component.CountryFlagCellFactory?>
-
-<Tab text="%tab.team" fx:controller="org.newinstance.gucoach.gui.controller.TeamController" xmlns:fx="http://javafx.com/fxml">
+<Tab text="%tab.team" id="team" fx:controller="org.newinstance.gucoach.gui.controller.TeamController" xmlns:fx="http://javafx.com/fxml">
     <content>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
