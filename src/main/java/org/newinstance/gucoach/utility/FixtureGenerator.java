@@ -1,6 +1,6 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
+ * Licensed under General Public License v3 (GPLv3)
  * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
@@ -80,16 +80,16 @@ public class FixtureGenerator {
         for (int day = 0; day < FIXTURES.length; day++) {
             final Map<Integer, Long[]> fixturesOfMatchday = new LinkedHashMap<Integer, Long[]>();
             // iterate over all fixtures of a single matchday
-            for (int fixture = 0; fixture < FIXTURES[day].length; fixture++) {
+            for (int fixtureNumberOfMatchday = 0; fixtureNumberOfMatchday < FIXTURES[day].length; fixtureNumberOfMatchday++) {
                 // get home team id
-                final Long homeTeamId = teams[FIXTURES[day][fixture][0] - 1];
+                final Long homeTeamId = teams[FIXTURES[day][fixtureNumberOfMatchday][0] - 1];
                 // get away team id
-                final Long awayTeamId = teams[FIXTURES[day][fixture][1] - 1];
-                fixturesOfMatchday.put(fixture, new Long[] {homeTeamId, awayTeamId});
+                final Long awayTeamId = teams[FIXTURES[day][fixtureNumberOfMatchday][1] - 1];
+                fixturesOfMatchday.put(fixtureNumberOfMatchday, new Long[] {homeTeamId, awayTeamId});
             }
             // put all fixtures of one matchday into calendar map
             fixtures.put((Calendar) matchday.clone(), fixturesOfMatchday);
-            // and increase date
+            // increase matchday date
             if (day % 2 == 0) {
                 // even - next matchday will be in 4 days
                 matchday.add(Calendar.DAY_OF_MONTH, 4);
