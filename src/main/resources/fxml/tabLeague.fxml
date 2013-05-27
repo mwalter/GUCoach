@@ -1,7 +1,7 @@
 <!--
   ~ GUCoach - your personal coach for Goalunited (tm).
-  ~ Licenced under General Public Licence v3 (GPLv3)
-  ~ newInstance.org, 2012
+  ~ Licensed under General Public License v3 (GPLv3)
+  ~ newInstance.org, 2012-2013
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -30,8 +30,11 @@
             <children>
                 <Label text="%label.title.league" style="-fx-font: NORMAL 16 Tahoma;"/>
                 <TableView fx:id="tableViewStandings">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
                     <columns>
-                        <TableColumn resizable="false" text="%label.table.standings.rank" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.rank" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="rank"/>
                             </cellValueFactory>
@@ -39,12 +42,12 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.team" minWidth="130">
+                        <TableColumn resizable="false" text="%label.table.standings.team" prefWidth="200">
                             <cellValueFactory>
-                                <PropertyValueFactory property="team"/>
+                                <PropertyValueFactory property="teamName"/>
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.matches.played" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.matches.played" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="matchesPlayed"/>
                             </cellValueFactory>
@@ -52,7 +55,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.matches.won" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.matches.won" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="matchesWon"/>
                             </cellValueFactory>
@@ -60,7 +63,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.matches.drawn" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.matches.drawn" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="matchesDrawn"/>
                             </cellValueFactory>
@@ -68,7 +71,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.matches.lost" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.matches.lost" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="matchesLost"/>
                             </cellValueFactory>
@@ -76,7 +79,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.goals.for" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.goals.for" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="goalsFor"/>
                             </cellValueFactory>
@@ -84,7 +87,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.goals.against" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.goals.against" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="goalsAgainst"/>
                             </cellValueFactory>
@@ -92,7 +95,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.goals.diff" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.goals.diff" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="goalsDiff"/>
                             </cellValueFactory>
@@ -100,7 +103,7 @@
                                 <AlignedTableCellFactory alignment="center"/>
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn resizable="false" text="%label.table.standings.points" minWidth="30" maxWidth="30">
+                        <TableColumn resizable="false" text="%label.table.standings.points" prefWidth="50">
                             <cellValueFactory>
                                 <PropertyValueFactory property="points"/>
                             </cellValueFactory>
