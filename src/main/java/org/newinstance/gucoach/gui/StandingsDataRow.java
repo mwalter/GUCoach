@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,19 +20,28 @@
 package org.newinstance.gucoach.gui;
 
 /**
- * Represents a row in the standings table.
+ * Represents a row in the standings (league) table.
  *
  * @author mwalter
  */
 public class StandingsDataRow {
 
     private int goalsFor;
+
     private int goalsAgainst;
+
     private int matchesPlayed;
+
     private int matchesWon;
+
     private int matchesDrawn;
+
     private int matchesLost;
+
     private int points;
+
+    private int rank;
+
     private String teamName;
 
     public StandingsDataRow(final String teamName, final int matchesPlayed, final int matchesWon, final int matchesDrawn, final int matchesLost, final int goalsFor, final int goalsAgainst, final int points) {
@@ -78,6 +87,14 @@ public class StandingsDataRow {
         return points;
     }
 
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(final int rank) {
+        this.rank = rank;
+    }
+
     public String getTeamName() {
         return teamName;
     }
@@ -94,7 +111,8 @@ public class StandingsDataRow {
         builder.append("goalsFor=").append(goalsFor).append(", ");
         builder.append("goalsAgainst=").append(goalsAgainst).append(", ");
         builder.append("goalsDiff=").append(getGoalsDiff()).append(", ");
-        builder.append("points=").append(points);
+        builder.append("points=").append(points).append(", ");
+        builder.append("rank=").append(rank);
         builder.append("]");
         return builder.toString();
     }

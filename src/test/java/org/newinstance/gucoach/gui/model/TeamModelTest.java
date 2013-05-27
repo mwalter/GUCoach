@@ -30,16 +30,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Tests methods of class {@link PlayerModel}.
+ * Tests methods of class {@link TeamModel}.
  *
  * @author mwalter
  */
-public class PlayerModelTest extends BaseTest {
+public class TeamModelTest extends BaseTest {
 
     @Test
     public void getPlayerData() {
         createSomePlayers();
-        final ObservableList<Player> playerList = playerModel.getPlayers();
+        final ObservableList<Player> playerList = teamModel.getPlayers();
         Assert.assertNotNull(playerList);
         Assert.assertFalse(playerList.isEmpty());
         Assert.assertEquals(3, playerList.size());
@@ -89,6 +89,6 @@ public class PlayerModelTest extends BaseTest {
 
         // insert players and set into model
         playerService.insertPlayers(newPlayers);
-        playerModel.setPlayers(playerService.findAllPlayers());
+        teamModel.setPlayers(playerService.findAllPlayers());
     }
 }

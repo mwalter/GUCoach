@@ -1,6 +1,6 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licensed under General Public Licence v3 (GPLv3)
+ * Licensed under General Public License v3 (GPLv3)
  * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@ package org.newinstance.gucoach.gui.controller;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
@@ -37,11 +38,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.newinstance.gucoach.entity.Fixture;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
-import org.newinstance.gucoach.gui.model.PlayerModel;
+import org.newinstance.gucoach.gui.model.LeagueModel;
+import org.newinstance.gucoach.gui.model.TeamModel;
+import org.newinstance.gucoach.service.FixtureService;
 import org.newinstance.gucoach.service.ImportController;
-import org.newinstance.gucoach.service.PlayerService;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -66,10 +69,13 @@ public class MainController {
     private ImportController importController;
 
     @Autowired
-    private PlayerService playerService;
+    private FixtureService fixtureService;
 
     @Autowired
-    private PlayerModel playerModel;
+    private LeagueModel leagueModel;
+
+    @Autowired
+    private TeamModel teamModel;
 
     @FXML
     private BorderPane root;
@@ -83,12 +89,28 @@ public class MainController {
     @FXML
     public void initialize() {
         vBoxWelcomeMessage.setVisible(false);
-        playerModel.setPlayers(playerService.findAllPlayers());
+
+        // player tab
         // if there is player data available add team tab
-        if (!playerModel.getPlayers().isEmpty()) {
+        if (!teamModel.getPlayers().isEmpty()) {
+            LOGGER.info("Loading tabTeam.fxml.");
             final Tab tabTeam = (Tab) loader.load("/fxml/tabTeam.fxml");
             tabPaneTabs.getTabs().add(tabTeam);
         }
+        // league tab
+        leagueModel.setFixtures(fixtureService.findAllFixtures());
+        // if there is fixture data available add fixture tab
+        if (!leagueModel.getFixtures().isEmpty()) {
+            LOGGER.info("Loading tabLeague.fxml.");
+            final Tab tabLeague = (Tab) loader.load("/fxml/tabLeague.fxml");
+            tabPaneTabs.getTabs().add(tabLeague);
+        }
+
+        // if we have more than a tab select the team tab for default
+        if (tabPaneTabs.getTabs().size() > 1 && getTabWithName("team") != null) {
+            tabPaneTabs.getSelectionModel().select(getTabWithName("team"));
+        }
+
         // if there is no data at all show welcome message instead of tab pane
         if (tabPaneTabs.getTabs().isEmpty()) {
             tabPaneTabs.setVisible(false);
@@ -127,14 +149,14 @@ public class MainController {
                 if (newState.equals(Worker.State.SUCCEEDED)) {
                     LOGGER.info("Players imported successfully.");
                     // update team table after import to show new player data
-                    LOGGER.info("Updating player model.");
-                    playerModel.setPlayers(playerService.findAllPlayers());
+                    teamModel.updatePlayers();
 
                     // if tab pane was empty load tab team
-                    if (tabPaneTabs.getTabs().isEmpty()) {
+                    if (getTabWithName("team") == null) {
                         LOGGER.info("Loading tabTeam.fxml.");
                         final Tab tabTeam = (Tab) loader.load("/fxml/tabTeam.fxml");
                         tabPaneTabs.getTabs().add(tabTeam);
+                        tabPaneTabs.getSelectionModel().select(tabTeam);
                     }
 
                     // if welcome message is visible hide message and show content instead
@@ -145,6 +167,7 @@ public class MainController {
                 }
                 if (newState.equals(Worker.State.FAILED)) {
                     LOGGER.info("Importing players failed.");
+                    // TODO show error message
                 }
             }
         });
@@ -152,6 +175,11 @@ public class MainController {
         new Thread(importPlayerTask).start();
     }
 
+    /**
+     * Closes the application.
+     *
+     * @param event the action event
+     */
     @FXML
     protected void handleMenuItemExitAction(final ActionEvent event) {
         Platform.exit();
@@ -173,5 +201,28 @@ public class MainController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(ResourceLoader.getResource("label.title.createLeague"));
         stage.show();
+    }
+
+    public void handleLeagueUpdate() {
+        final ObservableList<Fixture> fixtures = leagueModel.getFixtures();
+        LOGGER.info("Loading tabLeague.fxml.");
+        final Tab tabLeague = (Tab) loader.load("/fxml/tabLeague.fxml");
+        tabPaneTabs.getTabs().add(tabLeague);
+        tabPaneTabs.getSelectionModel().select(tabLeague);
+    }
+
+    /**
+     * Returns the tab with the given id.
+     *
+     * @param tabId the id of the tab to find
+     * @return the tab or <code>null</code>, if there is no tab with the id
+     */
+    private Tab getTabWithName(final String tabId) {
+        for (final Tab tab : tabPaneTabs.getTabs()) {
+            if (tabId.equals(tab.getId())) {
+                return tab;
+            }
+        }
+        return null;
     }
 }

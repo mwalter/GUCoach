@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.gui;
+package org.newinstance.gucoach.gui.model;
 
 import javafx.collections.ObservableList;
 import org.junit.Assert;
@@ -25,22 +25,23 @@ import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Fixture;
 import org.newinstance.gucoach.entity.Team;
+import org.newinstance.gucoach.gui.StandingsDataRow;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Tests methods of class {@link StandingsContentProvider}.
+ * Tests methods of class {@link org.newinstance.gucoach.gui.model.StandingsModel}.
  *
  * @author mwalter
  */
-public class StandingsContentProviderTest extends BaseTest {
+public class StandingsModelTest extends BaseTest {
 
     @Test
     public void getStandingsData() {
         createSomeTeamsAndFixtures();
-        final ObservableList<StandingsDataRow> standingsList = standingsContentProvider.getStandingsData();
+        final ObservableList<StandingsDataRow> standingsList = standingsModel.getStandingsData();
         Assert.assertNotNull(standingsList);
         Assert.assertFalse(standingsList.isEmpty());
         for (StandingsDataRow standingsDataRow : standingsList) {
@@ -63,7 +64,8 @@ public class StandingsContentProviderTest extends BaseTest {
 
         // insert teams first and get them back from database in order to get team ids
         teamService.insertTeams(newTeams);
-        final List<Team> teams = teamService.findAllTeams();
+        leagueModel.setTeams(teamService.findAllTeams());
+        final List<Team> teams = leagueModel.getTeams();
 
         final List<Fixture> fixtures = new ArrayList<Fixture>();
         // Acapulco - Miami Beach 2:1
@@ -89,5 +91,6 @@ public class StandingsContentProviderTest extends BaseTest {
         fixtures.add(fixture2);
         fixtures.add(fixture3);
         fixtureService.insertFixtures(fixtures);
+        leagueModel.setFixtures(fixtureService.findAllFixtures());
     }
 }

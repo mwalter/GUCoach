@@ -29,8 +29,9 @@ import org.newinstance.gucoach.entity.Position;
 import org.newinstance.gucoach.entity.StandingsHistory;
 import org.newinstance.gucoach.entity.StrongFoot;
 import org.newinstance.gucoach.entity.Team;
-import org.newinstance.gucoach.gui.StandingsContentProvider;
-import org.newinstance.gucoach.gui.model.PlayerModel;
+import org.newinstance.gucoach.gui.model.LeagueModel;
+import org.newinstance.gucoach.gui.model.StandingsModel;
+import org.newinstance.gucoach.gui.model.TeamModel;
 import org.newinstance.gucoach.service.FixtureService;
 import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.service.ImportService;
@@ -55,6 +56,15 @@ import java.util.Date;
 public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
+    protected LeagueModel leagueModel;
+
+    @Autowired
+    protected StandingsModel standingsModel;
+
+    @Autowired
+    protected TeamModel teamModel;
+
+    @Autowired
     protected FixtureService fixtureService;
 
     @Autowired
@@ -64,16 +74,10 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     protected ImportService importService;
 
     @Autowired
-    protected PlayerModel playerModel;
-
-    @Autowired
     protected PlayerHistoryService playerHistoryService;
 
     @Autowired
     protected PlayerService playerService;
-
-    @Autowired
-    protected StandingsContentProvider standingsContentProvider;
 
     @Autowired
     protected StandingsHistoryService standingsHistoryService;

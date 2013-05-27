@@ -24,23 +24,36 @@ import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.service.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contains all player data.
+ * Contains all team data.
  *
  * @author mwalter
  */
 @Component
-public class PlayerModel {
+public class TeamModel {
 
-    private static final Logger logger = LogManager.getLogger(PlayerModel.class.getName());
+    /** The log4j logger. */
+    private static final Logger LOGGER = LogManager.getLogger(TeamModel.class.getName());
+
+    @Autowired
+    private PlayerService playerService;
 
     /** Holds all players. */
     private ObservableList<Player> players = FXCollections.observableArrayList(new ArrayList<Player>());
+
+    @PostConstruct
+    protected void init() {
+        LOGGER.info("Initializing team model with players.");
+        this.setPlayers(playerService.findAllPlayers());
+    }
 
     /**
      * Returns all players.
@@ -52,7 +65,7 @@ public class PlayerModel {
     }
 
     /**
-     * Sets all players. Player entities are converted to player data rows.
+     * Sets all players.
      *
      * @param players the players to set
      */
@@ -62,7 +75,12 @@ public class PlayerModel {
         for (final Player player : players) {
             this.players.add(player);
         }
-        logger.info("Player model has been set with {} players.", players.size());
+        LOGGER.info("Team model has been set with {} players.", players.size());
     }
 
+    /** Updates (refreshes) the team model. */
+    public void updatePlayers() {
+        LOGGER.info("Updating team model.");
+        this.setPlayers(playerService.findAllPlayers());
+    }
 }

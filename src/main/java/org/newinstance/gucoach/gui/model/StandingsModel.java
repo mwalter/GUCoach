@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +17,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.gui;
+package org.newinstance.gucoach.gui.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.entity.Fixture;
 import org.newinstance.gucoach.entity.Team;
-import org.newinstance.gucoach.service.FixtureService;
-import org.newinstance.gucoach.service.TeamService;
+import org.newinstance.gucoach.gui.StandingsDataRow;
 import org.newinstance.gucoach.utility.StandingsComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,35 +36,38 @@ import java.util.List;
 
 /**
  * Calculates and provides all standings data.
- * TODO improve code
  *
  * @author mwalter
  */
 @Component
-public final class StandingsContentProvider {
+public final class StandingsModel {
 
-    /** The team service. */
-    @Autowired
-    private TeamService teamService;
+    /** The log4j logger. */
+    private static final Logger LOGGER = LogManager.getLogger(StandingsModel.class.getName());
 
-    /** The fixture service. */
-    @Autowired
-    private FixtureService fixtureService;
-
+    /** Points for a draw. */
     private static final int POINTS_MATCH_DRAWN = 1;
+
+    /** Points for losing a match. */
     private static final int POINTS_MATCH_LOST = 0;
+
+    /** Points for winning a match. */
     private static final int POINTS_MATCH_WON = 3;
 
+    /** The league model. */
+    @Autowired
+    private LeagueModel leagueModel;
+
     /**
-     * Returns all standings data from the database.
+     * Calculates standings data, creates data rows and returns them.
      *
-     * @return the standings data
+     * @return the list of standings data rows
      */
     public ObservableList<StandingsDataRow> getStandingsData() {
-        // make sure to initialise tables
+        LOGGER.info("Retrieving standings data from model.");
         final List<StandingsDataRow> standingsDataRows = new ArrayList<StandingsDataRow>();
-        final List<Team> teams = teamService.findAllTeams();
-        final List<Fixture> fixtures = fixtureService.findAllFixtures();
+        final List<Team> teams = leagueModel.getTeams();
+        final List<Fixture> fixtures = leagueModel.getFixtures();
 
         // collect all data for every team in fixture list
         for (final Team team : teams) {
@@ -72,6 +76,23 @@ public final class StandingsContentProvider {
 
         // sort standings
         Collections.sort(standingsDataRows, new StandingsComparator<StandingsDataRow>());
+        // if there are no matches played yet use starting rank of team
+        if (standingsDataRows.get(0).getMatchesPlayed() == 0) {
+            for (final Team team : teams) {
+                for (final StandingsDataRow standingsDataRow : standingsDataRows) {
+                    if (team.getName().equals(standingsDataRow.getTeamName())) {
+                        standingsDataRow.setRank(team.getStartPos());
+                    }
+                }
+            }
+        } else {
+            // set rank
+            int rank = 1;
+            for (final StandingsDataRow standingsDataRow : standingsDataRows) {
+                standingsDataRow.setRank(rank);
+                rank++;
+            }
+        }
         return FXCollections.observableList(standingsDataRows);
     }
 

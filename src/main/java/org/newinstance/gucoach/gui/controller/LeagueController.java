@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,16 @@
 
 package org.newinstance.gucoach.gui.controller;
 
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import org.newinstance.gucoach.gui.StandingsContentProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.gui.StandingsDataRow;
+import org.newinstance.gucoach.gui.model.LeagueModel;
+import org.newinstance.gucoach.gui.model.StandingsModel;
+import org.newinstance.gucoach.utility.MessageId;
+import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,20 +40,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class LeagueController {
 
+    /** The log4j logger. */
+    private static final Logger LOGGER = LogManager.getLogger(LeagueController.class.getName());
+
     @Autowired
-    private StandingsContentProvider standingsContentProvider;
+    private LeagueModel leagueModel;
 
-    /** The window title. */
-    private static final String TITLE_CREATE_LEAGUE = "label.title.createLeague";
-    /** The layout of the main application window. */
-    private static final String SCENE_CREATE_LEAGUE = "../fxml/windowCreateLeague.fxml";
-
-    private ObservableList<StandingsDataRow> standingsData;
+    @Autowired
+    private StandingsModel standingsModel;
 
     @FXML
-    private TableView tableViewStandings;
+    private TableView<StandingsDataRow> tableViewStandings;
 
-    public void editFixture(final ActionEvent event) {
+    @FXML
+    public void initialize() {
+        LOGGER.info("LeagueController is accessing standings model.");
+        tableViewStandings.setItems(standingsModel.getStandingsData());
+
+        // if there are no players yet display import player data message
+        if (tableViewStandings.getItems().isEmpty()) {
+            final Label message = new Label();
+            message.setText(ResourceLoader.getMessage(MessageId.I001.getMessageKey()));
+            tableViewStandings.setPlaceholder(message);
+        }
     }
 
 }
