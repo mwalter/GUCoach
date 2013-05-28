@@ -1,6 +1,6 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
+ * Licensed under General Public License v3 (GPLv3)
  * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ import org.newinstance.gucoach.entity.StrongFoot;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -49,33 +49,33 @@ import java.util.Map;
  *
  * @author mwalter
  */
-@Component
+@Service
 public class ImportServiceImpl implements ImportService {
 
     private static final char SEPARATOR = ';';
+
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 
     private List<String[]> fileContent = new ArrayList<String[]>();
+
     private Map<Long, Player> players = new HashMap<Long, Player>();
+
     private Map<Long, PlayerHistory> history = new HashMap<Long, PlayerHistory>();
+
     private Date importDate;
 
-    @Override
     public Date getImportDate() {
         return importDate;
     }
 
-    @Override
     public Map<Long, PlayerHistory> getHistory() {
         return history;
     }
 
-    @Override
     public List<Player> getPlayers() {
         return new ArrayList<Player>(players.values());
     }
 
-    @Override
     public void importData(final InputStreamReader inputStreamReader) throws ImportException {
         readCSVFile(inputStreamReader);
         extractImportDate();
@@ -83,7 +83,6 @@ public class ImportServiceImpl implements ImportService {
         importPlayerHistory();
     }
 
-    @Override
     public void reset() {
         fileContent = new ArrayList<String[]>();
         players = new HashMap<Long, Player>();
