@@ -19,6 +19,8 @@
 
 package org.newinstance.gucoach.base;
 
+import java.util.Date;
+
 import org.junit.runner.RunWith;
 import org.newinstance.gucoach.entity.Country;
 import org.newinstance.gucoach.entity.Fixture;
@@ -43,8 +45,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.Date;
 
 /**
  * Base test class for all tests.

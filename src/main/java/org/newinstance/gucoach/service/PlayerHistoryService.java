@@ -19,11 +19,11 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.entity.Player;
-import org.newinstance.gucoach.entity.PlayerHistory;
-
 import java.util.Date;
 import java.util.List;
+
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerHistory;
 
 /**
  * Provides all service methods related to entity {@link PlayerHistory}.
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public interface PlayerHistoryService {
 
-  /**
+    /**
      * Returns all import dates in the database.
      *
      * @return the list of import dates

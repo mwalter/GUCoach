@@ -19,6 +19,10 @@
 
 package org.newinstance.gucoach.gui.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
@@ -27,10 +31,6 @@ import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Contains all team data.

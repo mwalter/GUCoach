@@ -19,10 +19,10 @@
 
 package org.newinstance.gucoach.service;
 
+import java.util.List;
+
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerStats;
-
-import java.util.List;
 
 /**
  * Provides all service methods related to entity {@link Player}.

@@ -19,10 +19,10 @@
 
 package org.newinstance.gucoach.service;
 
+import java.util.Date;
+
 import org.newinstance.gucoach.entity.StandingsHistory;
 import org.newinstance.gucoach.entity.Team;
-
-import java.util.Date;
 
 /**
  * Provides all service methods related to entity {@link StandingsHistory}.

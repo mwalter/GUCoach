@@ -19,6 +19,17 @@
 
 package org.newinstance.gucoach.service;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
@@ -32,17 +43,6 @@ import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Implements all services related to the import process.

@@ -19,15 +19,15 @@
 
 package org.newinstance.gucoach.utility;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.newinstance.gucoach.base.BaseTest;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.newinstance.gucoach.base.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Tests the methods of the {@link FixtureGenerator}.

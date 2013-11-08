@@ -19,6 +19,9 @@
 
 package org.newinstance.gucoach.service;
 
+import java.io.File;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
@@ -26,9 +29,6 @@ import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
 import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.exception.ValidationException;
-
-import java.io.File;
-import java.util.List;
 
 /**
  * Tests the methods of the {@link ImportController}.
@@ -38,6 +38,7 @@ import java.util.List;
 public class ImportControllerTest extends BaseTest {
 
     private static final String SAMPLE_IMPORT_FILE = "src/test/resources/gu_2011-11-20_team.csv";
+
     private static final String SAMPLE_IMPORT_FILE_UPDATE = "src/test/resources/gu_2011-11-21_team_update.csv";
 
     @Test
@@ -72,7 +73,7 @@ public class ImportControllerTest extends BaseTest {
             throw e;
         }
     }
-    
+
     @Test
     public void executeImport() throws Exception {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));

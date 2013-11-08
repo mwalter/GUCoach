@@ -18,6 +18,7 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
   -->
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -26,67 +27,67 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="org.newinstance.gucoach.gui.controller.CreateLeagueController">
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.newinstance.gucoach.gui.controller.CreateLeagueController">
     <top>
         <VBox spacing="5.0" style="-fx-padding: 10 10 10 10">
             <children>
-                <Label style="-fx-font: NORMAL 16 Tahoma;" text="%label.title.createLeague" />
+                <Label style="-fx-font: NORMAL 16 Tahoma;" text="%label.title.createLeague"/>
             </children>
         </VBox>
     </top>
     <center>
-    <VBox fx:id="vbContent" spacing="5.0" style="-fx-padding: 10 10 10 10">
-      <children>
-        <GridPane fx:id="gpTeamNames" hgap="5.0" vgap="5.0">
-          <children>
-            <Label text="%label.team.rank1" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="tfTeam1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Label text="%label.team.rank2" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="tfTeam2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="%label.team.rank3" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="tfTeam3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="%label.team.rank4" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <TextField fx:id="tfTeam4" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="%label.team.rank5" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="tfTeam5" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="%label.team.rank6" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <TextField fx:id="tfTeam6" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="%label.team.rank7" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-            <TextField fx:id="tfTeam7" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="%label.team.rank8" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-            <TextField fx:id="tfTeam8" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label text="%label.team.rank9" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-            <TextField fx:id="tfTeam9" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label text="%label.team.rank10" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-            <TextField fx:id="tfTeam10" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label text="%label.team.rank11" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-            <TextField fx:id="tfTeam11" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label text="%label.team.rank12" GridPane.columnIndex="0" GridPane.rowIndex="11" />
-            <TextField fx:id="tfTeam12" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-          </children>
-          <columnConstraints>
-            <ColumnConstraints prefWidth="80.0" />
-            <ColumnConstraints prefWidth="150.0" />
-          </columnConstraints>
-        </GridPane>
-        <GridPane hgap="5.0" vgap="5.0">
-          <children>
-            <Label text="%label.firstMatchday" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="tfMatchday" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-          </children>
-          <columnConstraints>
-            <ColumnConstraints prefWidth="80.0" />
-            <ColumnConstraints prefWidth="150.0" />
-          </columnConstraints>
-        </GridPane>
-        <HBox alignment="CENTER" spacing="5.0" style="-fx-padding: 20 0 0 0">
-          <children>
-            <Button onAction="#createLeague" prefWidth="100.0" text="%button.createLeague" />
-            <Button onAction="#closeWindow" prefWidth="100.0" text="%button.cancel" />
-          </children>
-        </HBox>
-      </children>
-    </VBox>
-  </center>
+        <VBox fx:id="vbContent" spacing="5.0" style="-fx-padding: 10 10 10 10">
+            <children>
+                <GridPane fx:id="gpTeamNames" hgap="5.0" vgap="5.0">
+                    <children>
+                        <Label text="%label.team.rank1" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="tfTeam1" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="%label.team.rank2" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <TextField fx:id="tfTeam2" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label text="%label.team.rank3" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <TextField fx:id="tfTeam3" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Label text="%label.team.rank4" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <TextField fx:id="tfTeam4" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <Label text="%label.team.rank5" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                        <TextField fx:id="tfTeam5" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Label text="%label.team.rank6" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                        <TextField fx:id="tfTeam6" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <Label text="%label.team.rank7" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                        <TextField fx:id="tfTeam7" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        <Label text="%label.team.rank8" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                        <TextField fx:id="tfTeam8" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        <Label text="%label.team.rank9" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+                        <TextField fx:id="tfTeam9" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        <Label text="%label.team.rank10" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
+                        <TextField fx:id="tfTeam10" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                        <Label text="%label.team.rank11" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                        <TextField fx:id="tfTeam11" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                        <Label text="%label.team.rank12" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
+                        <TextField fx:id="tfTeam12" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="80.0"/>
+                        <ColumnConstraints prefWidth="150.0"/>
+                    </columnConstraints>
+                </GridPane>
+                <GridPane hgap="5.0" vgap="5.0">
+                    <children>
+                        <Label text="%label.firstMatchday" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField fx:id="tfMatchday" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="80.0"/>
+                        <ColumnConstraints prefWidth="150.0"/>
+                    </columnConstraints>
+                </GridPane>
+                <HBox alignment="CENTER" spacing="5.0" style="-fx-padding: 20 0 0 0">
+                    <children>
+                        <Button onAction="#createLeague" prefWidth="100.0" text="%button.createLeague"/>
+                        <Button onAction="#closeWindow" prefWidth="100.0" text="%button.cancel"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>

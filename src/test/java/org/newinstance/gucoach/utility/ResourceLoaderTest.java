@@ -19,11 +19,11 @@
 
 package org.newinstance.gucoach.utility;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.Locale;
 import java.util.MissingResourceException;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Tests the methods of the {@link ResourceLoader}.
@@ -31,7 +31,7 @@ import java.util.MissingResourceException;
  * @author mwalter
  */
 public class ResourceLoaderTest {
-    
+
     @Test
     public void getMessageTest() {
         Locale.setDefault(Locale.ENGLISH);

@@ -19,15 +19,15 @@
 
 package org.newinstance.gucoach.gui.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerStats;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Tests methods of class {@link TeamModel}.

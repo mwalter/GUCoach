@@ -19,6 +19,10 @@
 
 package org.newinstance.gucoach.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
 import org.newinstance.gucoach.entity.PlayerStats;
@@ -27,10 +31,6 @@ import org.newinstance.gucoach.utility.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Implements all service methods related to entity {@link Player}.
@@ -53,7 +53,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     public PlayerStats findPlayerStatsByPlayer(final Player player) {
-        final Map<String, Object> params = new HashMap <String, Object>();
+        final Map<String, Object> params = new HashMap<String, Object>();
         params.put("player", player);
         return persistenceService.findUniqueByNamedQuery(NamedQuery.FIND_PLAYER_STATS_BY_PLAYER.name(), PlayerStats.class, params);
     }
@@ -76,7 +76,7 @@ public class PlayerServiceImpl implements PlayerService {
         final Player playerToRemove = persistenceService.find(Player.class, player.getId());
         // do we have player history records? if so remove them as well
         // this is done here and not in the player entity because the player does not need to know about history records
-        final Map<String, Object> params = new HashMap <String, Object>();
+        final Map<String, Object> params = new HashMap<String, Object>();
         params.put("player", playerToRemove);
         final List<PlayerHistory> phResult = persistenceService.findByNamedQuery(NamedQuery.FIND_PLAYER_HISTORY_BY_PLAYER.name(), PlayerHistory.class, params);
         for (final PlayerHistory playerHistory : phResult) {

@@ -19,6 +19,8 @@
 
 package org.newinstance.gucoach.gui.controller;
 
+import java.io.File;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -48,8 +50,6 @@ import org.newinstance.gucoach.service.ImportController;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
 
 /**
  * Controls user interaction in the main application window.

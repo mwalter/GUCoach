@@ -19,10 +19,10 @@
 
 package org.newinstance.gucoach.entity;
 
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Date;
 
 /**
  * Tests methods of class {@link PlayerStats}.
@@ -160,7 +160,7 @@ public class PlayerStatsTest {
         playerStats.setExperience(82);
         Assert.assertEquals(82, playerStats.getExperience().intValue());
     }
-    
+
     @Test
     public void testSkillGoalkeeping() {
         final PlayerStats playerStats = new PlayerStats();

@@ -19,6 +19,10 @@
 
 package org.newinstance.gucoach.gui.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
@@ -29,10 +33,6 @@ import org.newinstance.gucoach.gui.StandingsDataRow;
 import org.newinstance.gucoach.utility.StandingsComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Calculates and provides all standings data.

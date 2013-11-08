@@ -19,9 +19,9 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.entity.Team;
-
 import java.util.List;
+
+import org.newinstance.gucoach.entity.Team;
 
 /**
  * Provides all service methods related to entity {@link Team}.

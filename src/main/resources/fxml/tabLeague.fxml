@@ -24,7 +24,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 <?import org.newinstance.gucoach.gui.component.AlignedTableCellFactory?>
-<Tab text="%tab.league" id="league" fx:controller="org.newinstance.gucoach.gui.controller.LeagueController" xmlns:fx="http://javafx.com/fxml">
+<Tab text="%tab.league" id="league" fx:controller="org.newinstance.gucoach.gui.controller.LeagueController"
+     xmlns:fx="http://javafx.com/fxml">
     <content>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>

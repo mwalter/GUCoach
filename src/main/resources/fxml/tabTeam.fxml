@@ -27,7 +27,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.newinstance.gucoach.gui.component.AlignedTableCellFactory?>
 <?import org.newinstance.gucoach.gui.component.CountryFlagCellFactory?>
-<Tab text="%tab.team" id="team" fx:controller="org.newinstance.gucoach.gui.controller.TeamController" xmlns:fx="http://javafx.com/fxml">
+<Tab text="%tab.team" id="team" fx:controller="org.newinstance.gucoach.gui.controller.TeamController"
+     xmlns:fx="http://javafx.com/fxml">
     <content>
         <VBox spacing="5" style="-fx-padding: 10 10 10 10">
             <children>
@@ -159,59 +160,106 @@
                 <Label text="%label.title.playerDetails" style="-fx-font: NORMAL 16 Tahoma;"/>
                 <GridPane alignment="top_left" hgap="8" vgap="2" style="-fx-padding: 0 0 0 0">
                     <children>
-                        <Label text="%label.player.name" GridPane.columnIndex="0" GridPane.rowIndex="0" labelFor="$playerName"/>
+                        <Label text="%label.player.name" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                               labelFor="$playerName"/>
                         <TextField fx:id="playerName" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                        <Label text="%label.player.age" GridPane.columnIndex="0" GridPane.rowIndex="1" labelFor="$playerAge"/>
+                        <Label text="%label.player.age" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                               labelFor="$playerAge"/>
                         <TextField fx:id="playerAge" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <Label text="%label.player.height" GridPane.columnIndex="0" GridPane.rowIndex="2" labelFor="$playerAge"/>
-                        <TextField fx:id="playerHeight" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <Label text="%label.player.country" GridPane.columnIndex="0" GridPane.rowIndex="3" labelFor="$playerCountry"/>
-                        <TextField fx:id="playerCountry" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <Label text="%label.player.personality" GridPane.columnIndex="0" GridPane.rowIndex="4" labelFor="$playerPersonality"/>
-                        <TextField fx:id="playerPersonality" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <Label text="%label.player.birthday" GridPane.columnIndex="0" GridPane.rowIndex="5" labelFor="$playerBirthday"/>
-                        <TextField fx:id="playerBirthday" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <Label text="%label.player.foot" GridPane.columnIndex="0" GridPane.rowIndex="6" labelFor="$playerFoot"/>
+                        <Label text="%label.player.height" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                               labelFor="$playerAge"/>
+                        <TextField fx:id="playerHeight" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="2"/>
+                        <Label text="%label.player.country" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                               labelFor="$playerCountry"/>
+                        <TextField fx:id="playerCountry" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="3"/>
+                        <Label text="%label.player.personality" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                               labelFor="$playerPersonality"/>
+                        <TextField fx:id="playerPersonality" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="4"/>
+                        <Label text="%label.player.birthday" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                               labelFor="$playerBirthday"/>
+                        <TextField fx:id="playerBirthday" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="5"/>
+                        <Label text="%label.player.foot" GridPane.columnIndex="0" GridPane.rowIndex="6"
+                               labelFor="$playerFoot"/>
                         <TextField fx:id="playerFoot" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <Label text="%label.player.yellowCards" GridPane.columnIndex="0" GridPane.rowIndex="7" labelFor="$playerYellowCards"/>
-                        <TextField fx:id="playerYellowCards" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        <Label text="%label.player.experience" GridPane.columnIndex="0" GridPane.rowIndex="8" labelFor="$playerExperience"/>
-                        <TextField fx:id="playerExperience" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                        <Label text="%label.player.form" GridPane.columnIndex="0" GridPane.rowIndex="9" labelFor="$playerForm"/>
+                        <Label text="%label.player.yellowCards" GridPane.columnIndex="0" GridPane.rowIndex="7"
+                               labelFor="$playerYellowCards"/>
+                        <TextField fx:id="playerYellowCards" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="7"/>
+                        <Label text="%label.player.experience" GridPane.columnIndex="0" GridPane.rowIndex="8"
+                               labelFor="$playerExperience"/>
+                        <TextField fx:id="playerExperience" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="8"/>
+                        <Label text="%label.player.form" GridPane.columnIndex="0" GridPane.rowIndex="9"
+                               labelFor="$playerForm"/>
                         <TextField fx:id="playerForm" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                        <Label text="%label.player.energy" GridPane.columnIndex="0" GridPane.rowIndex="10" labelFor="$playerEnergy"/>
-                        <TextField fx:id="playerEnergy" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                        <Label text="%label.player.endurance" GridPane.columnIndex="0" GridPane.rowIndex="11" labelFor="$playerEndurance"/>
-                        <TextField fx:id="playerEndurance" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-                        <Label text="%label.player.assignments" GridPane.columnIndex="0" GridPane.rowIndex="12" labelFor="$playerAssignments"/>
-                        <TextField fx:id="playerAssignments" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+                        <Label text="%label.player.energy" GridPane.columnIndex="0" GridPane.rowIndex="10"
+                               labelFor="$playerEnergy"/>
+                        <TextField fx:id="playerEnergy" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="10"/>
+                        <Label text="%label.player.endurance" GridPane.columnIndex="0" GridPane.rowIndex="11"
+                               labelFor="$playerEndurance"/>
+                        <TextField fx:id="playerEndurance" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="11"/>
+                        <Label text="%label.player.assignments" GridPane.columnIndex="0" GridPane.rowIndex="12"
+                               labelFor="$playerAssignments"/>
+                        <TextField fx:id="playerAssignments" editable="false" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="12"/>
                         <!-- second column -->
-                        <Label text="%label.player.position" GridPane.columnIndex="2" GridPane.rowIndex="0" labelFor="$playerPosition"/>
-                        <TextField fx:id="playerPosition" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-                        <Label text="%label.player.talent" GridPane.columnIndex="2" GridPane.rowIndex="1" labelFor="$playerTalent"/>
-                        <TextField fx:id="playerTalent" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-                        <Label text="%label.player.number" GridPane.columnIndex="2" GridPane.rowIndex="2" labelFor="$playerTalent"/>
-                        <TextField fx:id="playerNumber" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-                        <Label text="%label.player.goals" GridPane.columnIndex="2" GridPane.rowIndex="3" labelFor="$playerGoals"/>
+                        <Label text="%label.player.position" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                               labelFor="$playerPosition"/>
+                        <TextField fx:id="playerPosition" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="0"/>
+                        <Label text="%label.player.talent" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                               labelFor="$playerTalent"/>
+                        <TextField fx:id="playerTalent" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="1"/>
+                        <Label text="%label.player.number" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                               labelFor="$playerTalent"/>
+                        <TextField fx:id="playerNumber" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="2"/>
+                        <Label text="%label.player.goals" GridPane.columnIndex="2" GridPane.rowIndex="3"
+                               labelFor="$playerGoals"/>
                         <TextField fx:id="playerGoals" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-                        <Label text="%label.player.salary" GridPane.columnIndex="2" GridPane.rowIndex="4" labelFor="$playerSalary"/>
-                        <TextField fx:id="playerSalary" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
-                        <Label text="%label.player.marketValue" GridPane.columnIndex="2" GridPane.rowIndex="5" labelFor="$playerMarketValue"/>
-                        <TextField fx:id="playerMarketValue" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-                        <Label text="%label.player.strength" GridPane.columnIndex="2" GridPane.rowIndex="6" labelFor="$playerStrength"/>
-                        <TextField fx:id="playerStrength" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
-                        <Label text="%label.player.redCards" GridPane.columnIndex="2" GridPane.rowIndex="7" labelFor="$playerRedCards"/>
-                        <TextField fx:id="playerRedCards" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
-                        <Label text="%label.player.goalkeeping" GridPane.columnIndex="2" GridPane.rowIndex="8" labelFor="$playerGoalkeeping"/>
-                        <TextField fx:id="playerGoalkeeping" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="8"/>
-                        <Label text="%label.player.tackling" GridPane.columnIndex="2" GridPane.rowIndex="9" labelFor="$playerTackling"/>
-                        <TextField fx:id="playerTackling" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="9"/>
-                        <Label text="%label.player.playmaking" GridPane.columnIndex="2" GridPane.rowIndex="10" labelFor="$playerPlaymaking"/>
-                        <TextField fx:id="playerPlaymaking" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="10"/>
-                        <Label text="%label.player.passing" GridPane.columnIndex="2" GridPane.rowIndex="11" labelFor="$playerPassing"/>
-                        <TextField fx:id="playerPassing" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="11"/>
-                        <Label text="%label.player.scoring" GridPane.columnIndex="2" GridPane.rowIndex="12" labelFor="$playerScoring"/>
-                        <TextField fx:id="playerScoring" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="12"/>
+                        <Label text="%label.player.salary" GridPane.columnIndex="2" GridPane.rowIndex="4"
+                               labelFor="$playerSalary"/>
+                        <TextField fx:id="playerSalary" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="4"/>
+                        <Label text="%label.player.marketValue" GridPane.columnIndex="2" GridPane.rowIndex="5"
+                               labelFor="$playerMarketValue"/>
+                        <TextField fx:id="playerMarketValue" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="5"/>
+                        <Label text="%label.player.strength" GridPane.columnIndex="2" GridPane.rowIndex="6"
+                               labelFor="$playerStrength"/>
+                        <TextField fx:id="playerStrength" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="6"/>
+                        <Label text="%label.player.redCards" GridPane.columnIndex="2" GridPane.rowIndex="7"
+                               labelFor="$playerRedCards"/>
+                        <TextField fx:id="playerRedCards" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="7"/>
+                        <Label text="%label.player.goalkeeping" GridPane.columnIndex="2" GridPane.rowIndex="8"
+                               labelFor="$playerGoalkeeping"/>
+                        <TextField fx:id="playerGoalkeeping" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="8"/>
+                        <Label text="%label.player.tackling" GridPane.columnIndex="2" GridPane.rowIndex="9"
+                               labelFor="$playerTackling"/>
+                        <TextField fx:id="playerTackling" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="9"/>
+                        <Label text="%label.player.playmaking" GridPane.columnIndex="2" GridPane.rowIndex="10"
+                               labelFor="$playerPlaymaking"/>
+                        <TextField fx:id="playerPlaymaking" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="10"/>
+                        <Label text="%label.player.passing" GridPane.columnIndex="2" GridPane.rowIndex="11"
+                               labelFor="$playerPassing"/>
+                        <TextField fx:id="playerPassing" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="11"/>
+                        <Label text="%label.player.scoring" GridPane.columnIndex="2" GridPane.rowIndex="12"
+                               labelFor="$playerScoring"/>
+                        <TextField fx:id="playerScoring" editable="false" GridPane.columnIndex="3"
+                                   GridPane.rowIndex="12"/>
                     </children>
                 </GridPane>
             </children>

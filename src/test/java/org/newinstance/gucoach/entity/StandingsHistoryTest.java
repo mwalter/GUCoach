@@ -19,10 +19,10 @@
 
 package org.newinstance.gucoach.entity;
 
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Date;
 
 /**
  * Tests methods of class {@link StandingsHistory}.

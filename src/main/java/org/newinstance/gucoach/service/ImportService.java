@@ -19,14 +19,14 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.entity.Player;
-import org.newinstance.gucoach.entity.PlayerHistory;
-import org.newinstance.gucoach.exception.ImportException;
-
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerHistory;
+import org.newinstance.gucoach.exception.ImportException;
 
 /**
  * The import service provides methods for the import process.
@@ -66,8 +66,6 @@ public interface ImportService {
      */
     public void importData(final InputStreamReader inputStreamReader) throws ImportException;
 
-    /**
-     * Resets (deletes) all previously imported data.
-     */
+    /** Resets (deletes) all previously imported data. */
     public void reset();
 }

@@ -19,11 +19,11 @@
 
 package org.newinstance.gucoach.utility;
 
-import org.newinstance.gucoach.gui.StandingsDataRow;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import org.newinstance.gucoach.gui.StandingsDataRow;
 
 /**
  * Compares the data of every {@link StandingsDataRow} in order to define the team rankings. There are three comparators used in the

@@ -19,6 +19,11 @@
 
 package org.newinstance.gucoach.service;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.newinstance.gucoach.entity.StandingsHistory;
 import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.persistence.PersistenceService;
@@ -26,11 +31,6 @@ import org.newinstance.gucoach.utility.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Implements all service methods related to entity {@link StandingsHistory}.

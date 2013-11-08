@@ -19,16 +19,16 @@
 
 package org.newinstance.gucoach.gui.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Loads JavaFX FXML files and initialises resources and related Spring beans (controllers) via Spring application context.
@@ -40,6 +40,7 @@ public class SpringFxmlLoader {
 
     /** The application resources. */
     private static final String APPLICATION_RESOURCES = "ApplicationResources";
+
     /** Spring application context. */
     @Autowired
     private ApplicationContext context;

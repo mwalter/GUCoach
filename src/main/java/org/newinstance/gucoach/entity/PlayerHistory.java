@@ -19,8 +19,7 @@
 
 package org.newinstance.gucoach.entity;
 
-import org.newinstance.gucoach.utility.DateHelper;
-
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +31,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Date;
+
+import org.newinstance.gucoach.utility.DateHelper;
 
 /**
  * The history or development of a player's statistics.

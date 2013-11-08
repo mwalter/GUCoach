@@ -19,13 +19,13 @@
 
 package org.newinstance.gucoach.persistence;
 
-import org.springframework.stereotype.Repository;
-
+import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.List;
-import java.util.Map;
+
+import org.springframework.stereotype.Repository;
 
 /**
  * Implements CRUD services managed by JPA.

@@ -19,6 +19,14 @@
 
 package org.newinstance.gucoach.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.entity.Player;
@@ -29,14 +37,6 @@ import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Controls the process of importing, validating and persisting player data. Communicates with import and database services. The import controller should be
@@ -52,10 +52,13 @@ public class ImportControllerImpl implements ImportController {
 
     @Autowired
     private ImportService importService;
+
     @Autowired
     private PlayerService playerService;
+
     @Autowired
     private PlayerHistoryService playerHistoryService;
+
     private File importFile;
 
     @Override
