@@ -63,6 +63,8 @@ public class DateHelperTest {
 
     @Test
     public void convertToCalendar() throws Exception {
+        // keep test independent from execution environment
+        Locale.setDefault(Locale.GERMANY);
         final Date date = DateHelper.parseDate("24.05.2013");
         final Calendar result = DateHelper.convertToCalendar(date);
         Assert.assertNotNull(result);
