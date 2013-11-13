@@ -47,7 +47,7 @@ public class TeamModelTest extends BaseTest {
 
     /** Creates some test players. */
     private void createSomePlayers() {
-        final List<Player> newPlayers = new ArrayList<Player>();
+        final List<Player> newPlayers = new ArrayList<>();
         final Player player1 = new Player();
         player1.setId(1L);
         player1.setLastName("Daniels");
@@ -88,7 +88,7 @@ public class TeamModelTest extends BaseTest {
         player3.setPlayerStats(stats3);
 
         // insert players and set into model
-        playerService.insertPlayers(newPlayers);
-        teamModel.setPlayers(playerService.findAllPlayers());
+        playerService.save(newPlayers);
+        teamModel.setPlayers(playerService.findAll());
     }
 }

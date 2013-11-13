@@ -23,14 +23,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.StandingsHistory;
 import org.newinstance.gucoach.entity.Team;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * Tests the methods of the {@link StandingsHistoryService}.
@@ -39,33 +38,33 @@ import org.newinstance.gucoach.entity.Team;
  */
 public class StandingsHistoryServiceTest extends BaseTest {
 
-    @Test(expected = NoResultException.class)
+    @Test
     public void insertAndDeleteStandingsHistory() {
-        final List<Team> teams = new ArrayList<Team>();
+        final List<Team> teams = new ArrayList<>();
         Team team = createTeam("Olympique Marseille", 1);
         teams.add(team);
 
-        teamService.insertTeams(teams);
+        teamService.save(teams);
 
         final Date matchDay = new Date();
-        team = teamService.findAllTeams().get(0);
+        team = teamService.findAll().get(0);
 
         final StandingsHistory standingsHistory = createStandingsHistory(team, matchDay);
-        standingsHistoryService.insertStandingsHistory(standingsHistory);
+        standingsHistoryService.save(standingsHistory);
 
-        StandingsHistory result = standingsHistoryService.findStandingsHistoryByTeamAndDate(team, matchDay);
+        StandingsHistory result = standingsHistoryService.findByTeamAndMatchDay(team, matchDay);
         Assert.assertNotNull(result);
         Assert.assertEquals(team.getId(), result.getTeam().getId());
 
         // DELETE
-        standingsHistoryService.removeAllStandingsHistory();
+        standingsHistoryService.deleteAll();
 
-        standingsHistoryService.findStandingsHistoryByTeamAndDate(team, new Date());
+        standingsHistoryService.findByTeamAndMatchDay(team, new Date());
     }
 
     @Test
     public void removeAllStandingsHistory() {
-        final List<Team> teams = new ArrayList<Team>();
+        final List<Team> teams = new ArrayList<>();
         Team team = createTeam("Olympique Marseille", 1);
         teams.add(team);
 
@@ -76,33 +75,33 @@ public class StandingsHistoryServiceTest extends BaseTest {
         matchDay2.set(Calendar.DAY_OF_MONTH, -1);
         final StandingsHistory standingsHistory2 = createStandingsHistory(team, matchDay2.getTime());
 
-        teamService.insertTeams(teams);
-        standingsHistoryService.insertStandingsHistory(standingsHistory1);
-        standingsHistoryService.insertStandingsHistory(standingsHistory2);
+        teamService.save(teams);
+        standingsHistoryService.save(standingsHistory1);
+        standingsHistoryService.save(standingsHistory2);
 
-        StandingsHistory result = standingsHistoryService.findStandingsHistoryByTeamAndDate(team, standingsHistory1.getMatchDay());
+        StandingsHistory result = standingsHistoryService.findByTeamAndMatchDay(team, standingsHistory1.getMatchDay());
         Assert.assertEquals(team, result.getTeam());
-        result = standingsHistoryService.findStandingsHistoryByTeamAndDate(team, standingsHistory2.getMatchDay());
+        result = standingsHistoryService.findByTeamAndMatchDay(team, standingsHistory2.getMatchDay());
         Assert.assertEquals(team, result.getTeam());
 
         // DELETE
-        standingsHistoryService.removeAllStandingsHistory();
+        standingsHistoryService.deleteAll();
 
-        // Assert.assertNull(standingsHistoryService.findStandingsHistoryByTeamAndDate(team, matchDay1));
-        // Assert.assertNull(standingsHistoryService.findStandingsHistoryByTeamAndDate(team, matchDay2.getTime()));
+        Assert.assertNull(standingsHistoryService.findByTeamAndMatchDay(team, matchDay1));
+        Assert.assertNull(standingsHistoryService.findByTeamAndMatchDay(team, matchDay2.getTime()));
     }
 
     @Test
     public void updateStandingsHistory() {
-        final List<Team> teams = new ArrayList<Team>();
+        final List<Team> teams = new ArrayList<>();
         Team team = createTeam("Olympique Marseille", 1);
         teams.add(team);
 
         final Date matchDay1 = Calendar.getInstance().getTime();
         final StandingsHistory standingsHistory = createStandingsHistory(team, matchDay1);
 
-        teamService.insertTeams(teams);
-        standingsHistoryService.insertStandingsHistory(standingsHistory);
+        teamService.save(teams);
+        standingsHistoryService.save(standingsHistory);
 
         Assert.assertEquals(4, standingsHistory.getGoalsFor().intValue());
 
@@ -110,16 +109,16 @@ public class StandingsHistoryServiceTest extends BaseTest {
         standingsHistory.setGoalsFor(20);
         standingsHistory.setPosition(1);
 
-        standingsHistoryService.updateStandingsHistory(standingsHistory);
+        standingsHistoryService.save(standingsHistory);
 
-        final StandingsHistory result = standingsHistoryService.findStandingsHistoryByTeamAndDate(team, matchDay1);
+        final StandingsHistory result = standingsHistoryService.findByTeamAndMatchDay(team, matchDay1);
         Assert.assertEquals(20, result.getGoalsFor().intValue());
         Assert.assertEquals(1, result.getPosition().intValue());
     }
 
-    @Test(expected = PersistenceException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void insertStandingsHistoryTwice() {
-        final List<Team> teams = new ArrayList<Team>();
+        final List<Team> teams = new ArrayList<>();
         Team team = createTeam("Paris SG", 1);
         teams.add(team);
 
@@ -128,9 +127,9 @@ public class StandingsHistoryServiceTest extends BaseTest {
 
         final StandingsHistory standingsHistory2 = createStandingsHistory(team, matchDay1);
 
-        teamService.insertTeams(teams);
-        standingsHistoryService.insertStandingsHistory(standingsHistory1);
-        standingsHistoryService.insertStandingsHistory(standingsHistory2);
+        teamService.save(teams);
+        standingsHistoryService.save(standingsHistory1);
+        standingsHistoryService.save(standingsHistory2);
     }
 
 }

@@ -17,36 +17,18 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
+package org.newinstance.gucoach.persistence;
 
-import java.util.Date;
-
-import org.newinstance.gucoach.entity.StandingsHistory;
 import org.newinstance.gucoach.entity.Team;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
- * Provides all service methods related to entity {@link StandingsHistory}.
+ * Provides all repository methods related to entity {@link Team}.
  *
  * @author mwalter
  */
-public interface StandingsHistoryService {
+@Repository
+public interface TeamRepository extends JpaRepository<Team, Long> {
 
-    /**
-     * Finds the standings history for a team and a match day.
-     *
-     * @param team the team
-     * @param matchDay the day of the match
-     * @return the standings history
-     */
-    public StandingsHistory findByTeamAndMatchDay(final Team team, final Date matchDay);
-
-    /** Deletes all standings history. */
-    public void deleteAll();
-
-    /**
-     * Saves the standings history.
-     *
-     * @param standingsHistory the standings history to save
-     */
-    public void save(final StandingsHistory standingsHistory);
 }

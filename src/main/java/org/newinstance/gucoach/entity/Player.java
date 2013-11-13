@@ -26,7 +26,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +41,6 @@ import org.newinstance.gucoach.utility.DateHelper;
  * @author mwalter
  */
 @Entity
-@NamedQuery(name = "FIND_ALL_PLAYER", query = "SELECT p FROM Player p")
 public final class Player {
 
     /** The primary key is provided by the game. */

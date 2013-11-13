@@ -40,6 +40,7 @@ import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.entity.Position;
 import org.newinstance.gucoach.entity.StrongFoot;
 import org.newinstance.gucoach.exception.ImportException;
+import org.newinstance.gucoach.utility.AttributePosition;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -56,11 +57,11 @@ public class ImportServiceImpl implements ImportService {
 
     private static final String DATE_FORMAT = "dd.MM.yyyy";
 
-    private List<String[]> fileContent = new ArrayList<String[]>();
+    private List<String[]> fileContent = new ArrayList<>();
 
-    private Map<Long, Player> players = new HashMap<Long, Player>();
+    private Map<Long, Player> players = new HashMap<>();
 
-    private Map<Long, PlayerHistory> history = new HashMap<Long, PlayerHistory>();
+    private Map<Long, PlayerHistory> history = new HashMap<>();
 
     private Date importDate;
 
@@ -73,7 +74,7 @@ public class ImportServiceImpl implements ImportService {
     }
 
     public List<Player> getPlayers() {
-        return new ArrayList<Player>(players.values());
+        return new ArrayList<>(players.values());
     }
 
     public void importData(final InputStreamReader inputStreamReader) throws ImportException {
@@ -84,9 +85,9 @@ public class ImportServiceImpl implements ImportService {
     }
 
     public void reset() {
-        fileContent = new ArrayList<String[]>();
-        players = new HashMap<Long, Player>();
-        history = new HashMap<Long, PlayerHistory>();
+        fileContent = new ArrayList<>();
+        players = new HashMap<>();
+        history = new HashMap<>();
     }
 
     /**

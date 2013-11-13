@@ -17,47 +17,49 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
+package org.newinstance.gucoach.service.impl;
 
 import java.util.List;
 
 import org.newinstance.gucoach.entity.Team;
-import org.newinstance.gucoach.persistence.PersistenceService;
-import org.newinstance.gucoach.utility.NamedQuery;
+import org.newinstance.gucoach.persistence.TeamRepository;
+import org.newinstance.gucoach.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implements all service methods related to entity {@link Team}.
+ * Implements all services related to the to entity {@link Team}.
  *
  * @author mwalter
  */
 @Service
-@Transactional
 public class TeamServiceImpl implements TeamService {
 
     @Autowired
-    private PersistenceService persistenceService;
+    private TeamRepository teamRepository;
 
-    public List<Team> findAllTeams() {
-        return persistenceService.findByNamedQuery(NamedQuery.FIND_ALL_TEAM.name(), Team.class);
+    @Override
+    public List<Team> findAll() {
+        return teamRepository.findAll();
     }
 
-    public void insertTeams(final List<Team> teams) {
-        for (final Team team : teams) {
-            persistenceService.save(team);
-        }
+    @Override
+    public Team findOne(final Long id) {
+        return teamRepository.findOne(id);
     }
 
-    public void removeAllTeams() {
-        final List<Team> teams = persistenceService.findByNamedQuery(NamedQuery.FIND_ALL_TEAM.name(), Team.class);
-        for (final Team team : teams) {
-            persistenceService.delete(team);
-        }
+    @Override
+    public void deleteAll() {
+        teamRepository.deleteAll();
     }
 
-    public void updateTeam(final Team team) {
-        persistenceService.update(team);
+    @Override
+    public void save(final Team team) {
+        teamRepository.save(team);
+    }
+
+    @Override
+    public void save(final List<Team> teams) {
+        teamRepository.save(teams);
     }
 }

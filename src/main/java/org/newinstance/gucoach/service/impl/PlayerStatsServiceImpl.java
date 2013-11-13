@@ -17,51 +17,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
+package org.newinstance.gucoach.service.impl;
 
-import java.util.List;
-
-import org.newinstance.gucoach.entity.Team;
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerStats;
+import org.newinstance.gucoach.persistence.PlayerStatsRepository;
+import org.newinstance.gucoach.service.PlayerStatsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
- * Provides all service methods related to entity {@link Team}.
+ * Implements all services related to the to entity {@link PlayerStats}.
  *
  * @author mwalter
  */
-public interface TeamService {
+@Service
+public class PlayerStatsServiceImpl implements PlayerStatsService {
 
-    /**
-     * Finds all teams.
-     *
-     * @return all teams
-     */
-    public List<Team> findAll();
+    @Autowired
+    private PlayerStatsRepository playerStatsRepository;
 
-    /**
-     * Finds the team with id.
-     *
-     * @param id the id of the team to find
-     * @return the team with the id
-     */
-    public Team findOne(final Long id);
-
-    /**
-     * Deletes all teams.
-     */
-    public void deleteAll();
-
-    /**
-     * Saves a team.
-     *
-     * @param team the team to save
-     */
-    public void save(final Team team);
-
-    /**
-     * Saves a list of teams.
-     *
-     * @param teams the teams to save
-     */
-    public void save(final List<Team> teams);
-    
+    @Override
+    public PlayerStats findByPlayer(final Player player) {
+        return playerStatsRepository.findByPlayer(player);
+    }
 }

@@ -52,7 +52,7 @@ public class TeamModel {
     @PostConstruct
     protected void init() {
         LOGGER.info("Initializing team model with players.");
-        this.setPlayers(playerService.findAllPlayers());
+        this.setPlayers(playerService.findAll());
     }
 
     /**
@@ -81,6 +81,6 @@ public class TeamModel {
     /** Updates (refreshes) the team model. */
     public void updatePlayers() {
         LOGGER.info("Updating team model.");
-        this.setPlayers(playerService.findAllPlayers());
+        this.setPlayers(playerService.findAll());
     }
 }

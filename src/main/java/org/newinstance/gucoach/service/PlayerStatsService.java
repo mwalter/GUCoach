@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,21 +17,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.utility;
+package org.newinstance.gucoach.service;
+
+import org.newinstance.gucoach.entity.Player;
+import org.newinstance.gucoach.entity.PlayerStats;
 
 /**
- * Contains all named queries.
+ * Provides all service methods related to entity {@link PlayerStats}.
  *
  * @author mwalter
  */
-public enum NamedQuery {
-    FIND_ALL_FIXTURE,
-    FIND_ALL_IMPORT_DATE,
-    FIND_ALL_PLAYER,
-    FIND_ALL_STANDINGS_HISTORY,
-    FIND_ALL_TEAM,
-    FIND_LATEST_IMPORT_DATE,
-    FIND_PLAYER_HISTORY_BY_PLAYER,
-    FIND_PLAYER_STATS_BY_PLAYER,
-    FIND_STANDINGS_HISTORY_BY_TEAM_AND_DATE
+public interface PlayerStatsService {
+
+    /**
+     * Finds the player statistics for a certain player.
+     *
+     * @param player the player to find the statistics for
+     * @return the player statistics
+     */
+    public PlayerStats findByPlayer(final Player player);
 }

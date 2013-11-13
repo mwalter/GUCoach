@@ -32,7 +32,7 @@ import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.gui.StandingsDataRow;
 
 /**
- * Tests methods of class {@link org.newinstance.gucoach.gui.model.StandingsModel}.
+ * Tests methods of class {@link StandingsModel}.
  *
  * @author mwalter
  */
@@ -51,7 +51,7 @@ public class StandingsModelTest extends BaseTest {
 
     /** Creates some test teams and fixtures. */
     private void createSomeTeamsAndFixtures() {
-        final List<Team> newTeams = new ArrayList<Team>();
+        final List<Team> newTeams = new ArrayList<>();
         final Team team1 = new Team();
         team1.setName("Acapulco");
         newTeams.add(team1);
@@ -63,11 +63,11 @@ public class StandingsModelTest extends BaseTest {
         newTeams.add(team3);
 
         // insert teams first and get them back from database in order to get team ids
-        teamService.insertTeams(newTeams);
-        leagueModel.setTeams(teamService.findAllTeams());
+        teamService.save(newTeams);
+        leagueModel.setTeams(teamService.findAll());
         final List<Team> teams = leagueModel.getTeams();
 
-        final List<Fixture> fixtures = new ArrayList<Fixture>();
+        final List<Fixture> fixtures = new ArrayList<>();
         // Acapulco - Miami Beach 2:1
         final Fixture fixture1 = new Fixture();
         fixture1.setHomeTeam(teams.get(0));
@@ -90,7 +90,7 @@ public class StandingsModelTest extends BaseTest {
         fixtures.add(fixture1);
         fixtures.add(fixture2);
         fixtures.add(fixture3);
-        fixtureService.insertFixtures(fixtures);
-        leagueModel.setFixtures(fixtureService.findAllFixtures());
+        fixtureService.save(fixtures);
+        leagueModel.setFixtures(fixtureService.findAll());
     }
 }

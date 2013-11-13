@@ -17,48 +17,49 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
+package org.newinstance.gucoach.service.impl;
 
 import java.util.List;
 
 import org.newinstance.gucoach.entity.Fixture;
-import org.newinstance.gucoach.persistence.PersistenceService;
-import org.newinstance.gucoach.utility.NamedQuery;
+import org.newinstance.gucoach.persistence.FixtureRepository;
+import org.newinstance.gucoach.service.FixtureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implements all service methods related to entity {@link Fixture}.
+ * Implements all services related to the to entity {@link Fixture}.
  *
  * @author mwalter
  */
 @Service
-@Transactional
 public class FixtureServiceImpl implements FixtureService {
 
     @Autowired
-    private PersistenceService persistenceService;
+    private FixtureRepository fixtureRepository;
 
-    public void insertFixtures(final List<Fixture> fixtures) {
-        for (final Fixture fixture : fixtures) {
-            persistenceService.save(fixture);
-        }
+    @Override
+    public List<Fixture> findAll() {
+        return fixtureRepository.findAll();
     }
 
-    public List<Fixture> findAllFixtures() {
-        return persistenceService.findByNamedQuery(NamedQuery.FIND_ALL_FIXTURE.name(), Fixture.class);
+    @Override
+    public Fixture findOne(final Long id) {
+        return fixtureRepository.findOne(id);
     }
 
-    public void removeAllFixtures() {
-        final List<Fixture> fixtures = persistenceService.findByNamedQuery(NamedQuery.FIND_ALL_FIXTURE.name(), Fixture.class);
-        for (final Fixture fixture : fixtures) {
-            persistenceService.delete(fixture);
-        }
+    @Override
+    public void deleteAll() {
+        fixtureRepository.deleteAll();
     }
 
-    public void updateFixture(final Fixture fixture) {
-        persistenceService.update(fixture);
+    @Override
+    public void save(final Fixture fixture) {
+        fixtureRepository.save(fixture);
     }
 
+    @Override
+    public void save(final List<Fixture> fixtures) {
+        fixtureRepository.save(fixtures);
+    }
 }

@@ -211,7 +211,7 @@ public class CreateLeagueController implements Initializable {
             protected Void call() throws Exception {
                 try {
                     LOGGER.info("Inserting teams into database.");
-                    teamService.insertTeams(teams);
+                    teamService.save(teams);
                 } catch (final Exception e) {
                     // TODO error handling with bean validation?
                     e.printStackTrace();
@@ -241,7 +241,7 @@ public class CreateLeagueController implements Initializable {
 
     /** Calculates fixtures, creates fixture instances and inserts them into the database. */
     private void createFixtures() {
-        final List<Team> teams = teamService.findAllTeams();
+        final List<Team> teams = teamService.findAll();
         // create a map where team id is the key
         final Map<Long, Team> teamMap = new HashMap<Long, Team>();
         final List<Long> teamIds = new ArrayList<Long>();
@@ -280,7 +280,7 @@ public class CreateLeagueController implements Initializable {
             protected Void call() throws Exception {
                 try {
                     LOGGER.info("Inserting fixtures into database.");
-                    fixtureService.insertFixtures(fixtures);
+                    fixtureService.save(fixtures);
                 } catch (final Exception e) {
                     // TODO error handling with bean validation?
                     e.printStackTrace();

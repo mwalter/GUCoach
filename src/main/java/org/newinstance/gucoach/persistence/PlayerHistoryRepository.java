@@ -17,56 +17,47 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
+package org.newinstance.gucoach.persistence;
 
 import java.util.Date;
 import java.util.List;
 
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 /**
- * Provides all service methods related to entity {@link PlayerHistory}.
+ * Provides all repository methods related to entity {@link PlayerHistory}.
  *
  * @author mwalter
  */
-public interface PlayerHistoryService {
+@Repository
+public interface PlayerHistoryRepository extends JpaRepository<PlayerHistory, Long> {
 
     /**
-     * Returns all import dates.
+     * Returns all import dates in the database.
      *
-     * @return the list of all import dates
+     * @return the list of import dates
      */
+    @Query(value = "SELECT DISTINCT ph.importDate FROM PlayerHistory ph")
     public List<Date> findAllImportDates();
 
     /**
-     * Returns the player history records for a certain player.
+     * Returns the latest import date in the database.
      *
-     * @param player the player
-     * @return the player history of the player
+     * @return the latest import dates
      */
-    public List<PlayerHistory> findByPlayer(final Player player);
-
-    /**
-     * Returns the latest import date of all player history records.
-     *
-     * @return the latest import date
-     */
+    @Query(value = "SELECT MAX(ph.importDate) FROM PlayerHistory ph")
     public Date findLatestImportDate();
 
     /**
-     * Returns the player history with the id.
+     * Returns the player history for the given player.
      *
-     * @param id the id of the player history to find
+     * @param player the player
      * @return the player history
      */
-    public PlayerHistory findOne(final Long id);
-
-    /**
-     * Saves the history of a player.
-     *
-     * @param playerHistory the player history to save
-     */
-    public void save(final PlayerHistory playerHistory);
+    public List<PlayerHistory> findByPlayer(final Player player);
 
 }

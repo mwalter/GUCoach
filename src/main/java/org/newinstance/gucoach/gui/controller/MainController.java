@@ -98,7 +98,7 @@ public class MainController {
             tabPaneTabs.getTabs().add(tabTeam);
         }
         // league tab
-        leagueModel.setFixtures(fixtureService.findAllFixtures());
+        leagueModel.setFixtures(fixtureService.findAll());
         // if there is fixture data available add fixture tab
         if (!leagueModel.getFixtures().isEmpty()) {
             LOGGER.info("Loading tabLeague.fxml.");

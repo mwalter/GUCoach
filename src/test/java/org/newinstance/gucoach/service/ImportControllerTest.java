@@ -22,6 +22,7 @@ package org.newinstance.gucoach.service;
 import java.io.File;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
@@ -41,23 +42,28 @@ public class ImportControllerTest extends BaseTest {
 
     private static final String SAMPLE_IMPORT_FILE_UPDATE = "src/test/resources/gu_2011-11-21_team_update.csv";
 
+    @After
+    public void tearDown() {
+        importService.reset();
+    }
+
     @Test
     public void executeDelete() {
         final Player player1 = createPlayer(556677L);
         final Player player2 = createPlayer(889933L);
 
-        playerService.insertPlayer(player1);
-        playerService.insertPlayer(player2);
+        playerService.save(player1);
+        playerService.save(player2);
 
-        List<Player> players = playerService.findAllPlayers();
+        List<Player> players = playerService.findAll();
         Assert.assertNotNull(players);
         Assert.assertFalse(players.isEmpty());
 
         for (final Player player : players) {
-            playerService.removePlayer(player);
+            playerService.delete(player);
         }
 
-        players = playerService.findAllPlayers();
+        players = playerService.findAll();
         Assert.assertNotNull(players);
         Assert.assertTrue(players.isEmpty());
     }
@@ -77,13 +83,13 @@ public class ImportControllerTest extends BaseTest {
     @Test
     public void executeImport() throws Exception {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
-        final List<Player> players = playerService.findAllPlayers();
+        final List<Player> players = playerService.findAll();
         Assert.assertFalse(players.isEmpty());
         for (final Player player : players) {
             final PlayerStats playerStats = player.getPlayerStats();
             Assert.assertNotNull(playerStats);
             Assert.assertEquals(player.getId(), playerStats.getPlayer().getId());
-            final List<PlayerHistory> playerHistoryList = playerHistoryService.findPlayerHistoryByPlayer(player);
+            final List<PlayerHistory> playerHistoryList = playerHistoryService.findByPlayer(player);
             Assert.assertNotNull(playerHistoryList);
             Assert.assertFalse(playerHistoryList.isEmpty());
         }
@@ -94,8 +100,8 @@ public class ImportControllerTest extends BaseTest {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
         // now import new file to update player data
         importController.executeImport(new File(SAMPLE_IMPORT_FILE_UPDATE));
-        // use an player id from the import file
-        final Player deletedPlayer = playerService.findPlayerById(4848870L);
+        // use a player id from the import file which was deleted during update
+        final Player deletedPlayer = playerService.findOne(4848870L);
         Assert.assertNull(deletedPlayer);
     }
 

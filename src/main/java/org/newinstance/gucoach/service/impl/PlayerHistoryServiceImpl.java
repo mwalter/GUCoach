@@ -17,52 +17,51 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
+package org.newinstance.gucoach.service.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
-import org.newinstance.gucoach.persistence.PersistenceService;
-import org.newinstance.gucoach.utility.NamedQuery;
+import org.newinstance.gucoach.persistence.PlayerHistoryRepository;
+import org.newinstance.gucoach.service.PlayerHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implements all service methods related to entity {@link PlayerHistory}.
+ *Implements all services related to the to entity {@link PlayerHistory}.
  *
  * @author mwalter
  */
 @Service
-@Transactional
 public class PlayerHistoryServiceImpl implements PlayerHistoryService {
 
     @Autowired
-    private PersistenceService persistenceService;
+    private PlayerHistoryRepository playerHistoryRepository;
 
+    @Override
     public List<Date> findAllImportDates() {
-        return persistenceService.findByNamedQuery(NamedQuery.FIND_ALL_IMPORT_DATE.name(), Date.class);
+        return playerHistoryRepository.findAllImportDates();
     }
 
+    @Override
+    public List<PlayerHistory> findByPlayer(final Player player) {
+        return playerHistoryRepository.findByPlayer(player);
+    }
+
+    @Override
     public Date findLatestImportDate() {
-        return persistenceService.findUniqueByNamedQuery(NamedQuery.FIND_LATEST_IMPORT_DATE.name(), Date.class);
+        return playerHistoryRepository.findLatestImportDate();
     }
 
-    public PlayerHistory findPlayerHistoryById(final Long id) {
-        return persistenceService.find(PlayerHistory.class, id);
+    @Override
+    public PlayerHistory findOne(final Long id) {
+        return playerHistoryRepository.findOne(id);
     }
 
-    public List<PlayerHistory> findPlayerHistoryByPlayer(final Player player) {
-        final Map<String, Object> params = new HashMap<String, Object>();
-        params.put("player", player);
-        return persistenceService.findByNamedQuery(NamedQuery.FIND_PLAYER_HISTORY_BY_PLAYER.name(), PlayerHistory.class, params);
-    }
-
-    public void insertPlayerHistory(final PlayerHistory playerHistory) {
-        persistenceService.save(playerHistory);
+    @Override
+    public void save(final PlayerHistory playerHistory) {
+        playerHistoryRepository.save(playerHistory);
     }
 }

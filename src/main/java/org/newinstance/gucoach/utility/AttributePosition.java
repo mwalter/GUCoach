@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.service;
+package org.newinstance.gucoach.utility;
 
 /**
  * The positions of the player attributes in the CSV file in the order of appearance.

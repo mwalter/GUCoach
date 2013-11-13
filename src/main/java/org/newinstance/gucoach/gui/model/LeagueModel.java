@@ -46,10 +46,10 @@ public class LeagueModel {
     private static final Logger LOGGER = LogManager.getLogger(LeagueModel.class.getName());
 
     @Autowired
-    private FixtureService fixtureService;
+    protected TeamService teamService;
 
     @Autowired
-    private TeamService teamService;
+    private FixtureService fixtureService;
 
     /** Holds all teams. */
     private ObservableList<Team> teams = FXCollections.observableArrayList(new ArrayList<Team>());
@@ -60,8 +60,8 @@ public class LeagueModel {
     @PostConstruct
     protected void init() {
         LOGGER.info("Initializing league model with teams and fixtures.");
-        this.setTeams(teamService.findAllTeams());
-        this.setFixtures(fixtureService.findAllFixtures());
+        this.setTeams(teamService.findAll());
+        this.setFixtures(fixtureService.findAll());
     }
 
     /**
