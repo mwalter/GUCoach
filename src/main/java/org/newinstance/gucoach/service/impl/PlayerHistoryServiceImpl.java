@@ -30,7 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *Implements all services related to the to entity {@link PlayerHistory}.
+ * Implements all services related to the to entity {@link PlayerHistory}.
  *
  * @author mwalter
  */
