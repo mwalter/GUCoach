@@ -25,7 +25,6 @@ import javafx.scene.control.TableView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.gui.StandingsDataRow;
-import org.newinstance.gucoach.gui.model.LeagueModel;
 import org.newinstance.gucoach.gui.model.StandingsModel;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
@@ -42,9 +41,6 @@ public class LeagueController {
 
     /** The log4j logger. */
     private static final Logger LOGGER = LogManager.getLogger(LeagueController.class.getName());
-
-    @Autowired
-    private LeagueModel leagueModel;
 
     @Autowired
     private StandingsModel standingsModel;
