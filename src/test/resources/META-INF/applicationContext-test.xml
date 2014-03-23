@@ -37,7 +37,8 @@
     <!-- H2 DataSource -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.h2.Driver"/>
-        <property name="url" value="jdbc:h2:mem:gucoach;DB_CLOSE_DELAY=-1"/>
+        <!--<property name="url" value="jdbc:h2:mem:gucoach;DB_CLOSE_DELAY=-1"/>-->
+        <property name="url" value="jdbc:h2:gucoach;DB_CLOSE_DELAY=-1"/>
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>
@@ -53,6 +54,10 @@
                 <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
             </bean>
         </property>
+        <property name="jpaDialect">
+            <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>-->
+            <bean class="org.newinstance.gucoach.utility.HibernateExtendedJpaDialect"/>
+        </property>
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
@@ -60,12 +65,12 @@
         </property>
     </bean>
 
-    <!-- Annotation driven transaction management -->
-    <tx:annotation-driven/>
-
     <!-- Transaction Manager -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
+
+    <!-- Annotation driven transaction management -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

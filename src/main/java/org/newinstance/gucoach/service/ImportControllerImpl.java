@@ -20,10 +20,6 @@
 package org.newinstance.gucoach.service;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -73,9 +69,11 @@ public class ImportControllerImpl implements ImportController {
         importService.reset();
         // -- 2 -- import data
         try {
-            importService.importData(new InputStreamReader(new FileInputStream(file), ImportService.FILE_ENCODING));
+            importService.importData(file);
+            // importService.importData(new InputStreamReader(new FileInputStream(file), ImportService.FILE_ENCODING));
             // TODO handle errors
-        } catch (final FileNotFoundException | UnsupportedEncodingException e) {
+            //} catch (final FileNotFoundException | UnsupportedEncodingException e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
         // -- 3 -- validate import data

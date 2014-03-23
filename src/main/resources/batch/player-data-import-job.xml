@@ -1,0 +1,84 @@
+<!--
+  ~ GUCoach - your personal coach for Goalunited (tm).
+  ~ Licensed under General Public License v3 (GPLv3)
+  ~ newInstance.org, 2012-2013
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/batch
+      http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <batch:job id="playerDataImportJob">
+        <batch:step id="mainPlayerDataImport" next="playerHistoryDataImport">
+            <batch:tasklet>
+                <batch:chunk reader="playerItemReader" writer="playerItemWriter" commit-interval="50" skip-limit="100">
+                    <batch:skippable-exception-classes>
+                        <batch:include class="org.springframework.batch.item.file.FlatFileParseException" />
+                    </batch:skippable-exception-classes>
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+        <batch:step id="playerHistoryDataImport">
+            <batch:tasklet>
+                <batch:chunk reader="playerHistoryItemReader" writer="playerHistoryItemWriter" commit-interval="50" skip-limit="100">
+                    <batch:skippable-exception-classes>
+                        <batch:include class="org.springframework.batch.item.file.FlatFileParseException" />
+                    </batch:skippable-exception-classes>
+                </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    <bean id="playerItemReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+        <property name="resource" value="file:#{jobParameters['inputFile']}" />
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <property name="lineTokenizer">
+                    <bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <property name="delimiter" value=";" />
+                    </bean>
+                </property>
+                <property name="fieldSetMapper">
+                    <bean class="org.newinstance.gucoach.dataimport.PlayerFieldSetMapper"/>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="playerItemWriter" class="org.newinstance.gucoach.dataimport.PlayerItemWriter"/>
+
+    <bean id="playerHistoryItemReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+        <property name="resource" value="file:#{jobParameters['inputFile']}" />
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <property name="lineTokenizer">
+                    <bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <property name="delimiter" value=";" />
+                    </bean>
+                </property>
+                <property name="fieldSetMapper">
+                    <bean class="org.newinstance.gucoach.dataimport.PlayerHistoryFieldSetMapper"/>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="playerHistoryItemWriter" class="org.newinstance.gucoach.dataimport.PlayerHistoryItemWriter"/>
+</beans>

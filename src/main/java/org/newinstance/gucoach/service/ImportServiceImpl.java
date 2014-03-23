@@ -19,6 +19,7 @@
 
 package org.newinstance.gucoach.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParsePosition;
@@ -40,9 +41,16 @@ import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.entity.Position;
 import org.newinstance.gucoach.entity.StrongFoot;
 import org.newinstance.gucoach.exception.ImportException;
-import org.newinstance.gucoach.utility.AttributePosition;
+import org.newinstance.gucoach.utility.PlayerAttributePosition;
 import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
+import org.springframework.batch.core.ExitStatus;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -56,6 +64,12 @@ public class ImportServiceImpl implements ImportService {
     private static final char SEPARATOR = ';';
 
     private static final String DATE_FORMAT = "dd.MM.yyyy";
+
+    @Autowired
+    private JobLauncher jobLauncher;
+
+    @Autowired
+    private Job job;
 
     private List<String[]> fileContent = new ArrayList<>();
 
@@ -84,6 +98,14 @@ public class ImportServiceImpl implements ImportService {
         importPlayerHistory();
     }
 
+    public void importData(final File file) throws Exception {
+        final JobParameters jobParameters = new JobParametersBuilder().addString("inputFile", file.getAbsolutePath()).addDate("date", new Date()).toJobParameters();
+        final JobExecution jobExecution = jobLauncher.run(job, jobParameters);
+        if (!ExitStatus.COMPLETED.equals(jobExecution.getExitStatus())) {
+            throw new ImportException(ResourceLoader.getMessage(MessageId.E002.getMessageKey()));
+        }
+    }
+
     public void reset() {
         fileContent = new ArrayList<>();
         players = new HashMap<>();
@@ -91,7 +113,8 @@ public class ImportServiceImpl implements ImportService {
     }
 
     /**
-     * Parses and imports the main player data section from the given CSV file content. Generates {@link Player} and {@link PlayerStats} entities.
+     * Parses and imports the main player data section from the given CSV file content. Generates {@link Player} and
+     * {@link PlayerStats} entities.
      *
      * @throws ImportException if an error occurs
      */
@@ -125,7 +148,8 @@ public class ImportServiceImpl implements ImportService {
     }
 
     /**
-     * Parses and imports the player history data section from the given CSV file content. Generates {@link PlayerHistory} entities.
+     * Parses and imports the player history data section from the given CSV file content. Generates {@link
+     * PlayerHistory} entities.
      *
      * @throws ImportException if an error occurs
      */
@@ -231,20 +255,20 @@ public class ImportServiceImpl implements ImportService {
      */
     private void convertRecordToPlayer(final String[] record) {
         final Player player = new Player();
-        player.setId(new Long(record[AttributePosition.ID]));
-        player.setFirstName(record[AttributePosition.FIRSTNAME]);
-        player.setLastName(record[AttributePosition.LASTNAME]);
+        player.setId(new Long(record[PlayerAttributePosition.ID]));
+        player.setFirstName(record[PlayerAttributePosition.FIRSTNAME]);
+        player.setLastName(record[PlayerAttributePosition.LASTNAME]);
         try {
-            player.setCountry(Country.valueOf(record[AttributePosition.COUNTRY]));
+            player.setCountry(Country.valueOf(record[PlayerAttributePosition.COUNTRY]));
         } catch (final IllegalArgumentException e) {
             // TODO remove if all countries are provided
-            System.out.println("Country [" + record[AttributePosition.COUNTRY] + "] is missing in model.");
+            System.out.println("Country [" + record[PlayerAttributePosition.COUNTRY] + "] is missing in model.");
             e.printStackTrace();
         }
-        player.setHeight(new Integer(record[AttributePosition.HEIGHT]));
-        player.setPersonality(record[AttributePosition.PERSONALITY]);
-        player.setBirthday(record[AttributePosition.BIRTHDAY]);
-        player.setStrongFoot(StrongFoot.valueOf(record[AttributePosition.STRONG_FOOT].toUpperCase()));
+        player.setHeight(new Integer(record[PlayerAttributePosition.HEIGHT]));
+        player.setPersonality(record[PlayerAttributePosition.PERSONALITY]);
+        player.setBirthday(record[PlayerAttributePosition.BIRTHDAY]);
+        player.setStrongFoot(StrongFoot.valueOf(record[PlayerAttributePosition.STRONG_FOOT].toUpperCase()));
         player.setImportDate(importDate);
         players.put(player.getId(), player);
     }
@@ -256,38 +280,38 @@ public class ImportServiceImpl implements ImportService {
      */
     private void convertRecordToPlayerStats(final String[] record) {
         final PlayerStats playerStats = new PlayerStats();
-        playerStats.setPlayer(players.get(new Long(record[AttributePosition.ID])));
-        playerStats.setNumber(new Integer(record[AttributePosition.NUMBER]));
+        playerStats.setPlayer(players.get(new Long(record[PlayerAttributePosition.ID])));
+        playerStats.setNumber(new Integer(record[PlayerAttributePosition.NUMBER]));
         // is training filled?
-        final String training = record[AttributePosition.TRAINING];
+        final String training = record[PlayerAttributePosition.TRAINING];
         playerStats.setTraining(StringUtils.isEmpty(training) ? null : training);
         // erase apostrophe in strength value
-        final String strength = StringUtils.remove(record[AttributePosition.STRENGTH], '\'');
+        final String strength = StringUtils.remove(record[PlayerAttributePosition.STRENGTH], '\'');
         playerStats.setAverageStrength(new Float(strength));
-        playerStats.setPosition(Position.valueOf(record[AttributePosition.POSITION]));
-        playerStats.setForm(new Integer(record[AttributePosition.FORM]));
-        playerStats.setEnergy(new Integer(record[AttributePosition.ENERGY]));
-        playerStats.setEndurance(new Integer(record[AttributePosition.ENDURANCE]));
-        playerStats.setExperience(new Integer(record[AttributePosition.EXPERIENCE]));
-        playerStats.setSkillGoalkeeping(new Integer(record[AttributePosition.SKILL_GOALKEEPING]));
-        playerStats.setSkillTackling(new Integer(record[AttributePosition.SKILL_TACKLING]));
-        playerStats.setSkillPlaymaking(new Integer(record[AttributePosition.SKILL_PLAYMAKING]));
-        playerStats.setSkillPassing(new Integer(record[AttributePosition.SKILL_PASSING]));
-        playerStats.setSkillScoring(new Integer(record[AttributePosition.SKILL_SCORING]));
-        playerStats.setTalent(record[AttributePosition.TALENT]);
-        playerStats.setTalentLevel(new Integer(record[AttributePosition.TALENT_LEVEL]));
-        playerStats.setAge(new Integer(record[AttributePosition.AGE]));
-        playerStats.setSalary(new Integer(record[AttributePosition.SALARY]));
-        playerStats.setAssignments(new Integer(record[AttributePosition.ASSIGNMENTS]));
-        playerStats.setGoalsSeason(new Integer(record[AttributePosition.GOALS_SEASON]));
-        playerStats.setGoalsTotal(new Integer(record[AttributePosition.GOALS_TOTAL]));
+        playerStats.setPosition(Position.valueOf(record[PlayerAttributePosition.POSITION]));
+        playerStats.setForm(new Integer(record[PlayerAttributePosition.FORM]));
+        playerStats.setEnergy(new Integer(record[PlayerAttributePosition.ENERGY]));
+        playerStats.setEndurance(new Integer(record[PlayerAttributePosition.ENDURANCE]));
+        playerStats.setExperience(new Integer(record[PlayerAttributePosition.EXPERIENCE]));
+        playerStats.setSkillGoalkeeping(new Integer(record[PlayerAttributePosition.SKILL_GOALKEEPING]));
+        playerStats.setSkillTackling(new Integer(record[PlayerAttributePosition.SKILL_TACKLING]));
+        playerStats.setSkillPlaymaking(new Integer(record[PlayerAttributePosition.SKILL_PLAYMAKING]));
+        playerStats.setSkillPassing(new Integer(record[PlayerAttributePosition.SKILL_PASSING]));
+        playerStats.setSkillScoring(new Integer(record[PlayerAttributePosition.SKILL_SCORING]));
+        playerStats.setTalent(record[PlayerAttributePosition.TALENT]);
+        playerStats.setTalentLevel(new Integer(record[PlayerAttributePosition.TALENT_LEVEL]));
+        playerStats.setAge(new Integer(record[PlayerAttributePosition.AGE]));
+        playerStats.setSalary(new Integer(record[PlayerAttributePosition.SALARY]));
+        playerStats.setAssignments(new Integer(record[PlayerAttributePosition.ASSIGNMENTS]));
+        playerStats.setGoalsSeason(new Integer(record[PlayerAttributePosition.GOALS_SEASON]));
+        playerStats.setGoalsTotal(new Integer(record[PlayerAttributePosition.GOALS_TOTAL]));
         // is market value filled?
-        final String marketValue = record[AttributePosition.MARKET_VALUE];
+        final String marketValue = record[PlayerAttributePosition.MARKET_VALUE];
         playerStats.setMarketValue(StringUtils.isEmpty(marketValue) ? null : new Integer(marketValue));
-        playerStats.setYellowCardsSeason(new Integer(record[AttributePosition.YELLOW_CARDS_SEASON]));
-        playerStats.setYellowCardsTotal(new Integer(record[AttributePosition.YELLOW_CARDS_TOTAL]));
-        playerStats.setRedCardsSeason(new Integer(record[AttributePosition.RED_CARDS_SEASON]));
-        playerStats.setRedCardsTotal(new Integer(record[AttributePosition.RED_CARDS_TOTAL]));
+        playerStats.setYellowCardsSeason(new Integer(record[PlayerAttributePosition.YELLOW_CARDS_SEASON]));
+        playerStats.setYellowCardsTotal(new Integer(record[PlayerAttributePosition.YELLOW_CARDS_TOTAL]));
+        playerStats.setRedCardsSeason(new Integer(record[PlayerAttributePosition.RED_CARDS_SEASON]));
+        playerStats.setRedCardsTotal(new Integer(record[PlayerAttributePosition.RED_CARDS_TOTAL]));
         playerStats.setImportDate(importDate);
         // set statistics in player entity
         playerStats.getPlayer().setPlayerStats(playerStats);
@@ -300,19 +324,19 @@ public class ImportServiceImpl implements ImportService {
      */
     private void convertRecordToPlayerHistory(final String[] record) {
         final PlayerHistory playerHistory = new PlayerHistory();
-        playerHistory.setPlayer(players.get(new Long(record[AttributePosition.ID])));
+        playerHistory.setPlayer(players.get(new Long(record[PlayerAttributePosition.ID])));
         // erase apostrophe in strength value
-        final String strength = StringUtils.remove(record[AttributePosition.STRENGTH], '\'');
+        final String strength = StringUtils.remove(record[PlayerAttributePosition.STRENGTH], '\'');
         playerHistory.setAverageStrength(new Float(strength));
-        playerHistory.setForm(new Integer(record[AttributePosition.FORM]));
-        playerHistory.setEnergy(new Integer(record[AttributePosition.ENERGY]));
-        playerHistory.setEndurance(new Integer(record[AttributePosition.ENDURANCE]));
-        playerHistory.setExperience(new Integer(record[AttributePosition.EXPERIENCE]));
-        playerHistory.setSkillGoalkeeping(new Integer(record[AttributePosition.SKILL_GOALKEEPING]));
-        playerHistory.setSkillTackling(new Integer(record[AttributePosition.SKILL_TACKLING]));
-        playerHistory.setSkillPlaymaking(new Integer(record[AttributePosition.SKILL_PLAYMAKING]));
-        playerHistory.setSkillPassing(new Integer(record[AttributePosition.SKILL_PASSING]));
-        playerHistory.setSkillScoring(new Integer(record[AttributePosition.SKILL_SCORING]));
+        playerHistory.setForm(new Integer(record[PlayerAttributePosition.FORM]));
+        playerHistory.setEnergy(new Integer(record[PlayerAttributePosition.ENERGY]));
+        playerHistory.setEndurance(new Integer(record[PlayerAttributePosition.ENDURANCE]));
+        playerHistory.setExperience(new Integer(record[PlayerAttributePosition.EXPERIENCE]));
+        playerHistory.setSkillGoalkeeping(new Integer(record[PlayerAttributePosition.SKILL_GOALKEEPING]));
+        playerHistory.setSkillTackling(new Integer(record[PlayerAttributePosition.SKILL_TACKLING]));
+        playerHistory.setSkillPlaymaking(new Integer(record[PlayerAttributePosition.SKILL_PLAYMAKING]));
+        playerHistory.setSkillPassing(new Integer(record[PlayerAttributePosition.SKILL_PASSING]));
+        playerHistory.setSkillScoring(new Integer(record[PlayerAttributePosition.SKILL_SCORING]));
         playerHistory.setImportDate(importDate);
         history.put(playerHistory.getPlayer().getId(), playerHistory);
     }

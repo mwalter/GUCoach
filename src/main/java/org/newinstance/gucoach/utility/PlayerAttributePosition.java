@@ -20,11 +20,11 @@
 package org.newinstance.gucoach.utility;
 
 /**
- * The positions of the player attributes in the CSV file in the order of appearance.
+ * The positions of the player attributes in the import file in the order of appearance.
  *
  * @author mwalter
  */
-public final class AttributePosition {
+public final class PlayerAttributePosition {
 
     public static final int ID = 0;
 

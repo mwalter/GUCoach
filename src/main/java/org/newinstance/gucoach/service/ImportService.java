@@ -19,6 +19,7 @@
 
 package org.newinstance.gucoach.service;
 
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +58,8 @@ public interface ImportService {
      * @return the list of players
      */
     public List<Player> getPlayers();
+
+    public void importData(final File file) throws Exception;
 
     /**
      * Triggers an import of all player related data from an CSV file.
