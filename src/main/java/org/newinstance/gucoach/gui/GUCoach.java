@@ -37,10 +37,13 @@ public class GUCoach extends Application {
 
     /** The application icon. */
     private static final String APPLICATION_ICON = "../../../../images/gucoach-icon.png";
+
     /** The application name. */
     private static final String APPLICATION_TITLE = "GUCoach - your personal coach for Goalunited";
+
     /** The layout of the main application window. */
     private static final String FXML_MAIN = "/fxml/main.fxml";
+
     /** The main stylesheets. */
     private static final String GUCOACH_STYLES = "gucoach.css";
 

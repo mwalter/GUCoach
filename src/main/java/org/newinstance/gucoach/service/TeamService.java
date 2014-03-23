@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.entity.Team;
-
 import java.util.List;
+
+import org.newinstance.gucoach.entity.Team;
 
 /**
  * Provides all service methods related to entity {@link Team}.
@@ -31,26 +31,37 @@ import java.util.List;
 public interface TeamService {
 
     /**
-     * Returns all teams in the database.
+     * Finds all teams.
      *
-     * @return the list of teams
+     * @return all teams
      */
-    public List<Team> findAllTeams();
+    public List<Team> findAll();
 
     /**
-     * Persists teams to the database.
+     * Finds the team with id.
      *
-     * @param teams the list of teams to persist
+     * @param id the id of the team to find
+     * @return the team with the id
      */
-    public void insertTeams(final List<Team> teams);
-
-    /** Removes all teams from the database. */
-    public void removeAllTeams();
+    public Team findOne(final Long id);
 
     /**
-     * Updates a team.
-     *
-     * @param team the team to update
+     * Deletes all teams.
      */
-    public void updateTeam(final Team team);
+    public void deleteAll();
+
+    /**
+     * Saves a team.
+     *
+     * @param team the team to save
+     */
+    public void save(final Team team);
+
+    /**
+     * Saves a list of teams.
+     *
+     * @param teams the teams to save
+     */
+    public void save(final List<Team> teams);
+    
 }

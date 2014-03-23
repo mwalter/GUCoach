@@ -38,6 +38,7 @@ import org.newinstance.gucoach.gui.controller.MainController;
 public class CountryFlagCellFactory<S, T> implements Callback<TableColumn<Player, String>, TableCell<Player, String>> {
 
     private static final String FLAG_ICON_LOCATION = "images/flags/";
+
     private static final String FLAG_ICON_EXTENSION = ".png";
 
     @Override

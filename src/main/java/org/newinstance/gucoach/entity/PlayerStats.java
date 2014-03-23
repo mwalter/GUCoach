@@ -19,19 +19,18 @@
 
 package org.newinstance.gucoach.entity;
 
-import org.newinstance.gucoach.utility.DateHelper;
-
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Date;
+
+import org.newinstance.gucoach.utility.DateHelper;
 
 /**
  * The statistics (mutable data) of a player.
@@ -39,7 +38,6 @@ import java.util.Date;
  * @author mwalter
  */
 @Entity
-@NamedQuery(name = "FIND_PLAYER_STATS_BY_PLAYER", query = "SELECT ps FROM PlayerStats ps WHERE ps.player = :player")
 public final class PlayerStats {
 
     /** Primary key. */

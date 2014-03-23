@@ -17,7 +17,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.gui;
+package org.newinstance.gucoach.gui.model;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import org.junit.Assert;
@@ -25,22 +29,19 @@ import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Fixture;
 import org.newinstance.gucoach.entity.Team;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import org.newinstance.gucoach.gui.StandingsDataRow;
 
 /**
- * Tests methods of class {@link StandingsContentProvider}.
+ * Tests methods of class {@link StandingsModel}.
  *
  * @author mwalter
  */
-public class StandingsContentProviderTest extends BaseTest {
+public class StandingsModelTest extends BaseTest {
 
     @Test
     public void getStandingsData() {
         createSomeTeamsAndFixtures();
-        final ObservableList<StandingsDataRow> standingsList = standingsContentProvider.getStandingsData();
+        final ObservableList<StandingsDataRow> standingsList = standingsModel.getStandingsData();
         Assert.assertNotNull(standingsList);
         Assert.assertFalse(standingsList.isEmpty());
         for (StandingsDataRow standingsDataRow : standingsList) {
@@ -50,7 +51,7 @@ public class StandingsContentProviderTest extends BaseTest {
 
     /** Creates some test teams and fixtures. */
     private void createSomeTeamsAndFixtures() {
-        final List<Team> newTeams = new ArrayList<Team>();
+        final List<Team> newTeams = new ArrayList<>();
         final Team team1 = new Team();
         team1.setName("Acapulco");
         newTeams.add(team1);
@@ -62,10 +63,11 @@ public class StandingsContentProviderTest extends BaseTest {
         newTeams.add(team3);
 
         // insert teams first and get them back from database in order to get team ids
-        teamService.insertTeams(newTeams);
-        final List<Team> teams = teamService.findAllTeams();
+        teamService.save(newTeams);
+        leagueModel.setTeams(teamService.findAll());
+        final List<Team> teams = leagueModel.getTeams();
 
-        final List<Fixture> fixtures = new ArrayList<Fixture>();
+        final List<Fixture> fixtures = new ArrayList<>();
         // Acapulco - Miami Beach 2:1
         final Fixture fixture1 = new Fixture();
         fixture1.setHomeTeam(teams.get(0));
@@ -88,6 +90,7 @@ public class StandingsContentProviderTest extends BaseTest {
         fixtures.add(fixture1);
         fixtures.add(fixture2);
         fixtures.add(fixture3);
-        fixtureService.insertFixtures(fixtures);
+        fixtureService.save(fixtures);
+        leagueModel.setFixtures(fixtureService.findAll());
     }
 }

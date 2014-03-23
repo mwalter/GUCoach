@@ -19,16 +19,16 @@
 
 package org.newinstance.gucoach.service;
 
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
-
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Tests the methods of the {@link ImportService}.

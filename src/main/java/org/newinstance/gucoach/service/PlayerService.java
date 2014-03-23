@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +19,9 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.entity.Player;
-import org.newinstance.gucoach.entity.PlayerStats;
-
 import java.util.List;
+
+import org.newinstance.gucoach.entity.Player;
 
 /**
  * Provides all service methods related to entity {@link Player}.
@@ -32,54 +31,41 @@ import java.util.List;
 public interface PlayerService {
 
     /**
-     * Returns all players in the database.
+     * Finds all players.
      *
-     * @return the list of players
+     * @return all players
      */
-    public List<Player> findAllPlayers();
+    public List<Player> findAll();
 
     /**
-     * Returns the player with the given id.
+     * Finds the player with id.
      *
-     * @param id the primary key of the player
-     * @return the player
+     * @param id the id of the player to find
+     * @return the player with the id
      */
-    public Player findPlayerById(final Long id);
+    public Player findOne(final Long id);
 
     /**
-     * Returns the player statistics for the player.
+     * Deletes a player. All history records of this player are deleted as well.<br/> The player does not need to know
+     * about history records so there is no need to configure a relation to history records belonging to a player in the
+     * player entity.
      *
-     * @param player the player to find the statistics for
-     * @return the player statistics
+     * @param player the player to delete
      */
-    public PlayerStats findPlayerStatsByPlayer(final Player player);
+    public void delete(final Player player);
 
     /**
-     * Persists a player to the database.
+     * Saves a player.
      *
-     * @param player the player to persist
+     * @param player the player to save
      */
-    public void insertPlayer(final Player player);
+    public void save(final Player player);
 
     /**
-     * Persists players to the database.
+     * Saves a list of players.
      *
-     * @param players the list of players to persist
+     * @param players the players to save
      */
-    public void insertPlayers(final List<Player> players);
-
-    /**
-     * Updates the player.
-     *
-     * @param player the player to update
-     */
-    public void updatePlayer(final Player player);
-
-    /**
-     * Removes a player from the database.
-     *
-     * @param player the player to remove
-     */
-    public void removePlayer(final Player player);
+    public void save(final List<Player> players);
 
 }

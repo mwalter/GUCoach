@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.newinstance.gucoach.gui;
+package org.newinstance.gucoach.gui.component;
 
 import javafx.scene.control.TableCell;
 import org.newinstance.gucoach.entity.Player;

@@ -19,10 +19,10 @@
 
 package org.newinstance.gucoach.service;
 
+import java.io.File;
+
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
-
-import java.io.File;
 
 /**
  * The import controller provides methods for the import process.

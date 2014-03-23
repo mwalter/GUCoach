@@ -19,14 +19,14 @@
 
 package org.newinstance.gucoach.gui.component;
 
+import java.text.Format;
+
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-
-import java.text.Format;
 
 /**
  * Creates table cells which can be aligned and formatted.
@@ -36,6 +36,7 @@ import java.text.Format;
 public class AlignedTableCellFactory<S, T> implements Callback<TableColumn<S, T>, TableCell<S, T>> {
 
     private Format format;
+
     private TextAlignment alignment;
 
     public TextAlignment getAlignment() {

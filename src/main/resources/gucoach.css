@@ -19,7 +19,7 @@
 
 @charset "utf-8";
 
-.table-view .column-header  {
+.table-view .column-header {
     -fx-font-size: 1em;
     -fx-font-weight: bold;
     -fx-text-alignment: left;
@@ -38,7 +38,7 @@
 
 .table-view:focused {
     -fx-background-color: -fx-box-border, -fx-control-inner-background;
-    -fx-background-insets: 0,1;
+    -fx-background-insets: 0, 1;
 
     /* There is some oddness if padding is in em values rather than pixels,
        in particular, the left border of the control doesn't show. */

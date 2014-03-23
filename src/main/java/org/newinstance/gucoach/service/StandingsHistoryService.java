@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
 
 package org.newinstance.gucoach.service;
 
+import java.util.Date;
+
 import org.newinstance.gucoach.entity.StandingsHistory;
 import org.newinstance.gucoach.entity.Team;
-
-import java.util.Date;
 
 /**
  * Provides all service methods related to entity {@link StandingsHistory}.
@@ -32,28 +32,21 @@ import java.util.Date;
 public interface StandingsHistoryService {
 
     /**
-     * Persists standings history to the database.
-     *
-     * @param standingsHistory the standings history to persist
-     */
-    public void insertStandingsHistory(final StandingsHistory standingsHistory);
-
-    /**
-     * Returns the standings history for the given team and date.
+     * Finds the standings history for a team and a match day.
      *
      * @param team the team
-     * @param date the date
+     * @param matchDay the day of the match
      * @return the standings history
      */
-    public StandingsHistory findStandingsHistoryByTeamAndDate(final Team team, final Date date);
+    public StandingsHistory findByTeamAndMatchDay(final Team team, final Date matchDay);
+
+    /** Deletes all standings history. */
+    public void deleteAll();
 
     /**
-     * Updates the standings history.
+     * Saves the standings history.
      *
-     * @param standingsHistory the standings history to update
+     * @param standingsHistory the standings history to save
      */
-    public void updateStandingsHistory(final StandingsHistory standingsHistory);
-
-    /** Removes all standings history from the database. */
-    public void removeAllStandingsHistory();
+    public void save(final StandingsHistory standingsHistory);
 }

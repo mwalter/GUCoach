@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
- * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * Licensed under General Public License v3 (GPLv3)
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,9 @@
 
 package org.newinstance.gucoach.service;
 
-import org.newinstance.gucoach.entity.Fixture;
-
 import java.util.List;
+
+import org.newinstance.gucoach.entity.Fixture;
 
 /**
  * Provides all service methods related to entity {@link Fixture}.
@@ -31,27 +31,36 @@ import java.util.List;
 public interface FixtureService {
 
     /**
-     * Persists fixtures to the database.
+     * Finds all fixtures.
      *
-     * @param fixtures the list of fixtures to persist
+     * @return all fixtures
      */
-    public void insertFixtures(final List<Fixture> fixtures);
+    public List<Fixture> findAll();
 
     /**
-     * Returns all fixtures in the database.
+     * Finds the fixture with id.
      *
-     * @return the list of fixtures
+     * @param id the id of the fixture to find
+     * @return the fixture with the id
      */
-    public List<Fixture> findAllFixtures();
-
-    /** Removes all fixtures from the database. */
-    public void removeAllFixtures();
+    public Fixture findOne(final Long id);
 
     /**
-     * Updates a fixture.
-     *
-     * @param fixture the fixture to update
+     * Deletes all fixtures.
      */
-    public void updateFixture(final Fixture fixture);
+    public void deleteAll();
 
+    /**
+     * Saves a fixture.
+     *
+     * @param fixture the fixture to save
+     */
+    public void save(final Fixture fixture);
+
+    /**
+     * Saves a list of fixtures.
+     *
+     * @param fixtures the fixtures to save
+     */
+    public void save(final List<Fixture> fixtures);
 }

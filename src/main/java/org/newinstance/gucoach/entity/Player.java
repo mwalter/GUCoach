@@ -19,22 +19,21 @@
 
 package org.newinstance.gucoach.entity;
 
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import org.newinstance.gucoach.utility.DateHelper;
-
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Date;
+
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import org.newinstance.gucoach.utility.DateHelper;
 
 /**
  * The immutable data of a player.
@@ -42,35 +41,43 @@ import java.util.Date;
  * @author mwalter
  */
 @Entity
-@NamedQuery(name = "FIND_ALL_PLAYER", query = "SELECT p FROM Player p")
 public final class Player {
 
     /** The primary key is provided by the game. */
     @Id
     private Long id;
+
     /** First name. */
     @Column(name = "first_name")
     private String firstName;
+
     /** Last name. */
     @Column(name = "last_name")
     private String lastName;
+
     /** Country. */
     @Enumerated(EnumType.STRING)
     private Country country;
+
     /** Height. */
     private Integer height;
+
     /** Personality. */
     private String personality;
+
     /** Birthday in format dd.mm. */
     private String birthday;
+
     /** Strong foot. */
     @Column(name = "strong_foot")
     @Enumerated(EnumType.STRING)
     private StrongFoot strongFoot;
+
     /** Date the player was imported into the database. */
     @Temporal(TemporalType.DATE)
     @Column(name = "import_date")
     private Date importDate;
+
     /** Player statistics. */
     @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
     private PlayerStats playerStats;

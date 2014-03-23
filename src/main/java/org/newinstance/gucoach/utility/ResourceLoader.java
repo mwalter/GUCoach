@@ -31,6 +31,7 @@ import java.util.ResourceBundle;
 public final class ResourceLoader {
 
     private static final String APPLICATION_MESSAGES = "ApplicationMessages";
+
     private static final String APPLICATION_RESOURCES = "ApplicationResources";
 
     private ResourceLoader() {

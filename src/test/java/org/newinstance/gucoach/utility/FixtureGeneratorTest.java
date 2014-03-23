@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,31 +19,36 @@
 
 package org.newinstance.gucoach.utility;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.newinstance.gucoach.base.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Tests the methods of the {@link FixtureGenerator}.
  *
  * @author mwalter
  */
-public class FixtureGeneratorTest {
+public class FixtureGeneratorTest extends BaseTest {
+
+    @Autowired
+    private FixtureGenerator fixtureGenerator;
 
     @Test(expected = IllegalArgumentException.class)
     public void checkGenerateFixturesWithInsufficientTeams() {
         final List<Long> teamIds = new ArrayList<Long>();
         teamIds.add(1L);
-        FixtureGenerator.generateFixtures(teamIds, Calendar.getInstance());
+        fixtureGenerator.generateFixtures(teamIds, Calendar.getInstance());
     }
 
     @Test
     public void checkGenerateFixtures() {
-        final Map<Calendar, Map<Integer, Long[]>> fixtures = FixtureGenerator.generateFixtures(getTeamIds(), Calendar.getInstance());
+        final Map<Calendar, Map<Integer, Long[]>> fixtures = fixtureGenerator.generateFixtures(getTeamIds(), Calendar.getInstance());
         for (Map<Integer, Long[]> fixturesOfMatchday : fixtures.values()) {
             // there always have to be 6 fixtures per matchday
             Assert.assertEquals(6, fixturesOfMatchday.size());

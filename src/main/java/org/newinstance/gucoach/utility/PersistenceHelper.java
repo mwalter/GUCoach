@@ -31,7 +31,9 @@ import javax.persistence.Persistence;
 public final class PersistenceHelper {
 
     private static final PersistenceHelper INSTANCE = new PersistenceHelper();
+
     private static final String GUCOACH_PERSISTENCE_UNIT = "gucoach-pu";
+
     private static EntityManagerFactory factory;
 
     private PersistenceHelper() {

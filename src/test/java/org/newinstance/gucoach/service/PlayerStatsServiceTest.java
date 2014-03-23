@@ -27,20 +27,33 @@ import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.entity.Position;
 
 /**
- * Tests the methods of the {@link PlayerService}.
+ * Tests the methods of the {@link PlayerStatsService}.
  *
  * @author mwalter
  */
 public class PlayerStatsServiceTest extends BaseTest {
 
     @Test
+    public void findByPlayer() {
+        final Player player = createPlayer();
+        player.setPlayerStats(createPlayerStats(player));
+
+        playerService.save(player);
+
+        final PlayerStats playerStats = playerStatsService.findByPlayer(player);
+        Assert.assertNotNull(playerStats);
+        Assert.assertEquals(player.getPlayerStats().getAverageStrength(), playerStats.getAverageStrength());
+        Assert.assertEquals(player.getPlayerStats().getForm(), playerStats.getForm());
+    }
+
+    @Test
     public void insertAndDeletePlayerStats() {
         final Player player = createPlayer();
         player.setPlayerStats(createPlayerStats(player));
 
-        playerService.insertPlayer(player);
+        playerService.save(player);
 
-        Player result = playerService.findPlayerById(player.getId());
+        Player result = playerService.findOne(player.getId());
         Assert.assertNotNull(result);
 
         PlayerStats playerStats = result.getPlayerStats();
@@ -48,9 +61,9 @@ public class PlayerStatsServiceTest extends BaseTest {
         Assert.assertEquals("Player statistics does not match to player.", player, playerStats.getPlayer());
 
         // delete player (and related player statistics records)
-        playerService.removePlayer(player);
+        playerService.delete(player);
 
-        result = playerService.findPlayerById(player.getId());
+        result = playerService.findOne(player.getId());
         Assert.assertNull(result);
     }
 
@@ -59,9 +72,9 @@ public class PlayerStatsServiceTest extends BaseTest {
         final Player player = createPlayer();
         player.setPlayerStats(createPlayerStats(player));
 
-        playerService.insertPlayer(player);
+        playerService.save(player);
 
-        final Player result = playerService.findPlayerById(player.getId());
+        final Player result = playerService.findOne(player.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals(90, result.getPlayerStats().getForm().intValue());
         Assert.assertEquals(Position.DEF, result.getPlayerStats().getPosition());
@@ -72,9 +85,9 @@ public class PlayerStatsServiceTest extends BaseTest {
         final Player player = createPlayer();
         player.setPlayerStats(createPlayerStats(player));
 
-        playerService.insertPlayer(player);
+        playerService.save(player);
 
-        Player result = playerService.findPlayerById(player.getId());
+        Player result = playerService.findOne(player.getId());
         Assert.assertNotNull(result);
 
         PlayerStats oldPlayerStats = result.getPlayerStats();
@@ -88,9 +101,9 @@ public class PlayerStatsServiceTest extends BaseTest {
         playerStats1.setForm(85);
         result.setPlayerStats(playerStats1);
 
-        playerService.updatePlayer(playerStats1.getPlayer());
+        playerService.save(playerStats1.getPlayer());
 
-        result = playerService.findPlayerById(player.getId());
+        result = playerService.findOne(player.getId());
         Assert.assertNotNull(player);
 
         // compare updated values
@@ -99,9 +112,9 @@ public class PlayerStatsServiceTest extends BaseTest {
         Assert.assertEquals(playerStats1.getForm(), result.getPlayerStats().getForm());
 
         // DELETE
-        playerService.removePlayer(player);
+        playerService.delete(player);
 
-        result = playerService.findPlayerById(player.getId());
+        result = playerService.findOne(player.getId());
         Assert.assertNull(result);
     }
 
@@ -110,14 +123,14 @@ public class PlayerStatsServiceTest extends BaseTest {
         final Player player = createPlayer();
         player.setPlayerStats(createPlayerStats(player));
 
-        playerService.insertPlayer(player);
+        playerService.save(player);
 
         // update player statistics
         player.getPlayerStats().setAge(30);
 
-        playerService.updatePlayer(player);
+        playerService.save(player);
 
-        final Player result = playerService.findPlayerById(player.getId());
+        final Player result = playerService.findOne(player.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals(30, result.getPlayerStats().getAge().intValue());
     }

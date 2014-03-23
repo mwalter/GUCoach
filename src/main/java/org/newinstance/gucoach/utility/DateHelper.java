@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2013
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ package org.newinstance.gucoach.utility;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -29,6 +30,10 @@ import java.util.Date;
  * @author mwalter
  */
 public final class DateHelper {
+
+    private DateHelper() {
+        // hide constructor
+    }
 
     /**
      * Returns a date in a readable format. Time is not displayed.
@@ -58,7 +63,16 @@ public final class DateHelper {
         return df.parse(text);
     }
 
-    private DateHelper() {
-        // hide constructor
+    /**
+     * Converts a date to a calendar object.
+     *
+     * @param date the date to convert
+     * @return the calendar object
+     */
+    public static Calendar convertToCalendar(final Date date) {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
     }
+
 }

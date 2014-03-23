@@ -19,15 +19,15 @@
 
 package org.newinstance.gucoach.service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Tests the methods of the {@link PlayerHistoryService}.
@@ -41,10 +41,10 @@ public class PlayerHistoryServiceTest extends BaseTest {
         final Player player = createPlayer();
         final PlayerHistory playerHistory = createPlayerHistory(player);
 
-        playerService.insertPlayer(player);
-        playerHistoryService.insertPlayerHistory(playerHistory);
+        playerService.save(player);
+        playerHistoryService.save(playerHistory);
 
-        final PlayerHistory result = playerHistoryService.findPlayerHistoryById(playerHistory.getId());
+        final PlayerHistory result = playerHistoryService.findOne(playerHistory.getId());
         Assert.assertNotNull(result);
         Assert.assertEquals(77, result.getEndurance().intValue());
         Assert.assertEquals(17, result.getSkillPlaymaking().intValue());
@@ -64,9 +64,9 @@ public class PlayerHistoryServiceTest extends BaseTest {
         playerHistory2.setPlayer(player);
         playerHistory2.setImportDate(cal.getTime());
 
-        playerService.insertPlayer(player);
-        playerHistoryService.insertPlayerHistory(playerHistory1);
-        playerHistoryService.insertPlayerHistory(playerHistory2);
+        playerService.save(player);
+        playerHistoryService.save(playerHistory1);
+        playerHistoryService.save(playerHistory2);
 
         final List<Date> dates = playerHistoryService.findAllImportDates();
         Assert.assertNotNull(dates);
@@ -96,9 +96,9 @@ public class PlayerHistoryServiceTest extends BaseTest {
         playerHistory2.setPlayer(player);
         playerHistory2.setImportDate(date2);
 
-        playerService.insertPlayer(player);
-        playerHistoryService.insertPlayerHistory(playerHistory1);
-        playerHistoryService.insertPlayerHistory(playerHistory2);
+        playerService.save(player);
+        playerHistoryService.save(playerHistory1);
+        playerHistoryService.save(playerHistory2);
 
         final Date date = playerHistoryService.findLatestImportDate();
         Assert.assertNotNull(date);
@@ -112,14 +112,14 @@ public class PlayerHistoryServiceTest extends BaseTest {
         final PlayerHistory playerHistory1 = createPlayerHistory(player);
         playerHistory1.setPlayer(player);
 
-        playerService.insertPlayer(player);
-        playerHistoryService.insertPlayerHistory(playerHistory1);
+        playerService.save(player);
+        playerHistoryService.save(playerHistory1);
 
-        List<Player> playerList = playerService.findAllPlayers();
+        List<Player> playerList = playerService.findAll();
         Assert.assertNotNull(playerList);
         Assert.assertFalse(playerList.isEmpty());
 
-        List<PlayerHistory> playerHistoryList = playerHistoryService.findPlayerHistoryByPlayer(player);
+        List<PlayerHistory> playerHistoryList = playerHistoryService.findByPlayer(player);
         Assert.assertNotNull(playerHistoryList);
         Assert.assertFalse(playerHistoryList.isEmpty());
         Assert.assertTrue(playerHistoryList.size() == 1);
@@ -129,21 +129,21 @@ public class PlayerHistoryServiceTest extends BaseTest {
         final PlayerHistory playerHistory2 = createPlayerHistory(player);
         playerHistory2.setPlayer(player);
 
-        playerHistoryService.insertPlayerHistory(playerHistory2);
+        playerHistoryService.save(playerHistory2);
 
-        playerHistoryList = playerHistoryService.findPlayerHistoryByPlayer(player);
+        playerHistoryList = playerHistoryService.findByPlayer(player);
         Assert.assertNotNull(playerHistoryList);
         Assert.assertFalse(playerHistoryList.isEmpty());
         Assert.assertTrue(playerHistoryList.size() == 2);
 
         // delete player (and related player history records)
-        playerService.removePlayer(player);
+        playerService.delete(player);
 
-        playerList = playerService.findAllPlayers();
+        playerList = playerService.findAll();
         Assert.assertNotNull(playerList);
         Assert.assertTrue(playerList.isEmpty());
 
-        playerHistoryList = playerHistoryService.findPlayerHistoryByPlayer(player);
+        playerHistoryList = playerHistoryService.findByPlayer(player);
         Assert.assertNotNull(playerHistoryList);
         Assert.assertTrue(playerHistoryList.isEmpty());
     }

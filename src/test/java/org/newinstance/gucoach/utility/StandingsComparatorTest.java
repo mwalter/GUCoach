@@ -19,13 +19,13 @@
 
 package org.newinstance.gucoach.utility;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.newinstance.gucoach.gui.StandingsDataRow;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.newinstance.gucoach.gui.StandingsDataRow;
 
 /**
  * Tests methods of class {@link StandingsComparator}.
