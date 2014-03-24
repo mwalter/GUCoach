@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licensed under General Public License v3 (GPLv3)
- * newInstance.org, 2012-2013
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,6 +47,8 @@ import org.newinstance.gucoach.gui.model.LeagueModel;
 import org.newinstance.gucoach.gui.model.TeamModel;
 import org.newinstance.gucoach.service.FixtureService;
 import org.newinstance.gucoach.service.ImportController;
+import org.newinstance.gucoach.utility.DialogHelper;
+import org.newinstance.gucoach.utility.MessageId;
 import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -129,16 +131,8 @@ public class MainController {
         // use task to import player data
         final Task<Void> importPlayerTask = new Task<Void>() {
             @Override
-            protected Void call() throws Exception {
-                try {
-                    importController.executeImport(importFile);
-                } catch (final ImportException ie) {
-                    LOGGER.error("Error importing file {}.", importFile.getName(), ie);
-                    // TODO display error message
-                } catch (final ValidationException ve) {
-                    LOGGER.error("Error validating file {}.", importFile.getName(), ve);
-                    // TODO display error message
-                }
+            protected Void call() throws ImportException, ValidationException {
+                importController.executeImport(importFile);
                 return null;
             }
         };
@@ -165,9 +159,16 @@ public class MainController {
                         tabPaneTabs.setVisible(true);
                     }
                 }
+
                 if (newState.equals(Worker.State.FAILED)) {
-                    LOGGER.info("Importing players failed.");
-                    // TODO show error message
+                    final Throwable exception = importPlayerTask.getException();
+                    if (exception instanceof ImportException) {
+                        LOGGER.error("Error importing file {}.", importFile.getName(), exception);
+                        DialogHelper.createWarningDialog(ResourceLoader.getMessage(MessageId.E001.getMessageKey()), ResourceLoader.getMessage("error.import.file.reading"));
+                    } else if (exception instanceof ValidationException) {
+                        LOGGER.error("Error validating file {}.", importFile.getName(), exception);
+                        DialogHelper.createWarningDialog(ResourceLoader.getMessage(MessageId.E001.getMessageKey()), ResourceLoader.getMessage("error.import.date.invalid"));
+                    }
                 }
             }
         });
