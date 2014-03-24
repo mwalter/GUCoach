@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licensed under General Public License v3 (GPLv3)
- * newInstance.org, 2012-2013
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,8 @@ import java.util.Map;
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newinstance.gucoach.entity.Country;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
@@ -52,6 +54,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ImportServiceImpl implements ImportService {
+
+    /** The log4j logger. */
+    private static final Logger LOGGER = LogManager.getLogger(ImportServiceImpl.class.getName());
 
     private static final char SEPARATOR = ';';
 
@@ -213,10 +218,18 @@ public class ImportServiceImpl implements ImportService {
             }
 
             // TODO this date format is valid in some countries only - maybe we have to try other formats as well
+            String dateString = "";
+            try {
+                dateString = dateLine.substring(dateStartPosition, dateLine.length());
+            } catch (final IndexOutOfBoundsException ioobe) {
+                LOGGER.error("Error parsing date string {}.", dateLine, ioobe);
+                final String message = ResourceLoader.getMessage(MessageId.E006.getMessageKey());
+                throw new ImportException(message);
+            }
             final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
             final Date date = df.parse(dateLine, new ParsePosition(dateStartPosition));
             if (date == null) {
-                final String message = ResourceLoader.getMessage(MessageId.E006.getMessageKey(), dateLine.substring(dateStartPosition, dateLine.length() + 1));
+                final String message = ResourceLoader.getMessage(MessageId.E006.getMessageKey(), dateString);
                 throw new ImportException(message);
             }
             // set import date for later use
