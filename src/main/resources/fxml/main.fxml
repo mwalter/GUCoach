@@ -22,6 +22,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -34,7 +36,15 @@
                 <Menu text="%menu.file">
                     <items>
                         <MenuItem text="%menu.file.importCsv" onAction="#handleMenuItemImportCsvAction" accelerator="Ctrl+I"/>
-                        <MenuItem text="%menu.file.exit" onAction="#handleMenuItemExitAction" accelerator="Alt+F4" />
+                        <MenuItem text="%menu.file.exit" onAction="#handleMenuItemExitAction" accelerator="Alt+F4">
+                            <graphic>
+                                <ImageView>
+                                    <image>
+                                        <Image url="@../images/exit.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </MenuItem>
                     </items>
                 </Menu>
                 <Menu text="%menu.league">
