@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,11 @@
 
 package org.newinstance.gucoach.utility;
 
+import javafx.application.Application;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -29,6 +32,17 @@ import org.junit.Test;
  * @author mwalter
  */
 public class TextInputHelperTest {
+
+    @BeforeClass
+    public static void initJavaFX() {
+        final Thread thread = new Thread("JavaFX Unit Test Thread") {
+            public void run() {
+                Application.launch(JavaFXTestApp.class, "");
+            }
+        };
+        thread.setDaemon(true);
+        thread.start();
+    }
 
     @Test
     public void addLengthListenerTest() {
@@ -41,4 +55,13 @@ public class TextInputHelperTest {
         Assert.assertEquals(4, textField.getText().length());
         Assert.assertEquals("1234", textField.getText());
     }
+
+    public static class JavaFXTestApp extends Application {
+
+        @Override
+        public void start(final Stage primaryStage) throws Exception {
+            // do nothing
+        }
+    }
+
 }
