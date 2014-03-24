@@ -3,7 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <name>GUCoach</name>
+    <description>Your personal coach for Goalunited</description>
+
     <packaging>jar</packaging>
 
     <groupId>org.newinstance</groupId>
@@ -25,6 +28,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.0.2.RELEASE</spring.version>
+        <spring.data.version>1.5.1.RELEASE</spring.data.version>
+        <hibernate.entitymanager.version>4.3.4.Final</hibernate.entitymanager.version>
+        <controlsfx.version>8.0.5</controlsfx.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
@@ -89,7 +95,7 @@
                                         <attribute name="Class-Path" value="${manifest.classpath}"/>
                                         <attribute name="Implementation-Vendor" value="${project.organization.name}"/>
                                         <attribute name="Implementation-Title" value="${project.name}"/>
-                                        <attribute name="Implementation-Version" value="0.1.0-SNAPSHOT"/>
+                                        <attribute name="Implementation-Version" value="${project.version}"/>
                                     </manifest>
 
                                     <!-- The target/classes folder which contains all resources and class files -->
@@ -130,14 +136,8 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>javafx</artifactId>
-            <version>2.2</version>
-            <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
-            <scope>system</scope>
-        </dependency>
 
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -158,22 +158,35 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <!-- Spring Data -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>1.4.2.RELEASE</version>
+            <version>${spring.data.version}</version>
         </dependency>
 
+        <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.2.7.Final</version>
+            <version>${hibernate.entitymanager.version}</version>
         </dependency>
+
+        <!-- H2 database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.3.174</version>
+            <version>1.3.175</version>
         </dependency>
+
+        <!-- ControlsFX -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>${controlsfx.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>net.sf.opencsv</groupId>
             <artifactId>opencsv</artifactId>
@@ -187,10 +200,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.1</version>
+            <version>3.3</version>
         </dependency>
 
-        <!-- Logging -->
+        <!-- Log4j Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
