@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,12 +26,12 @@ package org.newinstance.gucoach.utility;
  */
 public enum MessageId {
 
-    E001("error.init.mybatis"),
-    E002("error.import.parsing.file"),
-    E003("error.import.empty.file"),
-    E004("error.import.reading.file"),
-    E005("error.import.date.not.found"),
-    E006("error.import.unknown.date.format"),
+    E001("error.information"),
+    E002("error.import.file.parsing"),
+    E003("error.import.file.empty"),
+    E004("error.import.file.reading"),
+    E005("error.import.date.missing"),
+    E006("error.import.date.invalid"),
     V001("validation.import.file.already.imported"),
     V002("validation.import.missing.player.record"),
     V003("validation.import.missing.player.data"),

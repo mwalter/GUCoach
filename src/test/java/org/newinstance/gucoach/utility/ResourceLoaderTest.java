@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ public class ResourceLoaderTest {
         Locale.setDefault(Locale.ENGLISH);
         final String message = ResourceLoader.getMessage(MessageId.E001.getMessageKey());
         Assert.assertNotNull(message);
-        Assert.assertEquals("Error initialising Mybatis configuration.", message);
+        Assert.assertEquals("An error occurred.", message);
     }
 
     @Test
