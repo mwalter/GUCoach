@@ -164,10 +164,10 @@ public class MainController {
                     final Throwable exception = importPlayerTask.getException();
                     if (exception instanceof ImportException) {
                         LOGGER.error("Error importing file {}.", importFile.getName(), exception);
-                        DialogHelper.createWarningDialog(ResourceLoader.getMessage(MessageId.E001.getMessageKey()), ResourceLoader.getMessage("error.import.file.reading"));
+                        DialogHelper.createWarningDialog(MessageId.E004);
                     } else if (exception instanceof ValidationException) {
                         LOGGER.error("Error validating file {}.", importFile.getName(), exception);
-                        DialogHelper.createWarningDialog(ResourceLoader.getMessage(MessageId.E001.getMessageKey()), ResourceLoader.getMessage("error.import.date.invalid"));
+                        DialogHelper.createWarningDialog(MessageId.E006);
                     }
                 }
             }

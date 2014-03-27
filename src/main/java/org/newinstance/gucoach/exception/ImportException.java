@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,19 +19,33 @@
 
 package org.newinstance.gucoach.exception;
 
+import org.newinstance.gucoach.utility.MessageId;
+
 /**
- * Thrown to indicate that an error occurred during file import.
+ * Thrown to indicate that an error occurred during file import. Holds the message id referencing the error message to display.
  *
  * @author mwalter
  */
 public class ImportException extends Exception {
 
-    public ImportException(final String message) {
-        super(message);
+    /* Holds the message id. */
+    private MessageId messageId;
+
+    public ImportException(final MessageId messageId) {
+        this.messageId = messageId;
     }
 
-    public ImportException(final String message, final Throwable cause) {
-        super(message, cause);
+    public ImportException(final MessageId messageId, final Throwable cause) {
+        super(cause);
+        this.messageId = messageId;
     }
 
+    /**
+     * Returns the message id.
+     *
+     * @return the message id
+     */
+    public MessageId getMessageId() {
+        return messageId;
+    }
 }

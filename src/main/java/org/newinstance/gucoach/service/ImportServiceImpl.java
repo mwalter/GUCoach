@@ -21,7 +21,7 @@ package org.newinstance.gucoach.service;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParsePosition;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +44,6 @@ import org.newinstance.gucoach.entity.StrongFoot;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.utility.AttributePosition;
 import org.newinstance.gucoach.utility.MessageId;
-import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 /**
@@ -111,7 +110,7 @@ public class ImportServiceImpl implements ImportService {
                 // parse player's record and fill it into an array
                 playerRecord = parser.parseLine(line[0]);
             } catch (final IOException ioe) {
-                throw new ImportException(ResourceLoader.getMessage(MessageId.E002.getMessageKey()), ioe);
+                throw new ImportException(MessageId.E002, ioe);
             }
 
             // if first part is numeric it is actually a player
@@ -146,7 +145,7 @@ public class ImportServiceImpl implements ImportService {
                 // parse player's history and fill it into an array
                 playerHistory = parser.parseLine(line[0]);
             } catch (final IOException ioe) {
-                throw new ImportException(ResourceLoader.getMessage(MessageId.E002.getMessageKey()), ioe);
+                throw new ImportException(MessageId.E002, ioe);
             }
 
             // if first part is numeric it is actually a player's history
@@ -180,11 +179,11 @@ public class ImportServiceImpl implements ImportService {
             content = reader.readAll();
             if (content.isEmpty()) {
                 // nothing to import
-                throw new ImportException(ResourceLoader.getMessage(MessageId.E003.getMessageKey()));
+                throw new ImportException(MessageId.E003);
             }
             fileContent.addAll(content);
         } catch (final IOException ioe) {
-            throw new ImportException(ResourceLoader.getMessage(MessageId.E004.getMessageKey()), ioe);
+            throw new ImportException(MessageId.E004, ioe);
         } finally {
             if (reader != null) {
                 try {
@@ -207,7 +206,7 @@ public class ImportServiceImpl implements ImportService {
         final String dateLine = firstLineInFile[0];
 
         if (StringUtils.isBlank(dateLine)) {
-            throw new ImportException(ResourceLoader.getMessage(MessageId.E005.getMessageKey()));
+            throw new ImportException(MessageId.E005);
         } else {
             int dateStartPosition = 0;
             for (int i = 0; i < dateLine.length(); i++) {
@@ -218,19 +217,20 @@ public class ImportServiceImpl implements ImportService {
             }
 
             // TODO this date format is valid in some countries only - maybe we have to try other formats as well
-            String dateString = "";
+            String dateString;
             try {
                 dateString = dateLine.substring(dateStartPosition, dateLine.length());
             } catch (final IndexOutOfBoundsException ioobe) {
                 LOGGER.error("Error parsing date string {}.", dateLine, ioobe);
-                final String message = ResourceLoader.getMessage(MessageId.E006.getMessageKey());
-                throw new ImportException(message);
+                throw new ImportException(MessageId.E006, ioobe);
             }
             final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            final Date date = df.parse(dateLine, new ParsePosition(dateStartPosition));
-            if (date == null) {
-                final String message = ResourceLoader.getMessage(MessageId.E006.getMessageKey(), dateString);
-                throw new ImportException(message);
+            // final Date date = df.parse(dateLine, new ParsePosition(dateStartPosition));
+            final Date date;
+            try {
+                date = df.parse(dateString);
+            } catch (ParseException pe) {
+                throw new ImportException(MessageId.E006, pe);
             }
             // set import date for later use
             importDate = date;

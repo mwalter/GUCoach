@@ -35,10 +35,11 @@ public final class DialogHelper {
     /**
      * Creates a warning dialog without masthead section.
      *
-     * @param title the title to display
-     * @param message the message to display
+     * @param messageId the id of the message to display
      */
-    public static void createWarningDialog(final String title, final String message) {
+    public static void createWarningDialog(final MessageId messageId) {
+        final String title = ResourceLoader.getMessage(MessageId.E001.getMessageKey());
+        final String message = ResourceLoader.getMessage(messageId.getMessageKey());
         Dialogs.create().title(title).message(message).masthead(null).showWarning();
     }
 }

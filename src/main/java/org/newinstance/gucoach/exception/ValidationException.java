@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,15 +19,36 @@
 
 package org.newinstance.gucoach.exception;
 
+import org.newinstance.gucoach.utility.MessageId;
+
 /**
- * Thrown to indicate that a validation error occurred.
+ * Thrown to indicate that a validation error occurred. Holds the message id referencing the error message to display.
  *
  * @author mwalter
  */
 public class ValidationException extends Exception {
 
-    public ValidationException(final String message) {
-        super(message);
+    /* Holds the message id. */
+    private MessageId messageId;
+
+    /* Holds optional message arguments. */
+    private String[] args;
+
+    public ValidationException(final MessageId messageId) {
+        this.messageId = messageId;
     }
 
+    public ValidationException(final MessageId messageId, final String... args) {
+        this.messageId = messageId;
+        this.args = args;
+    }
+
+    /**
+     * Returns the message id.
+     *
+     * @return the message id
+     */
+    public MessageId getMessageId() {
+        return messageId;
+    }
 }

@@ -1,7 +1,7 @@
 /*
  * GUCoach - your personal coach for Goalunited (tm).
  * Licenced under General Public Licence v3 (GPLv3)
- * newInstance.org, 2012
+ * newInstance.org, 2012-2014
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@ import org.newinstance.gucoach.entity.PlayerStats;
 import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
 import org.newinstance.gucoach.utility.MessageId;
-import org.newinstance.gucoach.utility.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -142,23 +141,21 @@ public class ImportControllerImpl implements ImportController {
     private void validateImportData() throws ValidationException {
         // does the file contain player and player history records?
         if (importService.getPlayers().isEmpty() || importService.getHistory().isEmpty()) {
-            throw new ValidationException(ResourceLoader.getMessage(MessageId.V003.getMessageKey()));
+            throw new ValidationException(MessageId.V003);
         }
 
         // was the data already imported?
         final List<Date> allImportDatesInDb = playerHistoryService.findAllImportDates();
         final Date importDateOfFile = importService.getImportDate();
         if (allImportDatesInDb.contains(importDateOfFile)) {
-            final String message = ResourceLoader.getMessage(MessageId.V001.getMessageKey(), importFile.getName());
-            throw new ValidationException(message);
+            throw new ValidationException(MessageId.V001, importFile.getName());
         }
 
         // does every player have his own history data record?
         final List<Player> players = importService.getPlayers();
         for (final Player player : players) {
             if (!importService.getHistory().containsKey(player.getId())) {
-                final String message = ResourceLoader.getMessage(MessageId.V002.getMessageKey(), player.getLastName());
-                throw new ValidationException(message);
+                throw new ValidationException(MessageId.V002, player.getLastName());
             }
         }
     }
