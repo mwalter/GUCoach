@@ -32,6 +32,7 @@ public enum MessageId {
     E004("error.import.file.reading"),
     E005("error.import.date.missing"),
     E006("error.import.date.invalid"),
+    E007("error.import.encoding.invalid"),
     V001("validation.import.file.already.imported"),
     V002("validation.import.missing.player.record"),
     V003("validation.import.missing.player.data"),

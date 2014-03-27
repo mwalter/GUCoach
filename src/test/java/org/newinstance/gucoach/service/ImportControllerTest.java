@@ -29,7 +29,9 @@ import org.newinstance.gucoach.base.BaseTest;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
 import org.newinstance.gucoach.entity.PlayerStats;
+import org.newinstance.gucoach.exception.ImportException;
 import org.newinstance.gucoach.exception.ValidationException;
+import org.newinstance.gucoach.utility.MessageId;
 
 /**
  * Tests the methods of the {@link ImportController}.
@@ -37,6 +39,12 @@ import org.newinstance.gucoach.exception.ValidationException;
  * @author mwalter
  */
 public class ImportControllerTest extends BaseTest {
+
+    private static final String SAMPLE_EMPTY_IMPORT_FILE = "src/test/resources/empty_file.csv";
+
+    private static final String SAMPLE_FILE_WITHOUT_PLAYER_DATA = "src/test/resources/file_without_player_data.csv";
+
+    private static final String SAMPLE_FILE_PLAYER_DATA_WITHOUT_HISTORY_DATA = "src/test/resources/file_player_data_without_history_data.csv";
 
     private static final String SAMPLE_IMPORT_FILE = "src/test/resources/gu_2011-11-20_team.csv";
 
@@ -74,9 +82,9 @@ public class ImportControllerTest extends BaseTest {
         // now import same file a second time
         try {
             importController.executeImport(new File(SAMPLE_IMPORT_FILE));
-        } catch (final ValidationException e) {
-            e.printStackTrace();
-            throw e;
+        } catch (final ValidationException ve) {
+            Assert.assertEquals(MessageId.V001, ve.getMessageId());
+            throw ve;
         }
     }
 
@@ -95,6 +103,28 @@ public class ImportControllerTest extends BaseTest {
         }
     }
 
+    @Test(expected = ValidationException.class)
+    public void executeImportWithoutPlayerData() throws Exception {
+        try {
+            importController.executeImport(new File(SAMPLE_FILE_WITHOUT_PLAYER_DATA));
+            Assert.fail("Import should throw ValidationException.");
+        } catch (ValidationException ve) {
+            Assert.assertEquals(MessageId.V003, ve.getMessageId());
+            throw ve;
+        }
+    }
+
+    @Test(expected = ValidationException.class)
+    public void executeImportPlayerDataWithoutHistoryData() throws Exception {
+        try {
+            importController.executeImport(new File(SAMPLE_FILE_PLAYER_DATA_WITHOUT_HISTORY_DATA));
+            Assert.fail("Import should throw ValidationException.");
+        } catch (ValidationException ve) {
+            Assert.assertEquals(MessageId.V002, ve.getMessageId());
+            throw ve;
+        }
+    }
+
     @Test
     public void executeImportUpdate() throws Exception {
         importController.executeImport(new File(SAMPLE_IMPORT_FILE));
@@ -105,4 +135,26 @@ public class ImportControllerTest extends BaseTest {
         Assert.assertNull(deletedPlayer);
     }
 
+    @Test(expected = ImportException.class)
+    public void executeImportOnEmptyFile() throws Exception {
+        try {
+            importController.executeImport(new File(SAMPLE_EMPTY_IMPORT_FILE));
+            Assert.fail("Import should throw ImportException.");
+        } catch (ImportException ie) {
+            Assert.assertEquals(MessageId.E003, ie.getMessageId());
+            throw ie;
+        }
+    }
+
+    @Test(expected = ImportException.class)
+    public void executeImportOnMissingFile() throws Exception {
+        try {
+            // triggers FileNotFoundException
+            importController.executeImport(new File("sample_file.csv"));
+            Assert.fail("Import should throw ImportException.");
+        } catch (ImportException ie) {
+            Assert.assertEquals(MessageId.E004, ie.getMessageId());
+            throw ie;
+        }
+    }
 }

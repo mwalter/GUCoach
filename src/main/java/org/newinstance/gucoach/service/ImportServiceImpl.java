@@ -179,10 +179,12 @@ public class ImportServiceImpl implements ImportService {
             content = reader.readAll();
             if (content.isEmpty()) {
                 // nothing to import
+                LOGGER.error("File is empty.");
                 throw new ImportException(MessageId.E003);
             }
             fileContent.addAll(content);
         } catch (final IOException ioe) {
+            LOGGER.error("Error reading file content.", ioe);
             throw new ImportException(MessageId.E004, ioe);
         } finally {
             if (reader != null) {

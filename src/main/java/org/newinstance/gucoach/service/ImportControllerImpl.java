@@ -73,9 +73,14 @@ public class ImportControllerImpl implements ImportController {
         // -- 2 -- import data
         try {
             importService.importData(new InputStreamReader(new FileInputStream(file), ImportService.FILE_ENCODING));
-            // TODO handle errors
         } catch (final FileNotFoundException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException) {
+                LOGGER.error("File {} not found.", file.getName(), e);
+                throw new ImportException(MessageId.E004, e);
+            } else {
+                LOGGER.error("File {} is not ISO-8859-1 encoded.", file.getName(), e);
+                throw new ImportException(MessageId.E004, e);
+            }
         }
         // -- 3 -- validate import data
         validateImportData();
