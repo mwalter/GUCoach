@@ -1,7 +1,6 @@
 # GUCoach - your personal coach for Goalunited. #
 Licensed under General Public License v3 (GPLv3) -
 [newInstance.org](http://www.newinstance.org), 2012-2014
-[newInstance.org](http://www.newinstance.org), 2012-2014
 
 ## Build Status ##
 [![Build Status](https://drone.io/github.com/mwalter/GUCoach/status.png)](https://drone.io/github.com/mwalter/GUCoach/latest)
