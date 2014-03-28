@@ -1,6 +1,10 @@
 # GUCoach - your personal coach for Goalunited. #
-Licensed under General Public License v3 (GPLv3)
-newInstance.org, 2012-2013
+Licensed under General Public License v3 (GPLv3) -
+[newInstance.org](http://www.newinstance.org), 2012-2014
+[newInstance.org](http://www.newinstance.org), 2012-2014
+
+## Build Status ##
+[![Build Status](https://drone.io/github.com/mwalter/GUCoach/status.png)](https://drone.io/github.com/mwalter/GUCoach/latest)
 
 ## About GUCoach ##
 GUCoach is a manager software for the MMOG [Goalunited](http://www.goalunited.org) published by Travian Games GmbH Munich, Germany.
@@ -8,7 +12,7 @@ It was developed by [northworks Software GmbH](http://www.northworks.de) Hamburg
 GUCoach manages and visualises your team players and team development.
 
 ## Technologies used ##
-Java, JavaFX 2, Spring, JPA 2 (Hibernate), H2 embedded database.
+Java, JavaFX, Spring, JPA (Hibernate), H2 embedded database.
 
 ## Planned functionality ##
 * show all player information in a table view
