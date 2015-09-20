@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.newinstance.gucoach.base.BaseTest;
+import org.newinstance.gucoach.base.BaseTestClass;
 import org.newinstance.gucoach.entity.Team;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -33,7 +33,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  *
  * @author mwalter
  */
-public class TeamServiceTest extends BaseTest {
+public class TeamServiceTest extends BaseTestClass {
 
     @Test
     public void insertTeams() {

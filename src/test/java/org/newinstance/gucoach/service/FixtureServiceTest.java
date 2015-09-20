@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.newinstance.gucoach.base.BaseTest;
+import org.newinstance.gucoach.base.BaseTestClass;
 import org.newinstance.gucoach.entity.Fixture;
 import org.newinstance.gucoach.entity.Team;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -34,7 +34,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  *
  * @author mwalter
  */
-public class FixtureServiceTest extends BaseTest {
+public class FixtureServiceTest extends BaseTestClass {
 
     @Test
     public void insertFixtures() {

@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.newinstance.gucoach.base.BaseTest;
+import org.newinstance.gucoach.base.BaseTestClass;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
 
@@ -35,7 +35,7 @@ import org.newinstance.gucoach.entity.PlayerHistory;
  *
  * @author mwalter
  */
-public class ImportServiceTest extends BaseTest {
+public class ImportServiceTest extends BaseTestClass {
 
     private static final String SAMPLE_IMPORT_FILE = "src/test/resources/gu_2011-11-20_team.csv";
 

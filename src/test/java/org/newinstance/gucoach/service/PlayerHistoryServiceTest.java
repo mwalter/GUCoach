@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.newinstance.gucoach.base.BaseTest;
+import org.newinstance.gucoach.base.BaseTestClass;
 import org.newinstance.gucoach.entity.Player;
 import org.newinstance.gucoach.entity.PlayerHistory;
 
@@ -34,7 +34,7 @@ import org.newinstance.gucoach.entity.PlayerHistory;
  *
  * @author mwalter
  */
-public class PlayerHistoryServiceTest extends BaseTest {
+public class PlayerHistoryServiceTest extends BaseTestClass {
 
     @Test
     public void insertPlayerHistory() {

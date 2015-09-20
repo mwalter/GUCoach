@@ -21,7 +21,6 @@ package org.newinstance.gucoach.base;
 
 import java.util.Date;
 
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.newinstance.gucoach.entity.Country;
 import org.newinstance.gucoach.entity.Fixture;
@@ -44,23 +43,22 @@ import org.newinstance.gucoach.service.PlayerStatsService;
 import org.newinstance.gucoach.service.StandingsHistoryService;
 import org.newinstance.gucoach.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * BaseTest test class for all tests.
+ * BaseTestClass test class for all tests.
  *
  * @author mwalter
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/META-INF/applicationContext-test.xml"})
 @Transactional
-@TransactionConfiguration(defaultRollback = true)
-@Ignore("BaseTest class doesn't have any test methods")
-public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
+@Rollback
+public class BaseTestClass extends AbstractTransactionalJUnit4SpringContextTests {
 
     protected static final String JUNIT = "JUnit";
 

@@ -26,7 +26,7 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.newinstance.gucoach.base.BaseTest;
+import org.newinstance.gucoach.base.BaseTestClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -34,7 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author mwalter
  */
-public class FixtureGeneratorTest extends BaseTest {
+public class FixtureGeneratorTest extends BaseTestClass {
 
     @Autowired
     private FixtureGenerator fixtureGenerator;

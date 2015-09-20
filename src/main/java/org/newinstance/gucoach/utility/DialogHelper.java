@@ -19,10 +19,10 @@
 
 package org.newinstance.gucoach.utility;
 
-import org.controlsfx.dialog.Dialogs;
+import javafx.scene.control.Alert;
 
 /**
- * Provides helper methods for creating {@link Dialogs}.
+ * Provides helper methods for creating {@link Alert}s.
  *
  * @author mwalter
  */
@@ -37,9 +37,12 @@ public final class DialogHelper {
      *
      * @param messageId the id of the message to display
      */
-    public static void createWarningDialog(final MessageId messageId) {
+    public static Alert createWarningDialog(final MessageId messageId) {
         final String title = ResourceLoader.getMessage(MessageId.E001.getMessageKey());
         final String message = ResourceLoader.getMessage(messageId.getMessageKey());
-        Dialogs.create().title(title).message(message).masthead(null).showWarning();
+        final Alert warningDialog = new Alert(Alert.AlertType.WARNING);
+        warningDialog.setTitle(title);
+        warningDialog.setContentText(message);
+        return warningDialog;
     }
 }

@@ -19,27 +19,17 @@
 
 package org.newinstance.gucoach.gui.builder;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.Label;
-import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFieldBuilder;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderPaneBuilder;
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.ColumnConstraintsBuilder;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.GridPaneBuilder;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Stage;
 import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.utility.ResourceLoader;
@@ -54,21 +44,21 @@ public final class CreateLeagueSceneBuilder extends AbstractSceneBuilder {
 
     @Override
     public Parent buildScene() {
-        final BorderPane parent = BorderPaneBuilder.create().build();
+        final BorderPane parent = new BorderPane();
 
         // text fields for team names
-        final TextField tfTeamRnk1 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk2 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk3 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk4 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk5 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk6 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk7 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk8 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk9 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk10 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk11 = TextFieldBuilder.create().build();
-        final TextField tfTeamRnk12 = TextFieldBuilder.create().build();
+        final TextField tfTeamRnk1 = new TextField();
+        final TextField tfTeamRnk2 = new TextField();
+        final TextField tfTeamRnk3 = new TextField();
+        final TextField tfTeamRnk4 = new TextField();
+        final TextField tfTeamRnk5 = new TextField();
+        final TextField tfTeamRnk6 = new TextField();
+        final TextField tfTeamRnk7 = new TextField();
+        final TextField tfTeamRnk8 = new TextField();
+        final TextField tfTeamRnk9 = new TextField();
+        final TextField tfTeamRnk10 = new TextField();
+        final TextField tfTeamRnk11 = new TextField();
+        final TextField tfTeamRnk12 = new TextField();
 
         // limit text input length
         TextInputHelper.addLengthListener(tfTeamRnk1, 50);
@@ -84,49 +74,76 @@ public final class CreateLeagueSceneBuilder extends AbstractSceneBuilder {
         TextInputHelper.addLengthListener(tfTeamRnk11, 50);
         TextInputHelper.addLengthListener(tfTeamRnk12, 50);
 
-        final Label title = LabelBuilder.create().text(ResourceLoader.getResource("label.title.createLeague")).style("-fx-font: NORMAL 16 Tahoma;").build();
-        final VBox vBoxTop = VBoxBuilder.create().children().spacing(5.0).padding(new Insets(10, 10, 10, 10)).children(title).build();
+        final Label title = new Label();
+        title.setText(ResourceLoader.getResource("label.title.createLeague"));
+        title.setStyle("-fx-font: NORMAL 16 Tahoma;");
+        final VBox vBoxTop = new VBox();
+        vBoxTop.setSpacing(5.0);
+        vBoxTop.setPadding(new Insets(10, 10, 10, 10));
+        vBoxTop.getChildren().add(title);
 
         // create league button
-        final Button buttonCreate = ButtonBuilder.create().text(ResourceLoader.getResource("button.createLeague")).onAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                // TODO validate and save data to database
-                final Team team1 = new Team();
-                team1.setStartPos(1);
-                team1.setName(tfTeamRnk1.getText());
-            }
-        }).prefWidth(100.0).build();
+        final Button buttonCreate = new Button();
+        buttonCreate.setText(ResourceLoader.getResource("button.createLeague"));
+        buttonCreate.setOnAction(event -> {
+            // TODO validate and save data to database
+            final Team team1 = new Team();
+            team1.setStartPos(1);
+            team1.setName(tfTeamRnk1.getText());
+        });
+        buttonCreate.setPrefWidth(100.0);
 
         // cancel dialogue button
-        final Button buttonCancel = ButtonBuilder.create().text(ResourceLoader.getResource("button.cancel")).onAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                final Stage stage = (Stage) parent.getScene().getWindow();
-                stage.close();
-            }
-        }).prefWidth(100.0).build();
+        final Button buttonCancel = new Button();
+        buttonCancel.setText(ResourceLoader.getResource("button.cancel"));
+        buttonCancel.setOnAction(event -> {
+            final Stage stage = (Stage) parent.getScene().getWindow();
+            stage.close();
+        });
+        buttonCancel.setPrefWidth(100.0);
 
-        final HBox hBoxButtonArea = HBoxBuilder.create().alignment(Pos.CENTER).spacing(5.0).padding(new Insets(20)).children(buttonCreate, buttonCancel).build();
+        final HBox hBoxButtonArea = new HBox();
+        hBoxButtonArea.setAlignment(Pos.CENTER);
+        hBoxButtonArea.setSpacing(5.0);
+        hBoxButtonArea.setPadding(new Insets(20));
+        hBoxButtonArea.getChildren().addAll(buttonCreate, buttonCancel);
 
-        final ColumnConstraints ccWidth20 = ColumnConstraintsBuilder.create().prefWidth(50.0).build();
-        final ColumnConstraints ccWidth180 = ColumnConstraintsBuilder.create().prefWidth(150.0).build();
+        final ColumnConstraints ccWidth20 = new ColumnConstraints();
+        ccWidth20.setPrefWidth(50.0);
+        final ColumnConstraints ccWidth180 = new ColumnConstraints();
+        ccWidth180.setPrefWidth(150.0);
 
         // labels for team names
-        final Label labelTeamRnk1 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank1")).build();
-        final Label labelTeamRnk2 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank2")).build();
-        final Label labelTeamRnk3 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank3")).build();
-        final Label labelTeamRnk4 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank4")).build();
-        final Label labelTeamRnk5 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank5")).build();
-        final Label labelTeamRnk6 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank6")).build();
-        final Label labelTeamRnk7 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank7")).build();
-        final Label labelTeamRnk8 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank8")).build();
-        final Label labelTeamRnk9 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank9")).build();
-        final Label labelTeamRnk10 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank10")).build();
-        final Label labelTeamRnk11 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank11")).build();
-        final Label labelTeamRnk12 = LabelBuilder.create().text(ResourceLoader.getResource("label.team.rank12")).build();
+        final Label labelTeamRnk1 = new Label();
+        labelTeamRnk1.setText(ResourceLoader.getResource("label.team.rank1"));
+        final Label labelTeamRnk2 = new Label();
+        labelTeamRnk2.setText(ResourceLoader.getResource("label.team.rank2"));
+        final Label labelTeamRnk3 = new Label();
+        labelTeamRnk3.setText(ResourceLoader.getResource("label.team.rank3"));
+        final Label labelTeamRnk4 = new Label();
+        labelTeamRnk4.setText(ResourceLoader.getResource("label.team.rank4"));
+        final Label labelTeamRnk5 = new Label();
+        labelTeamRnk5.setText(ResourceLoader.getResource("label.team.rank5"));
+        final Label labelTeamRnk6 = new Label();
+        labelTeamRnk6.setText(ResourceLoader.getResource("label.team.rank6"));
+        final Label labelTeamRnk7 = new Label();
+        labelTeamRnk7.setText(ResourceLoader.getResource("label.team.rank7"));
+        final Label labelTeamRnk8 = new Label();
+        labelTeamRnk8.setText(ResourceLoader.getResource("label.team.rank8"));
+        final Label labelTeamRnk9 = new Label();
+        labelTeamRnk9.setText(ResourceLoader.getResource("label.team.rank9"));
+        final Label labelTeamRnk10 = new Label();
+        labelTeamRnk10.setText(ResourceLoader.getResource("label.team.rank10"));
+        final Label labelTeamRnk11 = new Label();
+        labelTeamRnk11.setText(ResourceLoader.getResource("label.team.rank11"));
+        final Label labelTeamRnk12 = new Label();
+        labelTeamRnk12.setText(ResourceLoader.getResource("label.team.rank12"));
 
-        final GridPane gpTeams = GridPaneBuilder.create().alignment(Pos.TOP_LEFT).hgap(5.0).vgap(5.0).columnConstraints(ccWidth20, ccWidth180).build();
+        final GridPane gpTeams = new GridPane();
+        gpTeams.setAlignment(Pos.TOP_LEFT);
+        gpTeams.setHgap(5.0);
+        gpTeams.setVgap(5.0);
+        gpTeams.getColumnConstraints().addAll(ccWidth20, ccWidth180);
         gpTeams.add(labelTeamRnk1, 0, 0);
         gpTeams.add(tfTeamRnk1, 1, 0);
         gpTeams.add(labelTeamRnk2, 0, 1);
@@ -152,17 +169,28 @@ public final class CreateLeagueSceneBuilder extends AbstractSceneBuilder {
         gpTeams.add(labelTeamRnk12, 0, 11);
         gpTeams.add(tfTeamRnk12, 1, 11);
 
-        final ColumnConstraints ccWidth80 = ColumnConstraintsBuilder.create().prefWidth(80.0).build();
-        final ColumnConstraints ccWidth120 = ColumnConstraintsBuilder.create().prefWidth(120.0).build();
+        final ColumnConstraints ccWidth80 = new ColumnConstraints();
+        ccWidth80.setPrefWidth(80.0);
+        final ColumnConstraints ccWidth120 = new ColumnConstraints();
+        ccWidth120.setPrefWidth(120.0);
 
-        final Label labelMatchday = LabelBuilder.create().text(ResourceLoader.getResource("label.firstMatchday")).build();
-        final TextField tfMatchday = TextFieldBuilder.create().id("idTfMatchday").build();
+        final Label labelMatchday = new Label();
+        labelMatchday.setText(ResourceLoader.getResource("label.firstMatchday"));
+        final TextField tfMatchday = new TextField();
+        tfMatchday.setId("idTfMatchday");
 
-        final GridPane gpMatchday = GridPaneBuilder.create().alignment(Pos.TOP_LEFT).hgap(5.0).vgap(5.0).columnConstraints(ccWidth80, ccWidth120).build();
+        final GridPane gpMatchday = new GridPane();
+        gpMatchday.setAlignment(Pos.TOP_LEFT);
+        gpMatchday.setHgap(5.0);
+        gpMatchday.setVgap(5.0);
+        gpMatchday.getColumnConstraints().addAll(ccWidth80, ccWidth120);
         gpMatchday.add(labelMatchday, 0, 0);
         gpMatchday.add(tfMatchday, 1, 0);
 
-        final VBox vBoxCenter = VBoxBuilder.create().children(gpTeams, gpMatchday, hBoxButtonArea).spacing(5.0).padding(new Insets(10, 10, 10, 10)).build();
+        final VBox vBoxCenter = new VBox();
+        vBoxCenter.getChildren().addAll(gpTeams, gpMatchday, hBoxButtonArea);
+        vBoxCenter.setSpacing(5.0);
+        vBoxCenter.setPadding(new Insets(10, 10, 10, 10));
 
         parent.setTop(vBoxTop);
         parent.setCenter(vBoxCenter);

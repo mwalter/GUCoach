@@ -26,7 +26,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import org.junit.Assert;
 import org.junit.Test;
-import org.newinstance.gucoach.base.BaseTest;
+import org.newinstance.gucoach.base.BaseTestClass;
 import org.newinstance.gucoach.entity.Fixture;
 import org.newinstance.gucoach.entity.Team;
 import org.newinstance.gucoach.gui.StandingsDataRow;
@@ -36,7 +36,7 @@ import org.newinstance.gucoach.gui.StandingsDataRow;
  *
  * @author mwalter
  */
-public class StandingsModelTest extends BaseTest {
+public class StandingsModelTest extends BaseTestClass {
 
     @Test
     public void getStandingsData() {

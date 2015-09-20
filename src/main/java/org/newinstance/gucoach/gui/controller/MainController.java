@@ -31,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -164,10 +165,12 @@ public class MainController {
                     final Throwable exception = importPlayerTask.getException();
                     if (exception instanceof ImportException) {
                         LOGGER.error("Error importing file {}.", importFile.getName(), exception);
-                        DialogHelper.createWarningDialog(MessageId.E004);
+                        final Alert alert = DialogHelper.createWarningDialog(MessageId.E004);
+                        alert.showAndWait();
                     } else if (exception instanceof ValidationException) {
                         LOGGER.error("Error validating file {}.", importFile.getName(), exception);
-                        DialogHelper.createWarningDialog(MessageId.E006);
+                        final Alert alert = DialogHelper.createWarningDialog(MessageId.E006);
+                        alert.showAndWait();
                     }
                 }
             }
